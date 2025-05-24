@@ -36,10 +36,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome!</h1>
-        <p>Thank you for registering. Please complete your profile by clicking the link below:</p>
-        <a href="{{ $link }}" class="button">Complete Your Profile</a>
-        <p>If you did not create an account, no further action is required.</p>
+        <h1>مرحباً!</h1>
+        <p>شكراً لتسجيلك. يرجى إكمال ملفك الشخصي من خلال النقر على الرابط أدناه:</p>
+        <a href="{{ $link }}" class="button">أكمل ملفك الشخصي</a>
+        <p>شكراً لاستخدامك موقعنا</p>
     </div>
 </body>
 </html>

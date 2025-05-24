@@ -21,10 +21,23 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
+    return [
+        'email' => ['required', 'string'],
+        'password' => ['required', 'confirmed', 'min:8'],
+        'user_type_id' => ['required', 'exists:user_types,id']
+    ];
+    }
+
+    public function messages(): array
+    {
         return [
-            'email' => ['required','string'],
-            'password' => ['required','confirm'],
-            'user_type_id' => ['required' , 'exists:user_type,id']
+            'email.required' => 'البريد الإلكتروني مطلوب.',
+            'email.string' => 'يجب أن يكون البريد الإلكتروني نصاً.',
+            'password.required' => 'كلمة المرور مطلوبة.',
+            'password.confirmed' => 'تأكيد كلمة المرور غير متطابق.',
+            'password.min' => 'يجب أن تكون كلمة المرور 8 أحرف على الأقل.',
+            'user_type_id.required' => 'نوع المستخدم مطلوب.',
+            'user_type_id.exists' => 'نوع المستخدم المحدد غير موجود.',
         ];
     }
 }

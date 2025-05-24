@@ -20,7 +20,7 @@ class AuthServices
         Mail::to($user->email)->send(new CompleteProfileMail($link));
 
         return [
-            'msg' => 'Account created successfully. Check your email to complete your profile.',
+            'msg' => 'تم إنشاء الحساب بنجاح. تحقق من بريدك الإلكتروني لإكمال ملفك الشخصي.',
             'success' => true,
             'data' => $user
         ];
