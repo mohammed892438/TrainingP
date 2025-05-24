@@ -3,14 +3,12 @@
 namespace App\Models;
 
 use App\Enums\SexEnum;
-use App\Enums\TrainerStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 
-class Trainer extends Model
+class Trainee extends Model
 {
     protected $casts = [
         'sex' => SexEnum::class,
-        'status' => TrainerStatusEnum::class,
     ];
 
     public function user()
@@ -23,23 +21,14 @@ class Trainer extends Model
         return $this->belongsTo(Country::class, 'nationality_id');
     }
 
-    public function workSector()
-    {
-        return $this->belongsTo(WorkSector::class, 'work_sectors_id');
-    }
-
-    public function providedService()
-    {
-        return $this->belongsTo(ProvidedService::class, 'provided_services_id');
-    }
-
     public function workField()
     {
         return $this->belongsTo(WorkField::class, 'work_fields_id');
     }
 
-    public function trainingExperiences()
+    public function educationLevel()
     {
-        return $this->hasMany(TrainingExperience::class);
+        return $this->belongsTo(EducationLevel::class, 'education_levels_id');
     }
 }
+

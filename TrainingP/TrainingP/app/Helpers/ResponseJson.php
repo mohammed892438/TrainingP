@@ -5,7 +5,7 @@ namespace App\Helpers;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\JsonResponse;
 
-class ResponseJson
+abstract class ResponseJson
 {
     public static function sendResponse($result, $message, $code = 200)
     {
