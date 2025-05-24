@@ -30,6 +30,76 @@ class User extends Authenticatable
         'photo'
     ];
 
+    public function userType()
+    {
+        return $this->belongsTo(UserType::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
+
+    public function trainer()
+    {
+        return $this->hasOne(Trainer::class, 'id');
+    }
+
+    public function assistant()
+    {
+        return $this->hasOne(Assistant::class, 'id');
+    }
+
+    public function trainee()
+    {
+        return $this->hasOne(Trainee::class, 'id');
+    }
+
+    public function organization()
+    {
+        return $this->hasOne(Organization::class, 'id');
+    }
+
+    public function workExperiences()
+    {
+        return $this->hasMany(WorkExperience::class, 'users_id');
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class, 'users_id');
+    }
+
+    public function skills()
+    {
+        return $this->hasMany(Skill::class, 'users_id');
+    }
+
+    public function trainerCv()
+    {
+        return $this->hasOne(TrainerCv::class, 'user_id');
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'users_id');
+    }
+
+    public function advertisements()
+    {
+        return $this->hasMany(Advertisement::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

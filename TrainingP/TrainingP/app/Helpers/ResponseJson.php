@@ -5,7 +5,7 @@ namespace App\Helpers;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\JsonResponse;
 
-abstract class APIController
+abstract class ResponseJson
 {
     public function sendResponse($result, $message, $code =200)
     {
