@@ -16,7 +16,7 @@ class TrainerService
             $user = User::find($id);
             $user->update([
                 'phone_number' => $data['phone_number'],
-                'city_id' => $data['city_id'],
+                'city' => $data['city'],
                 'country_id' => $data['country_id'],
                 'bio' => $data['bio'],
             ]);
@@ -45,6 +45,14 @@ class TrainerService
 
             $trainser->save();
             DB::commit();
+            return [
+                'msg' => 'تم تخزين البيانات.',
+                'success' => true,
+                'data'=> [
+                    'user' => $user,
+                    'trainer' => $trainser
+                ]
+            ];
         }catch(\Exception $e){
             DB::rollBack();
             return [

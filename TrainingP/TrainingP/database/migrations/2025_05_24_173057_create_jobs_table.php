@@ -33,11 +33,8 @@ return new class extends Migration
             ->onUpdate('cascade');
 
 
-            $table->foreignId('city_id')
-            ->nullable()
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->string('city')->nullable();
+
 
             $table->string('training_level');
 

@@ -24,9 +24,6 @@ class DatabaseSeeder extends Seeder
         //     CountrySeeder::class,
         // ]);
 
-        // $this->call([
-        //     CitySeeder::class,
-        // ]);
 
         // $this->call([
         //     ProvidedServiceSeeder::class,

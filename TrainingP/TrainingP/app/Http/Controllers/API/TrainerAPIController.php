@@ -19,6 +19,7 @@ class TrainerAPIController extends Controller
     public function completeRegister(completeRegisterRequest $request , $id){
         $validated = $request->validated();
         $response = $this->trainerService->completeRegister($validated , $id);
+        
         if($response['success'] == true){
             return sendResponse($response['data'] , $response['msg']);
         }

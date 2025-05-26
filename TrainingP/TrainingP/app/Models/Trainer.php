@@ -5,9 +5,13 @@ namespace App\Models;
 use App\Enums\SexEnum;
 use App\Enums\TrainerStatusEnum;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Trainer extends Model
 {
+    use HasTranslations;
+    public array $translatable = ['last_name'];
+    
     protected $fillable = [
         'id',
         'last_name',
