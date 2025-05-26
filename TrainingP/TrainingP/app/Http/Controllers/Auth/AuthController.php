@@ -20,11 +20,11 @@ class AuthController extends Controller
         $validated = $request->validated();
         $response = $this->authService->register($validated);
         if($response['success'] == true){
-            return ResponseJson::sendResponse($response['data'] , $response['msg']);
+            return sendResponse($response['data'] , $response['msg']);
         }
         else{
-            return ResponseJson::sendError($response['msg']);
+            return sendError($response['msg']);
         }
-        
+
     }
 }

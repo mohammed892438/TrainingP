@@ -38,11 +38,6 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class);
     }
 
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-
     public function educations()
     {
         return $this->hasMany(Education::class);

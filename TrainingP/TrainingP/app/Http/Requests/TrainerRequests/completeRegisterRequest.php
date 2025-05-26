@@ -40,7 +40,6 @@ class completeRegisterRequest extends FormRequest
             'name_ar' => 'required|string|max:255',
             'bio' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
-            'city_id' => 'required|exists:cities,id',
             'phone_number' => 'required|string|min:10|max:20',
         ];
     }
@@ -96,9 +95,6 @@ class completeRegisterRequest extends FormRequest
 
             'country_id.required' => 'الدولة مطلوبة.',
             'country_id.exists' => 'الدولة المحددة غير صحيحة.',
-
-            'city_id.required' => 'المدينة مطلوبة.',
-            'city_id.exists' => 'المدينة المحددة غير صحيحة.',
 
             'phone_number.required' => 'رقم الهاتف مطلوب.',
             'phone_number.string' => 'يجب أن يكون رقم الهاتف نصًا.',
