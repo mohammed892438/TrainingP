@@ -22,7 +22,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
     return [
-        'email' => ['required', 'string'],
+        'email' => ['required', 'string','unique'],
         'password' => ['required', 'confirmed', 'min:8'],
         'user_type_id' => ['required', 'exists:user_types,id']
     ];
@@ -32,6 +32,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'email.required' => 'البريد الإلكتروني مطلوب.',
+            'email.unique' => 'لقد قمت بتسجيل الدخول بهذا الايميل مسبقاً ',
             'email.string' => 'يجب أن يكون البريد الإلكتروني نصاً.',
             'password.required' => 'كلمة المرور مطلوبة.',
             'password.confirmed' => 'تأكيد كلمة المرور غير متطابق.',

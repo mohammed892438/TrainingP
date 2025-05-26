@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trainer extends Model
 {
+    protected $fillable = [
+        'id',
+        'last_name',
+        'sex',
+        'headline',
+        'nationality_id',
+        'work_sectors_id',
+        'provided_services_id',
+        'work_fields_id',
+        'important_topics',
+        'status',
+        'hourly_wage',
+    ];
+
     protected $casts = [
         'sex' => SexEnum::class,
         'status' => TrainerStatusEnum::class,
