@@ -4,9 +4,27 @@ namespace App\Models;
 
 use App\Enums\SexEnum;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Assistant extends Model
 {
+    use HasTranslations;
+
+    public array $translatable = ['last_name'];
+    
+    protected $fillable = [
+        'id',
+        'last_name',
+        'sex',
+        'headline',
+        'nationality_id',
+        'years_of_experience',
+        'experience_areas_id',
+        'educations_id',
+        'provided_services_id',
+        'hourly_wage',
+    ];
+
     protected $casts = [
         'sex' => SexEnum::class,
     ];

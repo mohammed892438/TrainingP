@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model
 {
+
+    protected $fillable = [
+        'id',
+        'type_id',
+        'website',
+        'employee_numbers_id',
+        'established_year',
+        'annual_budgets_id',
+        'organization_sectors_id',
+        'work_type',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'id');

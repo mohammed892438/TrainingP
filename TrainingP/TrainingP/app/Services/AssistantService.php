@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Trainer;
+use App\Models\Assistant;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Education;
 
-
-
-class TrainerService
+class AssistantService
 {
    public function completeRegister($data , $id){
         try{
@@ -28,24 +27,34 @@ class TrainerService
 
             $user->save();
 
-            $trainer = new Trainer();
-            $trainer->fill([
-                'id' => $user->id,
-                'important_topics' => $data['important_topics'],
-                'work_fields_id' => $data['work_fields_id'],
-                'provided_services_id' => $data['provided_services_id'],
-                'work_sectors_id' => $data['work_sectors_id'],
+            $Assistant = new Assistant();
+            $Assistant->fill([
+                'id' =>$user->id,
+                'headline' => $data['headline'],
                 'nationality_id' => $data['nationality_id'],
                 'sex' => $data['sex'],
-                'headline' => $data['headline']
+                'years_of_experience' =>$data['years_of_experience'],
+                'provided_services_id' => $data['provided_services_id'],
+                'experience_areas_id' => $data['experience_areas_id'],
             ]);
 
-            $trainer->setTranslations('last_name', [
+            $Assistant->setTranslations('last_name', [
                 'en' => $data['last_name_en'],
                 'ar' => $data['last_name_ar'],
             ]);
+            $Assistant->save();
 
-            $trainer->save();
+            $education= Education::create([
+                'user_id' => $user->id,
+                'specialization' => $data['specialization'],
+                'university' => $data['university'],
+                'graduation_year' => $data['graduation_year'],
+                'education_levels_id' => $data['education_levels_id'],
+                'languages_id' => $data['languages_id'],
+            ]);
+
+            $education->save();
+
 
             DB::commit();
             return [
@@ -53,7 +62,7 @@ class TrainerService
                 'success' => true,
                 'data'=> [
                     'user' => $user,
-                    'trainer' => $trainer
+                    'Assistant' => $Assistant
                 ]
             ];
         }catch(\Exception $e){

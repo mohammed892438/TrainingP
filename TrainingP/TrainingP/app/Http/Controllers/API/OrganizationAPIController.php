@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TrainerRequests\completeRegisterRequest;
-use App\Services\TrainerService;
+use App\Http\Requests\OrganizationRequests\completeRegisterRequest;
+use App\Services\OrganizationService;
 use App\Helpers\ResponseJson;
 use Illuminate\Http\Request;
 
-class TrainerAPIController extends Controller
+class OrganizationAPIController extends Controller
 {
-    protected $trainerService;
-    public function __construct(TrainerService $trainerService)
+    protected $OrganizationService;
+    public function __construct(OrganizationService $OrganizationService)
     {
-        $this->trainerService = $trainerService;
+        $this->OrganizationService = $OrganizationService;
     }
 
     public function completeRegister(completeRegisterRequest $request , $id){
         $validated = $request->validated();
-        $response = $this->trainerService->completeRegister($validated , $id);
+        $response = $this->OrganizationService->completeRegister($validated , $id);
 
         if($response['success'] == true){
             return sendResponse($response['data'] , $response['msg']);

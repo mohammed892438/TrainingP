@@ -23,7 +23,7 @@ class User extends Authenticatable
         'user_type_id',
         'bio',
         'country_id',
-        'city_id',
+        'city',
         'phone_number',
         'photo'
     ];

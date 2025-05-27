@@ -2,13 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\Trainer;
+use App\Models\Trainee;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
-
-
-class TrainerService
+class TraineeService
 {
    public function completeRegister($data , $id){
         try{
@@ -18,7 +16,6 @@ class TrainerService
                 'phone_number' => $data['phone_number'],
                 'city' => $data['city'],
                 'country_id' => $data['country_id'],
-                'bio' => $data['bio'],
             ]);
 
             $user->setTranslations('name', [
@@ -28,24 +25,21 @@ class TrainerService
 
             $user->save();
 
-            $trainer = new Trainer();
-            $trainer->fill([
+            $trainee = new Trainee();
+            $trainee->fill([
                 'id' => $user->id,
-                'important_topics' => $data['important_topics'],
+                'education_levels_id' => $data['education_levels_id'],
                 'work_fields_id' => $data['work_fields_id'],
-                'provided_services_id' => $data['provided_services_id'],
-                'work_sectors_id' => $data['work_sectors_id'],
                 'nationality_id' => $data['nationality_id'],
                 'sex' => $data['sex'],
-                'headline' => $data['headline']
             ]);
 
-            $trainer->setTranslations('last_name', [
+            $trainee->setTranslations('last_name', [
                 'en' => $data['last_name_en'],
                 'ar' => $data['last_name_ar'],
             ]);
 
-            $trainer->save();
+            $trainee->save();
 
             DB::commit();
             return [
@@ -53,7 +47,7 @@ class TrainerService
                 'success' => true,
                 'data'=> [
                     'user' => $user,
-                    'trainer' => $trainer
+                    'trainee' => $trainee
                 ]
             ];
         }catch(\Exception $e){

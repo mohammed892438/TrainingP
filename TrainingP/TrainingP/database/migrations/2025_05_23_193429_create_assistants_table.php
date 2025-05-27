@@ -32,10 +32,6 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreignId('educations_id')
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
 
             $table->foreignId('provided_services_id')
             ->constrained()
@@ -48,7 +44,7 @@ return new class extends Migration
             ->onDelete('cascade');
 
             $table->decimal('hourly_wage', 8, 2)->nullable();
-            
+
             $table->timestamps();
         });
     }

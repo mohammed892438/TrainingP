@@ -4,11 +4,25 @@ namespace App\Models;
 
 use App\Enums\SexEnum;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Trainee extends Model
 {
+    use HasTranslations;
+
     protected $casts = [
         'sex' => SexEnum::class,
+    ];
+
+    public array $translatable = ['last_name'];
+    
+    protected $fillable = [
+        'id',
+        'last_name',
+        'sex',
+        'nationality_id',
+        'work_fields_id',
+        'education_levels_id',
     ];
 
     public function user()

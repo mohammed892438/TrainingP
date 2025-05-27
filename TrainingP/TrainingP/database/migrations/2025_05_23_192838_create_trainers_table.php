@@ -10,9 +10,10 @@ return new class extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('id')->unique();
 
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
+
 
             $table->string('sex');
 
@@ -57,7 +58,7 @@ return new class extends Migration
         });
     }
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('trainers');

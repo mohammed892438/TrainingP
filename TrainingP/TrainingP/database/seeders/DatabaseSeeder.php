@@ -24,9 +24,6 @@ class DatabaseSeeder extends Seeder
         //     CountrySeeder::class,
         // ]);
 
-        // $this->call([
-        //     CitySeeder::class,
-        // ]);
 
         // $this->call([
         //     ProvidedServiceSeeder::class,
@@ -64,5 +61,11 @@ class DatabaseSeeder extends Seeder
         // $this->call([
         //     UserTypeSeeder::class,
         // ]);
+
+        // $this->call([
+        //     OrganizationTypesTableSeeder::class,
+        //     OrganizationSectorsTableSeeder::class,
+        // ]);
+
     }
 }
