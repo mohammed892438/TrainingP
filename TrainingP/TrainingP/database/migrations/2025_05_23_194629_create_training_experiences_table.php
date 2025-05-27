@@ -6,14 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+
     public function up(): void
     {
         Schema::create('training_experiences', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title');
-
+            $table->foreignId('title_id')
+            ->constrained('provided_services')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
 
             $table->foreignId('trainer_id')
             ->constrained('trainers')
@@ -39,7 +41,7 @@ return new class extends Migration
         });
     }
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('training_experiences');

@@ -6,25 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('work_experiences', function (Blueprint $table) {
+        Schema::create('user_certificates', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title');
+            $table->foreignId('certificate_id')
+            ->constrained()
+            ->onDelete('cascade');
 
-            $table->string('description');
+            $table->date('issue_date');
 
-            $table->date('start_date');
-
-            $table->date('end_date')->nullable();
-
-            $table->foreignId('work_experience_id')
-            ->constrained('work_experiences')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
+            $table->string('verification_link');
 
             $table->foreignId('users_id')
             ->constrained()
@@ -35,9 +31,11 @@ return new class extends Migration
         });
     }
 
-
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('work_experiences');
+        Schema::dropIfExists('user_certificates');
     }
 };

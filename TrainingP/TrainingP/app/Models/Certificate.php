@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Certificate extends Model
 {
-    public function user()
+    use HasFactory;
+
+    protected $fillable = ['name', 'issuer'];
+
+    public function users()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsToMany(User::class, 'user_certificates')
+                    ->withPivot('issue_date', 'verification_link')
+                    ->withTimestamps();
     }
 }
