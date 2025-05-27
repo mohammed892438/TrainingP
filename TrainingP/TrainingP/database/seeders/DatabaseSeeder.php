@@ -20,52 +20,21 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        //  $this->call([
-        //     CountrySeeder::class,
-        // ]);
-
-
-        // $this->call([
-        //     ProvidedServiceSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     SectorSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     FieldOfWorkSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     EducationLevelSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     AnnualBudgetSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     EmployeeNumberSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     LanguagestableSeeder::class,
-        // ]);
-
-
-        // $this->call([
-        //     ExperienceAreaSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     UserTypeSeeder::class,
-        // ]);
-
-        // $this->call([
-        //     OrganizationTypesTableSeeder::class,
-        //     OrganizationSectorsTableSeeder::class,
-        // ]);
+         $this->call([
+            CountrySeeder::class,
+            ProvidedServiceSeeder::class,
+            SectorSeeder::class,
+            FieldOfWorkSeeder::class,
+            EducationLevelSeeder::class,
+            AnnualBudgetSeeder::class,
+            EmployeeNumberSeeder::class,
+            LanguagestableSeeder::class,
+            ExperienceAreaSeeder::class,
+            UserTypeSeeder::class,
+            OrganizationTypesTableSeeder::class,
+            OrganizationSectorsTableSeeder::class,
+            CertificateSeeder::class,
+        ]);
 
     }
 }
