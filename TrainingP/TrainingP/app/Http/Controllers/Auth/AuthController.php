@@ -7,6 +7,7 @@ use App\Http\Requests\AuthRequests\RegisterRequest;
 use App\Services\AuthServices;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseJson;
+use App\Http\Requests\AuthRequests\LoginRequest;
 
 class AuthController extends Controller
 {
@@ -25,6 +26,30 @@ class AuthController extends Controller
         else{
             return sendError($response['msg']);
         }
-
     }
+    public function verifyUser($id)
+{
+    $result = $this->authService->verifyUser($id);
+
+    if ($result['success']) {
+        return sendResponse( $result['data'] , $result['msg'] );
+    } else {
+        return sendError( $result['msg'] );
+    }
+}
+
+public function login(LoginRequest $request)
+    {
+        $validated = $request->validated();
+        $response = $this->authService->login($validated);
+
+        if($response['success'] == true){
+            return sendResponse($response['data'] , $response['msg']);
+        }
+        else{
+            return sendError($response['msg']);
+        }
+    }
+
+
 }

@@ -20,6 +20,7 @@ class CompleteProfileMail extends Mailable
     public function build()
     {
         return $this->subject('Complete Your Profile')
-                    ->view('emails.complete_profile'); 
+                ->view('emails.complete_profile')
+                ->with([ 'link' => url($this->link) ]);
     }
 }

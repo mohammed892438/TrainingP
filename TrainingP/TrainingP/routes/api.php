@@ -14,15 +14,24 @@ Route::get('/user', function (Request $request) {
 
 //auth controller
 Route::post('/register',[AuthController::class,'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-//trainer controller
-Route::post('/complete-trainer-register/{id}',[TrainerAPIController::class,'completeRegister']);
+// Trainer controller
+Route::post('/complete-trainer-register/{id}', [TrainerAPIController::class, 'completeRegister'])
+    ->name('complete-trainer-register');
 
-//trainee controller
-Route::post('/complete-trainee-register/{id}',[TraineeAPIController::class,'completeRegister']);
+// Trainee controller
+Route::post('/complete-trainee-register/{id}', [TraineeAPIController::class, 'completeRegister'])
+    ->name('complete-trainee-register');
 
-//assistant controller
-Route::post('/complete-assistant-register/{id}',[AssistantAPIController::class,'completeRegister']);
+// Assistant controller
+Route::post('/complete-assistant-register/{id}', [AssistantAPIController::class, 'completeRegister'])
+    ->name('complete-assistant-register');
 
-//organization controller
-Route::post('/complete-organization-register/{id}',[OrganizationAPIController::class,'completeRegister']);
+// Organization controller
+Route::post('/complete-organization-register/{id}', [OrganizationAPIController::class, 'completeRegister'])
+    ->name('complete-organization-register');
+
+//verify email
+Route::get('/verify-user/{id}', [AuthController::class, 'verifyUser'])->name('verify-user');
+
