@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Mail\CompleteProfileMail;
 use App\Models\UserType;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
@@ -44,27 +46,29 @@ public function verifyUser($id)
         $user->save();
 
         $userType = UserType::findOrFail($user->user_type_id);
-        dd( $userType);
 
         switch ($userType->id) {
             case 1:
-                route('complete-trainer-register', ['id' => $id]);
+                $link = route('complete-trainer-register', ['id' => $id]);
                 break;
             case 3:
-                 route('complete-trainee-register', ['id' => $id]);
+                $link = route('complete-trainee-register', ['id' => $id]);
                 break;
             case 2:
-                route('complete-assistant-register', ['id' => $id]);
+                $link = route('complete-assistant-register', ['id' => $id]);
                 break;
             case 4:
-                route('complete-organization-register', ['id' => $id]);
+                $link = route('complete-organization-register', ['id' => $id]);
                 break;
         }
 
         return [
             'msg' => 'تم التحقق من الحساب بنجاح .',
             'success' => true,
-            'data' => $user,
+            'data' => [
+                'user' => $user,
+                'link' => $link
+            ],
         ];
     } catch (\Exception $e) {
         return [
@@ -81,39 +85,100 @@ public function login(array $data)
     try {
         $email = $data['email'];
         $password = $data['password'];
+        $remember = isset($data['remember']) ? $data['remember'] : false;
 
         $user = User::where('email', $email)->first();
 
-        if (!Hash::check($password, $user->password)) {
+        if (!$user || !Hash::check($password, $user->password)) {
             return [
                 'msg' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
                 'success' => false,
                 'data' => []
             ];
         }
-
         if (!$user->email_verified_at) {
+            $userType = UserType::findOrFail($user->user_type_id);
+            switch ($userType->id) {
+                case 1:
+                    $link = route('complete-trainer-register', ['id' => $user->id]);
+                    break;
+                case 3:
+                    $link = route('complete-trainee-register', ['id' => $user->id]);
+                    break;
+                case 2:
+                    $link = route('complete-assistant-register', ['id' => $user->id]);
+                    break;
+                case 4:
+                    $link = route('complete-organization-register', ['id' => $user->id]);
+                    break;
+            }
+            Mail::to($user->email)->send(new CompleteProfileMail($link));
+
             return [
-                'msg' => 'رجاءً قم بتأكيد حسابك أولاً',
+                'msg' => 'رجاءً قم بتأكيد حسابك أولاً، تم إرسال رابط التحقق إلى بريدك الإلكتروني.',
                 'success' => false,
                 'data' => []
             ];
         }
-
-        return [
-            'msg' => 'تم تسجيل الدخول بنجاح ',
-            'success' => true,
-            'data' =>$user
-        ];
-
+        if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
+            $token = $user->createToken('Personal Access Token')->accessToken;
+            return [
+                'msg' => 'تم تسجيل الدخول بنجاح ',
+                'success' => true,
+                'data' => [
+                    'user' => $user,
+                    'token' => $token
+                ]
+            ];
+        } else {
+            return [
+                'msg' => 'فشل تسجيل الدخول، حاول مرة أخرى.',
+                'success' => false,
+                'data' => []
+            ];
+        }
     } catch (\Exception $e) {
         return [
-            'msg' => 'تسجيل الدخول فشل  ' . $e->getMessage(),
+            'msg' => 'تسجيل الدخول فشل: ' . $e->getMessage(),
             'success' => false,
             'data' => []
         ];
     }
 }
 
+public function logout()
+    {
+        try {
+            $user = Auth::user();
+            $user->tokens()->delete();
+            return []; 
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function resendVerificationEmail($id)
+{
+    try {
+        $user = User::findOrFail($id);
+        $link = route('verify-user', ['id' => $user->id]);
+
+        if ($link) {
+            Mail::to($user->email)->send(new CompleteProfileMail($link));
+        }
+
+        return [
+            'msg' => 'تم إرسال رابط التحقق مرة أخرى إلى بريدك الإلكتروني.',
+            'success' => true,
+            'data' => []
+        ];
+    } catch (\Exception $e) {
+        return [
+            'msg' => 'حدث خطأ أثناء إعادة إرسال البريد الإلكتروني: ' . $e->getMessage(),
+            'success' => false,
+            'data' => []
+        ];
+    }
+}
 }
 

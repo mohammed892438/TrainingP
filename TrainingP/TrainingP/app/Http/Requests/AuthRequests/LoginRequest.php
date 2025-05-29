@@ -23,7 +23,8 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required','email','exists:users,email'],
-            'password' => ['required']
+            'password' => ['required'],
+            'remember' => 'nullable|boolean',
         ];
     }
 
@@ -33,6 +34,7 @@ class LoginRequest extends FormRequest
             'email.required' => 'البريد الإلكتروني مطلوب.',
             'email.exists' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
             'password.required' => 'كلمة المرور مطلوبة.',
+            'remember.boolean' => 'القيمة المحددة لتذكرني غير صحيحة.',
         ];
     }
 }

@@ -15,6 +15,11 @@ Route::get('/user', function (Request $request) {
 //auth controller
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login', [AuthController::class, 'login']);
+//verify email
+Route::get('/verify-user/{id}', [AuthController::class, 'verifyUser'])->name('verify-user');
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/resend-verification/{id}', [AuthController::class, 'resendVerificationEmail']);
+
 
 // Trainer controller
 Route::post('/complete-trainer-register/{id}', [TrainerAPIController::class, 'completeRegister'])
@@ -32,6 +37,5 @@ Route::post('/complete-assistant-register/{id}', [AssistantAPIController::class,
 Route::post('/complete-organization-register/{id}', [OrganizationAPIController::class, 'completeRegister'])
     ->name('complete-organization-register');
 
-//verify email
-Route::get('/verify-user/{id}', [AuthController::class, 'verifyUser'])->name('verify-user');
+
 
