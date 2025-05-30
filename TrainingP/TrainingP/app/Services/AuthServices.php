@@ -96,38 +96,31 @@ public function login(array $data)
                 'data' => []
             ];
         }
-        if (!$user->email_verified_at) {
-            $userType = UserType::findOrFail($user->user_type_id);
-            switch ($userType->id) {
-                case 1:
-                    $link = route('complete-trainer-register', ['id' => $user->id]);
-                    break;
-                case 3:
-                    $link = route('complete-trainee-register', ['id' => $user->id]);
-                    break;
-                case 2:
-                    $link = route('complete-assistant-register', ['id' => $user->id]);
-                    break;
-                case 4:
-                    $link = route('complete-organization-register', ['id' => $user->id]);
-                    break;
-            }
-            Mail::to($user->email)->send(new CompleteProfileMail($link));
 
+        if (!$user->email_verified_at) {
             return [
                 'msg' => 'رجاءً قم بتأكيد حسابك أولاً، تم إرسال رابط التحقق إلى بريدك الإلكتروني.',
                 'success' => false,
                 'data' => []
             ];
         }
+
         if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
-            $token = $user->createToken('Personal Access Token')->accessToken;
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->accessToken;
+            if ($remember) {
+                $expiresAt = now()->addDays(7);
+            } else {
+                $expiresAt = now()->addHours(2); 
+            }
+
             return [
-                'msg' => 'تم تسجيل الدخول بنجاح ',
+                'msg' => 'تم تسجيل الدخول بنجاح',
                 'success' => true,
                 'data' => [
                     'user' => $user,
-                    'token' => $token
+                    'token' => $token,
+                    'expires_at' => $expiresAt
                 ]
             ];
         } else {
@@ -146,14 +139,23 @@ public function login(array $data)
     }
 }
 
+
 public function logout()
     {
         try {
             $user = Auth::user();
             $user->tokens()->delete();
-            return []; 
+            return [
+                'msg' => 'تم التسجيل الخروج بنجاح.',
+                'success' => false,
+                'data' => []
+            ];
         } catch (\Exception $e) {
-            throw $e;
+            return [
+                'msg' => 'تسجيل الدخول فشل: ' . $e->getMessage(),
+                'success' => false,
+                'data' => []
+            ];
         }
     }
 

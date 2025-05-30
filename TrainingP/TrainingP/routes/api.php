@@ -17,7 +17,7 @@ Route::post('/register',[AuthController::class,'register']);
 Route::post('/login', [AuthController::class, 'login']);
 //verify email
 Route::get('/verify-user/{id}', [AuthController::class, 'verifyUser'])->name('verify-user');
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
 Route::post('/resend-verification/{id}', [AuthController::class, 'resendVerificationEmail']);
 
 
@@ -37,5 +37,7 @@ Route::post('/complete-assistant-register/{id}', [AssistantAPIController::class,
 Route::post('/complete-organization-register/{id}', [OrganizationAPIController::class, 'completeRegister'])
     ->name('complete-organization-register');
 
-
-
+    //dont remove this syntax 
+    // Route::middleware(['auth:api', 'tokenExpiration'])->group(function () {
+    //     Route::post('/logout', [AuthController::class, 'logout']);
+    // });

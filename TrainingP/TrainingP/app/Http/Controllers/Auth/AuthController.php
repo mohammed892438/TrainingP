@@ -10,6 +10,7 @@ use App\Services\AuthServices;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseJson;
 use App\Http\Requests\AuthRequests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -56,7 +57,6 @@ public function login(LoginRequest $request)
     public function logout(logoutRequest $request)
     {
         $response = $this->authService->logout();
-
         if($response['success'] == true){
             return sendResponse($response['data'] , $response['msg']);
         }
