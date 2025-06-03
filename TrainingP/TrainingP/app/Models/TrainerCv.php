@@ -9,6 +9,11 @@ class TrainerCv extends Model
 {
     use HasTranslations;
 
+    protected $fillable = [
+        'cv_file',
+        'user_id',
+    ];
+    
     public array $translatable = ['last_name'];
 
     public function user()

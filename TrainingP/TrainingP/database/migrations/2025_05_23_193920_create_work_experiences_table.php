@@ -14,14 +14,14 @@ return new class extends Migration
 
             $table->string('title');
 
-            $table->string('description');
+            $table->string('the_authority');
 
             $table->date('start_date');
 
             $table->date('end_date')->nullable();
 
-            $table->foreignId('work_experience_id')
-            ->constrained('work_experiences')
+            $table->foreignId('country_id')
+            ->constrained('countries')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

@@ -10,7 +10,7 @@ use App\Models\User;
 
 class TrainerService
 {
-   public function completeRegister($data , $id){
+    public function completeRegister($data , $id){
         try{
             DB::beginTransaction();
             $user = User::find($id);
@@ -64,5 +64,5 @@ class TrainerService
                 'data' => []
             ];
         }
-   }
+    }
 }

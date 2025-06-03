@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class TrainingExperience extends Model
 {
+    protected $fillable = [
+        'trainer_id',
+        'title_id',
+        'country_id',
+        'authority',
+        'engagement_type',
+        'trainees_number',
+        'trainees_type',
+        'hours_number',
+    ];
+    
     public function trainer()
     {
         return $this->belongsTo(Trainer::class);
