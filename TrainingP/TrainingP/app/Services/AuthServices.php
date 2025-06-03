@@ -18,11 +18,7 @@ class AuthServices
         $user = User::create($data);
         $user->save();
 
-        $link = route('verify-user', ['id' => $user->id]);
-
-        if ($link) {
-            Mail::to($user->email)->send(new CompleteProfileMail($link));
-        }
+        Mail::to($user->email)->send(new CompleteProfileMail($user));
 
         return [
             'msg' => 'تم إنشاء الحساب بنجاح. تحقق من بريدك الإلكتروني لإكمال ملفك الشخصي.',
@@ -42,42 +38,68 @@ public function verifyUser($id)
 {
     try {
         $user = User::findOrFail($id);
+
+        if ($user->email_verified_at) {
+            return [
+                'success' => false,
+                'msg' => 'تم التحقق من حسابك مسبقًا.',
+                'data' => [],
+                'code' => 'already_verified'
+            ];
+        }
+
         $user->email_verified_at = now();
         $user->save();
 
-        $userType = UserType::findOrFail($user->user_type_id);
-
-        switch ($userType->id) {
-            case 1:
-                $link = route('complete-trainer-register', ['id' => $id]);
-                break;
-            case 3:
-                $link = route('complete-trainee-register', ['id' => $id]);
-                break;
-            case 2:
-                $link = route('complete-assistant-register', ['id' => $id]);
-                break;
-            case 4:
-                $link = route('complete-organization-register', ['id' => $id]);
-                break;
-        }
+        $routes = [
+            1 => 'complete-trainer-register',
+            2 => 'complete-assistant-register',
+            3 => 'complete-trainee-register',
+            4 => 'complete-organization-register',
+        ];
 
         return [
-            'msg' => 'تم التحقق من الحساب بنجاح .',
             'success' => true,
+            'msg' => 'تم التحقق من الحساب بنجاح.',
             'data' => [
-                'user' => $user,
-                'link' => $link
-            ],
+                'link' => route($routes[$user->user_type_id] ?? 'home', ['id' => $user->id])
+            ]
         ];
     } catch (\Exception $e) {
         return [
-            'msg' => 'حدث خطأ أثناء التحقق من الحساب.'. $e->getMessage(),
+            'success' => false,
+            'msg' => 'حدث خطأ أثناء التحقق: ' . $e->getMessage(),
+            'data' => [],
+            'code' => 'exception'
+        ];
+    }
+}
+
+public function resendVerificationEmail($id)
+{
+    try {
+        $user = User::findOrFail($id);
+
+        // Send verification email with full user object
+        Mail::to($user->email)->send(new CompleteProfileMail($user));
+
+        return [
+            'msg' => 'تم إرسال رابط التحقق مرة أخرى إلى بريدك الإلكتروني.',
+            'success' => true,
+            'data' => $user
+        ];
+    } catch (\Exception $e) {
+        return [
+            'msg' => 'حدث خطأ أثناء إعادة إرسال البريد الإلكتروني: ' . $e->getMessage(),
             'success' => false,
             'data' => []
         ];
     }
 }
+
+
+
+
 
 
 public function login(array $data)
@@ -111,7 +133,7 @@ public function login(array $data)
             if ($remember) {
                 $expiresAt = now()->addDays(7);
             } else {
-                $expiresAt = now()->addHours(2); 
+                $expiresAt = now()->addHours(2);
             }
 
             return [
@@ -144,7 +166,7 @@ public function logout()
     {
         try {
             $user = Auth::user();
-            $user->tokens()->delete();
+            // $user->tokens()->delete();
             return [
                 'msg' => 'تم التسجيل الخروج بنجاح.',
                 'success' => false,
@@ -159,28 +181,6 @@ public function logout()
         }
     }
 
-    public function resendVerificationEmail($id)
-{
-    try {
-        $user = User::findOrFail($id);
-        $link = route('verify-user', ['id' => $user->id]);
+   
 
-        if ($link) {
-            Mail::to($user->email)->send(new CompleteProfileMail($link));
-        }
-
-        return [
-            'msg' => 'تم إرسال رابط التحقق مرة أخرى إلى بريدك الإلكتروني.',
-            'success' => true,
-            'data' => []
-        ];
-    } catch (\Exception $e) {
-        return [
-            'msg' => 'حدث خطأ أثناء إعادة إرسال البريد الإلكتروني: ' . $e->getMessage(),
-            'success' => false,
-            'data' => []
-        ];
-    }
 }
-}
-

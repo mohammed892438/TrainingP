@@ -38,7 +38,9 @@
     <div class="container">
         <h1>مرحباً!</h1>
         <p>شكراً لتسجيلك. يرجى إكمال ملفك الشخصي من خلال النقر على الرابط أدناه:</p>
-        <a href="{{ $link }}" class="button">أكمل ملفك الشخصي</a>
+        <a href="{{ route('verify-user', ['id' => $user->id]) }}" class="btn btn-success">
+            تأكيد البريد الإلكتروني
+        </a>
         <p>شكراً لاستخدامك موقعنا</p>
     </div>
 </body>
