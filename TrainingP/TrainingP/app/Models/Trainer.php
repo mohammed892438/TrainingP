@@ -18,18 +18,24 @@ class Trainer extends Model
         'id',
         'sex',
         'headline',
-        'nationality_id',
-        'work_sectors_id',
-        'provided_services_id',
-        'work_fields_id',
+        'work_sectors',
+        'provided_services',
+        'work_fields',
         'important_topics',
+        'nationality',
         'status',
         'hourly_wage',
     ];
 
+
     protected $casts = [
         'sex' => SexEnum::class,
         'status' => TrainerStatusEnum::class,
+
+        'work_sectors' => 'array',
+        'provided_services' => 'array',
+        'work_fields' => 'array',
+        'nationality' => 'array'
     ];
 
     public function user()

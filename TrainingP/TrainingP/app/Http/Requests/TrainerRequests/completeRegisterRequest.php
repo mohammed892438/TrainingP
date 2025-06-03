@@ -9,19 +9,11 @@ use Illuminate\Validation\Rules\Enum;
 
 class completeRegisterRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -29,10 +21,19 @@ class completeRegisterRequest extends FormRequest
             'last_name_ar' => 'required|string|max:255',
             'sex' => ['required', new Enum(SexEnum::class)],
             'headline' => 'required|string|max:255',
-            'nationality_id' => 'required|exists:countries,id',
-            'work_sectors_id' => 'required|exists:work_sectors,id',
-            'provided_services_id' => 'required|exists:provided_services,id',
-            'work_fields_id' => 'required|exists:work_fields,id',
+            
+            'nationality' => 'required|array|min:1',
+            'nationality.*' => 'exists:countries,id',
+
+            'work_sectors' => 'required|array|min:1',
+            'work_sectors.*' => 'exists:work_sectors,id',
+
+            'provided_services' => 'required|array|min:1',
+            'provided_services.*' => 'exists:provided_services,id',
+
+            'work_fields' => 'required|array|min:1',
+            'work_fields.*' => 'exists:work_fields,id',
+
             'important_topics' => 'required|string',
             'status' => ['nullable','string',new Enum(TrainerStatusEnum::class)],
             'hourly_wage' => 'nullable|numeric|min:0',
@@ -63,17 +64,21 @@ class completeRegisterRequest extends FormRequest
             'headline.string' => 'يجب أن يكون المسمى الوظيفي نصًا.',
             'headline.max' => 'يجب ألا يتجاوز المسمى الوظيفي 255 حرفًا.',
 
-            'nationality_id.required' => 'الجنسية مطلوبة.',
-            'nationality_id.exists' => 'الجنسية المحددة غير صحيحة.',
+            'nationality.required' => 'الجنسية مطلوبة.',
+            'nationality.array' => 'يجب اختيار جنسية واحدة على الأقل.',
+            'nationality.*.exists' => 'الجنسية المحددة غير صحيحة.',
 
-            'work_sectors_id.required' => 'قطاع العمل مطلوب.',
-            'work_sectors_id.exists' => 'قطاع العمل المحدد غير صحيح.',
+            'work_sectors.required' => 'قطاعات العمل مطلوبة.',
+            'work_sectors.array' => 'يجب اختيار قطاع عمل واحد على الأقل.',
+            'work_sectors.*.exists' => 'قطاع العمل المحدد غير صحيح.',
 
-            'provided_services_id.required' => 'الخدمات المقدمة مطلوبة.',
-            'provided_services_id.exists' => 'الخدمات المقدمة المحددة غير صحيحة.',
+            'provided_services.required' => 'الخدمات المقدمة مطلوبة.',
+            'provided_services.array' => 'يجب اختيار خدمة واحدة على الأقل.',
+            'provided_services.*.exists' => 'الخدمة المحددة غير صحيحة.',
 
-            'work_fields_id.required' => 'مجال العمل مطلوب.',
-            'work_fields_id.exists' => 'مجال العمل المحدد غير صحيح.',
+            'work_fields.required' => 'مجالات العمل مطلوبة.',
+            'work_fields.array' => 'يجب اختيار مجال واحد على الأقل.',
+            'work_fields.*.exists' => 'مجال العمل المحدد غير صحيح.',
 
             'important_topics.required' => 'المواضيع المهمة مطلوبة.',
             'important_topics.string' => 'يجب أن تكون المواضيع المهمة نصًا.',
@@ -96,12 +101,13 @@ class completeRegisterRequest extends FormRequest
 
             'country_id.required' => 'الدولة مطلوبة.',
             'country_id.exists' => 'الدولة المحددة غير صحيحة.',
+
             'city.required' => 'المدينة مطلوبة.',
+
             'phone_number.required' => 'رقم الهاتف مطلوب.',
             'phone_number.string' => 'يجب أن يكون رقم الهاتف نصًا.',
             'phone_number.min' => 'يجب ألا يقل رقم الهاتف عن 10 أرقام.',
             'phone_number.max' => 'يجب ألا يتجاوز رقم الهاتف 20 رقمًا.',
         ];
     }
-
 }

@@ -79,15 +79,25 @@ public function resendVerificationEmail($id)
 {
     try {
         $user = User::findOrFail($id);
-
-        // Send verification email with full user object
-        Mail::to($user->email)->send(new CompleteProfileMail($user));
-
+        
+        if ($user->email_verified_at) {
+            return [
+                'msg' => 'تم التحقق من البريد الإلكتروني مسبقًا.',
+                'success' => false,
+                'data' => []
+            ];
+            
+        }
+        else{
+           
+            Mail::to($user->email)->send(new CompleteProfileMail($user));
         return [
             'msg' => 'تم إرسال رابط التحقق مرة أخرى إلى بريدك الإلكتروني.',
             'success' => true,
             'data' => $user
         ];
+        
+    }
     } catch (\Exception $e) {
         return [
             'msg' => 'حدث خطأ أثناء إعادة إرسال البريد الإلكتروني: ' . $e->getMessage(),
@@ -95,6 +105,7 @@ public function resendVerificationEmail($id)
             'data' => []
         ];
     }
+    
 }
 
 

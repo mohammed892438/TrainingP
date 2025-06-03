@@ -45,11 +45,11 @@
                             <label class="form-label fw-bold">اختر نوع المستخدم</label>
                             <div>
                                 <button type="button" class="btn btn-outline-primary user-type-btn mx-1"
-                                    data-type="1" onclick="setUserType(1)">متدرب</button>
+                                    data-type="1" onclick="setUserType(3)">متدرب</button>
                                 <button type="button" class="btn btn-outline-primary user-type-btn mx-1"
-                                    data-type="2" onclick="setUserType(2)">مدرب</button>
+                                    data-type="2" onclick="setUserType(1)">مدرب</button>
                                 <button type="button" class="btn btn-outline-primary user-type-btn mx-1"
-                                    data-type="3" onclick="setUserType(3)">مساعد</button>
+                                    data-type="3" onclick="setUserType(2)">مساعد</button>
                             </div>
                             <input type="hidden" id="user_type_id" name="user_type_id" required>
                         </div>

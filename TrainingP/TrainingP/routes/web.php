@@ -36,7 +36,8 @@ Route::post('/resend-verification-email/{id}', [AuthController::class, 'resendVe
 // Trainer Controller
 Route::get('/complete-trainer-register/{id}', [TrainerController::class, 'showRegistrationForm'])
     ->name('complete-trainer-register');
-Route::post('/complete-trainer-register/{id}', [TrainerController::class, 'completeRegister']);
+Route::post('/complete-trainer-register/{id}', [TrainerController::class, 'completeRegister'])->name('trainer.complete-register');
+
 
 // Trainee Controller
 Route::get('/complete-trainee-register/{id}', [TraineeController::class, 'showRegistrationForm'])

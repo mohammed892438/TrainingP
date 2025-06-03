@@ -68,11 +68,11 @@ public function resendVerificationEmail(verfiyRequest $request, $id)
 {
     $result = $this->authService->resendVerificationEmail($id);
 
-    if ($result['success']) {
-        return redirect()->route('verify-user-blade', ['id' => $result['data']->id])->with('success', $result['msg']);
-    } else {
+    if (!$result['success']) {
         return back()->withErrors(['error' => $result['msg']]);
     }
+
+    return back()->with('success', $result['msg']);
 }
 
 

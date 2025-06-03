@@ -58,8 +58,6 @@ class completeRegisterRequest extends FormRequest
             'work_fields_id.required' => 'مجال العمل مطلوب.',
             'work_fields_id.exists' => 'مجال العمل المحدد غير صحيح.',
 
-            'education_levels_id.required' => 'مستوى التعليم مطلوب.',
-            'education_levels_id.exists' => 'مستوى التعليم المحدد غير صحيح.',
 
             'name_en.required' => 'الاسم باللغة الإنجليزية مطلوب.',
             'name_en.string' => 'يجب أن يكون الاسم باللغة الإنجليزية نصًا.',

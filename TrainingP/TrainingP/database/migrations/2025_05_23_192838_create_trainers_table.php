@@ -19,29 +19,14 @@ return new class extends Migration
 
             $table->string('headline');
 
-            $table->unsignedBigInteger('nationality_id');
+            $table->json('nationality');
 
-            $table->foreign('nationality_id')
-                ->references('id')
-                ->on('countries')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->json('work_sectors');
 
-            $table->foreignId('work_sectors_id')
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->json('provided_services'); 
 
-            $table->foreignId('provided_services_id')
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
-            $table->foreignId('work_fields_id')
-            ->constrained('work_fields')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
+            $table->json('work_fields');
+            
 
             $table->text('important_topics');
 
