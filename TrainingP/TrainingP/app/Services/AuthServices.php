@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use Illuminate\Support\Facades\Config;
 class AuthServices
 {
     public function register($data)
@@ -116,81 +117,53 @@ public function resendVerificationEmail($id)
 public function login(array $data)
 {
     try {
-        $email = $data['email'];
-        $password = $data['password'];
-        $remember = isset($data['remember']) ? $data['remember'] : false;
-
-        $user = User::where('email', $email)->first();
-
-        if (!$user || !Hash::check($password, $user->password)) {
-            return [
-                'msg' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
-                'success' => false,
-                'data' => []
-            ];
-        }
-
-        if (!$user->email_verified_at) {
-            return [
-                'msg' => 'رجاءً قم بتأكيد حسابك أولاً، تم إرسال رابط التحقق إلى بريدك الإلكتروني.',
-                'success' => false,
-                'data' => []
-            ];
-        }
-
-        if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
-            $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->accessToken;
+        $remember = isset($data['remember']) ? (bool)$data['remember'] : false;
+        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']], $remember)) {
+            session(['user_id' => Auth::id(), 'email' => Auth::user()->email]);
             if ($remember) {
-                $expiresAt = now()->addDays(7);
-            } else {
-                $expiresAt = now()->addHours(2);
+                config(['session.lifetime' => 20160]); // 14 days
             }
 
             return [
-                'msg' => 'تم تسجيل الدخول بنجاح',
+                'msg' => 'تم تسجيل الدخول بنجاح.',
                 'success' => true,
-                'data' => [
-                    'user' => $user,
-                    'token' => $token,
-                    'expires_at' => $expiresAt
-                ]
-            ];
-        } else {
-            return [
-                'msg' => 'فشل تسجيل الدخول، حاول مرة أخرى.',
-                'success' => false,
-                'data' => []
+                'data' => Auth::user()
             ];
         }
+
+        return [
+            'msg' => 'فشل في تسجيل الدخول. يرجى التحقق من البيانات المدخلة.',
+            'success' => false,
+            'data' => []
+        ];
     } catch (\Exception $e) {
         return [
-            'msg' => 'تسجيل الدخول فشل: ' . $e->getMessage(),
+            'msg' => 'حدث خطأ غير متوقع: ' . $e->getMessage(),
             'success' => false,
             'data' => []
         ];
     }
 }
 
+//logout
+public function logout($request)
+{
+    try {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-public function logout()
-    {
-        try {
-            $user = Auth::user();
-            // $user->tokens()->delete();
-            return [
-                'msg' => 'تم التسجيل الخروج بنجاح.',
-                'success' => false,
-                'data' => []
-            ];
-        } catch (\Exception $e) {
-            return [
-                'msg' => 'تسجيل الدخول فشل: ' . $e->getMessage(),
-                'success' => false,
-                'data' => []
-            ];
-        }
+        return [
+            'msg' => 'تم تسجيل الخروج بنجاح.',
+            'success' => true
+        ];
+    } catch (\Exception $e) {
+        return [
+            'msg' => 'حدث خطأ أثناء تسجيل الخروج: ' . $e->getMessage(),
+            'success' => false
+        ];
     }
+}
 
    
 

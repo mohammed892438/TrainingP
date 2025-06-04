@@ -13,6 +13,14 @@ Route::get('/user', function (Request $request) {
     return Auth::user();
 })->middleware('auth');
 
+Route::get('/', function () {
+    return view('homePage');
+});
+
+//home page
+Route::get('/homePage', [AuthController::class, 'View'])->name('homePage');
+Route::get('/homePageOrganization', [AuthController::class, 'ViewOrganization'])->name('homePageOrganization');
+
 // Auth Controller Routes
 Route::get('/register', [AuthController::class, 'RegisterView'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
@@ -22,15 +30,12 @@ Route::get('/verify-user-page/{id}', [AuthController::class, 'verifyUserView'])-
 Route::get('/verify-user/{id}', [AuthController::class, 'verifyUser'])->name('verify-user');
 
 
-
-
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/resend-verification-email/{id}', [AuthController::class, 'resendVerificationEmail'])->name('resend-verification-email');
 
 // Trainer Controller
@@ -55,6 +60,6 @@ Route::get('/complete-organization-register/{id}', [OrganizationController::clas
 Route::post('/complete-organization-register/{id}', [OrganizationController::class, 'completeRegister'])->name('organization-complete-register');
 
 // Middleware Group (Preserving Token Expiration Logic)
-Route::middleware(['auth', 'tokenExpiration'])->group(function () {
+Route::middleware('auth:web')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });

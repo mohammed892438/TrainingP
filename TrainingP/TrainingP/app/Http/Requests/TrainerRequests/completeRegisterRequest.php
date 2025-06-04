@@ -42,7 +42,7 @@ class completeRegisterRequest extends FormRequest
             'bio' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'city' => 'required|string',
-            'phone' => ['required', 'numeric', 'digits_between:10,15'],
+            'phone_number' => ['required', 'numeric', 'digits_between:10,20'],
         ];
     }
 

@@ -38,7 +38,6 @@ class TraineeController extends Controller
     public function completeRegister(completeRegisterRequest $request, $id)
     {
         $validated = $request->validated();
-        // dd($validated);
         $response = $this->traineeService->completeRegister($validated, $id);
 
         if($response['success'] == true){

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequests\logoutRequest;
 use App\Http\Requests\AuthRequests\RegisterRequest;
 use App\Http\Requests\AuthRequests\verfiyRequest;
+use App\Models\UserType;
 use App\Services\AuthServices;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseJson;
@@ -20,10 +21,19 @@ class AuthController extends Controller
     {
         $this->authService = $authService;
     }
+    public function View()
+    {
+        return view('homePage');
+    }
 
+    public function ViewOrganization()
+    {
+        return view('homePageOrganization');
+    }
     public function RegisterView()
 {
-    return view('auth.register');
+    $userTypes = UserType::all();
+    return view('auth.register', compact('userTypes'));
 }
 
 
@@ -81,30 +91,29 @@ public function showLoginForm()
     return view('auth.login');
 }
 
+
 public function login(LoginRequest $request)
     {
         $validated = $request->validated();
         $response = $this->authService->login($validated);
-
         if($response['success'] == true){
-            return sendResponse($response['data'] , $response['msg']);
+            if($response['data']['user_type_id'] == 4){
+                return redirect()->route('homePageOrganization')->with('success',$response['msg']);
+            }else{
+                return redirect()->route('homePage')->with('success',$response['msg']);
+            }
         }
         else{
-            return sendError($response['msg']);
+            return  redirect()->route('homePage')->with('failed',$response['msg']);
         }
     }
 
-    public function logout(logoutRequest $request)
+    public function logout(Request $request)
     {
-        $response = $this->authService->logout();
-        if($response['success'] == true){
-            return sendResponse($response['data'] , $response['msg']);
-        }
-        else{
-            return sendError($response['msg']);
-        }
+        $response = $this->authService->logout($request);
+
+        return redirect()->route('login')->with('success', $response['msg']);
     }
-   
 
 
 }
