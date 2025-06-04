@@ -50,6 +50,8 @@
                                     data-type="2" onclick="setUserType(1)">مدرب</button>
                                 <button type="button" class="btn btn-outline-primary user-type-btn mx-1"
                                     data-type="3" onclick="setUserType(2)">مساعد</button>
+                                <button type="button" class="btn btn-outline-primary user-type-btn mx-1"
+                                    data-type="4" onclick="setUserType(4)">مؤسسة</button> <!-- Added Institution option -->
                             </div>
                             <input type="hidden" id="user_type_id" name="user_type_id" required>
                         </div>

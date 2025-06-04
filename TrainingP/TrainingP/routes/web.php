@@ -45,14 +45,14 @@ Route::get('/complete-trainee-register/{id}', [TraineeController::class, 'showRe
 Route::post('/complete-trainee-register/{id}', [TraineeController::class, 'completeRegister'])->name('trainee.complete-register');
 
 // Assistant Controller
-// Route::get('/complete-assistant-register/{id}', [AssistantController::class, 'showRegistrationForm'])
-//     ->name('complete-assistant-register');
-// Route::post('/complete-assistant-register/{id}', [AssistantController::class, 'completeRegister']);
+Route::get('/complete-assistant-register/{id}', [AssistantController::class, 'showRegistrationForm'])
+    ->name('complete-assistant-register');
+Route::post('/complete-assistant-register/{id}', [AssistantController::class, 'completeRegister'])->name('assistant.complete-register');
 
 // Organization Controller
-// Route::get('/complete-organization-register/{id}', [OrganizationController::class, 'showRegistrationForm'])
-//     ->name('complete-organization-register');
-// Route::post('/complete-organization-register/{id}', [OrganizationController::class, 'completeRegister']);
+Route::get('/complete-organization-register/{id}', [OrganizationController::class, 'showRegistrationForm'])
+    ->name('complete-organization-register');
+Route::post('/complete-organization-register/{id}', [OrganizationController::class, 'completeRegister'])->name('organization-complete-register');
 
 // Middleware Group (Preserving Token Expiration Logic)
 Route::middleware(['auth', 'tokenExpiration'])->group(function () {

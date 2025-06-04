@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+
     public function up(): void
     {
         Schema::create('organizations', function (Blueprint $table) {
-            
+
             $table->unsignedBigInteger('id');
 
             $table->unsignedBigInteger('type_id');
@@ -34,10 +34,7 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreignId('organization_sectors_id')
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->json('organization_sectors');
 
             $table->string('work_type')->nullable();
 
@@ -50,7 +47,7 @@ return new class extends Migration
         });
     }
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('organizations');

@@ -14,10 +14,14 @@ class Organization extends Model
         'employee_numbers_id',
         'established_year',
         'annual_budgets_id',
-        'organization_sectors_id',
+        'organization_sectors',
         'work_type',
     ];
-    
+
+    protected $casts = [
+        'organization_sectors' => 'array',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id');

@@ -28,13 +28,13 @@ class OrganizationService
 
             $organization = new Organization();
             $organization->fill([
-                'id' => $user->id,
-                'type_id' => $data['type_id'],
-                'organization_sectors_id' => $data['organization_sectors_id'],
-                'employee_numbers_id' =>$data['employee_numbers_id'],
-                'annual_budgets_id' =>$data['annual_budgets_id'],
-                'established_year' =>$data['established_year'],
-                'website' =>$data['website'],
+                'id'                    => $user->id,
+                'type_id'               => $data['organization_type_id'],
+                'organization_sectors'  => $data['organization_sectors'],
+                'employee_numbers_id'   =>$data['employee_numbers_id'],
+                'annual_budgets_id'     =>$data['annual_budgets_id'],
+                'established_year'      =>$data['established_year'],
+                'website'               =>$data['website'],
             ]);
 
             $organization->save();

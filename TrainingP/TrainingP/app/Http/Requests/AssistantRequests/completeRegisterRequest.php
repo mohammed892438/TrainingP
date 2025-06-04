@@ -25,23 +25,41 @@ class completeRegisterRequest extends FormRequest
 {
     return [
         'phone_number' => 'required|string|min:10|max:20',
+
         'city' => 'required|string',
+
         'country_id' => 'required|exists:countries,id',
+
         'bio' => 'nullable|string',
+
         'name_en' => 'required|string|max:255',
         'name_ar' => 'required|string|max:255',
+
         'last_name_en' => 'required|string|max:255',
         'last_name_ar' => 'required|string|max:255',
+
         'headline' => 'required|string|max:255',
+
         'nationality_id' => 'required|exists:countries,id',
+
         'sex' => ['required', new Enum(SexEnum::class)],
+
         'years_of_experience' => 'required|integer|min:0',
-        'provided_services_id' => 'required|exists:provided_services,id',
-        'experience_areas_id' => 'required|exists:experience_areas,id',
+
+        'provided_services' => 'required|array',
+        'provided_services.*' => 'exists:provided_services,id',
+
+        'experience_areas' => 'required|array',
+        'experience_areas.*' => 'exists:experience_areas,id',
+
         'specialization' => 'required|string|max:255',
+
         'university' => 'required|string|max:255',
+
         'graduation_year' => 'required|date',
+
         'education_levels_id' => 'required|exists:education_levels,id',
+
         'languages_id' => 'required|exists:languages,id',
     ];
 }
@@ -92,11 +110,12 @@ public function messages(): array
         'years_of_experience.integer' => 'يجب أن يكون عدد سنوات الخبرة رقمًا صحيحًا.',
         'years_of_experience.min' => 'يجب ألا يكون عدد سنوات الخبرة أقل من 0.',
 
-        'provided_services_id.required' => 'الخدمات المقدمة مطلوبة.',
-        'provided_services_id.exists' => 'الخدمات المقدمة المحددة غير صحيحة.',
+        'provided_services.required' => 'الخدمات المقدمة مطلوبة.',
+        'provided_services.*.exists' => 'الخدمة المحددة غير صالحة.',
 
-        'experience_areas_id.required' => 'مجال الخبرة مطلوب.',
-        'experience_areas_id.exists' => 'مجال الخبرة المحدد غير صحيح.',
+
+        'experience_areas.required' => 'مجال الخبرة مطلوب.',
+        'experience_areas.*.exists'  => 'مجال الخبرة المحدد غير صحيح.',
 
         'specialization.required' => 'التخصص مطلوب.',
         'specialization.string' => 'يجب أن يكون التخصص نصًا.',

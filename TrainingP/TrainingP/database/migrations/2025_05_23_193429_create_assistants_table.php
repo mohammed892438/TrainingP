@@ -26,17 +26,11 @@ return new class extends Migration
                 ->onUpdate('cascade');
 
             $table->integer('years_of_experience');
-
-            $table->foreignId('experience_areas_id')
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            
+            $table->json('experience_areas');
 
 
-            $table->foreignId('provided_services_id')
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->json('provided_services');
 
             $table->foreign('id')
             ->references('id')

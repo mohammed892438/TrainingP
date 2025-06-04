@@ -34,8 +34,8 @@ class AssistantService
                 'nationality_id' => $data['nationality_id'],
                 'sex' => $data['sex'],
                 'years_of_experience' =>$data['years_of_experience'],
-                'provided_services_id' => $data['provided_services_id'],
-                'experience_areas_id' => $data['experience_areas_id'],
+                'provided_services' => $data['provided_services'],
+                'experience_areas' => $data['experience_areas'],
             ]);
 
             $Assistant->setTranslations('last_name', [

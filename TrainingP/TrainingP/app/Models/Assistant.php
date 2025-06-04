@@ -11,7 +11,7 @@ class Assistant extends Model
     use HasTranslations;
 
     public array $translatable = ['last_name'];
-    
+
     protected $fillable = [
         'id',
         'last_name',
@@ -19,14 +19,16 @@ class Assistant extends Model
         'headline',
         'nationality_id',
         'years_of_experience',
-        'experience_areas_id',
+        'experience_areas',
         'educations_id',
-        'provided_services_id',
+        'provided_services',
         'hourly_wage',
     ];
 
     protected $casts = [
         'sex' => SexEnum::class,
+        'experience_areas' => 'array',
+        'provided_services' => 'array',
     ];
 
     public function user()

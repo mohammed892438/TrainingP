@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 class TraineeController extends Controller
 {
     protected $traineeService;
+    
     public function __construct(TraineeService $traineeService)
     {
         $this->traineeService = $traineeService;
