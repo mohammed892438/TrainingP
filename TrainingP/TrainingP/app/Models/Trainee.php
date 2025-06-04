@@ -12,16 +12,18 @@ class Trainee extends Model
 
     protected $casts = [
         'sex' => SexEnum::class,
+        'work_fields' => 'array',
+        'nationality' => 'array'
     ];
 
     public array $translatable = ['last_name'];
-    
+
     protected $fillable = [
         'id',
         'last_name',
         'sex',
-        'nationality_id',
-        'work_fields_id',
+        'nationality',
+        'work_fields',
         'education_levels_id',
     ];
 

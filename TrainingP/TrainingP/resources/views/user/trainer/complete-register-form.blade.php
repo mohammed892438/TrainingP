@@ -48,7 +48,7 @@
                             <label for="last_name_ar" class="form-label">الاسم الأخير بالعربية</label>
                             <input type="text" class="form-control" id="last_name_ar" name="last_name_ar" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="last_name_en" class="form-label">الاسم الأخير بالإنجليزية</label>
                             <input type="text" class="form-control" id="last_name_en" name="last_name_en" required>
@@ -64,7 +64,7 @@
                             </select>
                             <small class="text-muted">يمكنك اختيار أكثر من قطاع بالضغط على زر CTRL (في الويندوز) أو CMD (في الماك).</small>
                         </div>
-                        
+
 
                         <div class="mb-3">
                             <label for="phone_number" class="form-label">رقم الهاتف</label>
@@ -130,7 +130,7 @@
                             </select>
                             <small class="text-muted">يمكنك اختيار أكثر من مجال بالضغط على زر CTRL (في الويندوز) أو CMD (في الماك).</small>
                         </div>
-                        
+
 
                         <div class="mb-3">
                             <label for="provided_services" class="form-label">الخدمات المقدمة</label>

@@ -21,7 +21,7 @@ class completeRegisterRequest extends FormRequest
             'last_name_ar' => 'required|string|max:255',
             'sex' => ['required', new Enum(SexEnum::class)],
             'headline' => 'required|string|max:255',
-            
+
             'nationality' => 'required|array|min:1',
             'nationality.*' => 'exists:countries,id',
 
@@ -42,7 +42,7 @@ class completeRegisterRequest extends FormRequest
             'bio' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'city' => 'required|string',
-            'phone_number' => 'required|string|min:10|max:20',
+            'phone' => ['required', 'numeric', 'digits_between:10,15'],
         ];
     }
 
@@ -104,10 +104,10 @@ class completeRegisterRequest extends FormRequest
 
             'city.required' => 'المدينة مطلوبة.',
 
-            'phone_number.required' => 'رقم الهاتف مطلوب.',
-            'phone_number.string' => 'يجب أن يكون رقم الهاتف نصًا.',
-            'phone_number.min' => 'يجب ألا يقل رقم الهاتف عن 10 أرقام.',
-            'phone_number.max' => 'يجب ألا يتجاوز رقم الهاتف 20 رقمًا.',
+            'phone.required' => 'رقم الهاتف مطلوب.',
+            'phone.numeric' => 'رقم الهاتف يجب أن يكون أرقام فقط.',
+            'phone.digits_between' => 'رقم الهاتف يجب أن يحتوي على 10 إلى 15 رقمًا.',
+
         ];
     }
 }

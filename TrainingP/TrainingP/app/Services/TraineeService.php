@@ -28,10 +28,10 @@ class TraineeService
             $trainee = new Trainee();
             $trainee->fill([
                 'id' => $user->id,
-                'education_levels_id' => $data['education_levels_id'],
-                'work_fields_id' => $data['work_fields_id'],
-                'nationality_id' => $data['nationality_id'],
-                'sex' => $data['sex'],
+                'education_levels_id'  => $data['education_levels_id'],
+                'work_fields'          => $data['work_fields'],
+                'nationality'          => $data['nationality'],
+                'sex'                  => $data['sex'],
             ]);
 
             $trainee->setTranslations('last_name', [
