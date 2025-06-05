@@ -33,6 +33,18 @@
         @else
             <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
         @endif
+
+        <div class="mt-4">
+            <a href="{{ route('trainer.cv.view') }}" class="btn btn-secondary">View Your CV</a>
+            @if ($cv)
+                <a href="{{ route('trainer.cv.update', $cv->id) }}" class="btn btn-success">Update CV</a>
+            @else
+                <a href="{{ route('trainer.cv.form') }}" class="btn btn-primary">Upload CV</a>
+            @endif
+            <a href="{{ route('training_experience.index') }}" class="btn btn-info">Manage Training Experience</a>
+            <a href="{{ route('work_experience.index') }}" class="btn btn-info">View Work Experiences</a>
+
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

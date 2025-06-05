@@ -26,4 +26,10 @@ class TrainingExperience extends Model
     {
         return $this->belongsTo(Country::class);
     }
+    public function title()
+    {
+        return $this->belongsTo(ProvidedService::class, 'title_id');
+    }
+
+   
 }

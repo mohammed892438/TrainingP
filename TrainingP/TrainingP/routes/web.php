@@ -4,6 +4,9 @@ use App\Http\Controllers\User\AssistantController;
 use App\Http\Controllers\User\OrganizationController;
 use App\Http\Controllers\User\TraineeController;
 use App\Http\Controllers\User\TrainerController;
+use App\Http\Controllers\User\TrainerCvController;
+use App\Http\Controllers\User\TrainingExperienceController;
+use App\Http\Controllers\User\WorkExperienceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,4 +65,31 @@ Route::post('/complete-organization-register/{id}', [OrganizationController::cla
 // Middleware Group (Preserving Token Expiration Logic)
 Route::middleware('auth:web')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    //trainer cv
+    Route::get('/trainer/cv/view', [TrainerCvController::class, 'getYourCv'])->name('trainer.cv.view');
+    Route::get('/trainer/cv/update/{id}', [TrainerCvController::class, 'showUpdateForm'])->name('trainer.cv.update.form');
+    Route::get('/trainer/cv/form', [TrainerCvController::class, 'showCvForm'])->name('trainer.cv.form');
+    Route::get('/trainer/cv/redirect', [TrainerCvController::class, 'redirectToCvForm'])->name('trainer.cv.redirect');
+    Route::post('/trainer/cv/upload', [TrainerCvController::class, 'uploadCv'])->name('trainer.cv.upload');
+    Route::get('/trainer/cv', [TrainerCvController::class, 'getYourCv'])->name('trainer.cv.get');
+    Route::put('/trainer/cv/update/{id}', [TrainerCvController::class, 'updateCv'])->name('trainer.cv.update');
+    Route::delete('/trainer/cv/delete', [TrainerCvController::class, 'deleteCv'])->name('trainer.cv.delete');
+
+    //training experience
+    Route::get('/training-experience', [TrainingExperienceController::class, 'showTrainingExperience'])->name('training_experience.index');
+    Route::get('/training-experience/store', [TrainingExperienceController::class, 'storeTrainingExperienceForm'])->name('training_experience.store.form');
+    Route::post('/training-experience', [TrainingExperienceController::class, 'storeTrainingExperience'])->name('training_experience.store');
+    Route::get('/training-experience/update/{id}', [TrainingExperienceController::class, 'updateTrainingExperienceForm'])->name('training_experience.update.form');
+    Route::put('/training-experience/{id}', [TrainingExperienceController::class, 'updateTrainingExperience'])->name('training_experience.update');
+    Route::delete('/training-experience/{id}', [TrainingExperienceController::class, 'deleteTrainingExperience'])->name('training_experience.delete');
+
+    //work experience
+    Route::get('/work-experience', [WorkExperienceController::class, 'index'])->name('work_experience.index');
+    Route::get('/work-experience/store', [WorkExperienceController::class, 'storeWorkExperienceForm'])->name('work_experience.store.form');
+    Route::post('/work-experience', [WorkExperienceController::class, 'storeWorkExperience'])->name('work_experience.store');
+    Route::get('/work-experience/update/{id}', [WorkExperienceController::class, 'updateWorkExperienceForm'])->name('work_experience.update.form');
+    Route::put('/work-experience/{id}', [WorkExperienceController::class, 'updateWorkExperience'])->name('work_experience.update');
+    Route::delete('/work-experience/{id}', [WorkExperienceController::class, 'deleteWorkExperience'])->name('work_experience.delete');
+
 });

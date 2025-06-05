@@ -8,6 +8,7 @@ use App\Http\Requests\AuthRequests\RegisterRequest;
 use App\Http\Requests\AuthRequests\verfiyRequest;
 use App\Models\UserType;
 use App\Services\AuthServices;
+use App\Services\TrainerCvService;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseJson;
 use App\Http\Requests\AuthRequests\LoginRequest;
@@ -17,18 +18,27 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     protected $authService;
-    public function __construct(AuthServices $authService)
+    protected $trainerCvService;
+
+    public function __construct(AuthServices $authService, TrainerCvService $trainerCvService)
     {
         $this->authService = $authService;
+        $this->trainerCvService = $trainerCvService;
     }
-    public function View()
-    {
-        return view('homePage');
-    }
+    public function view()
+{
+    $response = $this->trainerCvService->getYourCv();
+    $cv = $response['success'] ? $response['data'] : null; 
+
+    return view('homePage', compact('cv')); 
+}
 
     public function ViewOrganization()
     {
-        return view('homePageOrganization');
+        $response = $this->trainerCvService->getYourCv();
+        $cv = $response['success'] ? $response['data'] : null; 
+
+        return view('homePageOrganozation', compact('cv')); 
     }
     public function RegisterView()
 {
