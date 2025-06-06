@@ -31,7 +31,7 @@
             </div>
         @endif
 
-        <form action="{{ route('user_certificate.update', $userCertificate->id) }}" method="POST">
+        <form action="{{ route('userCertificates.update', $userCertificate->id) }}" method="POST">
             @csrf
             @method('PUT')
 

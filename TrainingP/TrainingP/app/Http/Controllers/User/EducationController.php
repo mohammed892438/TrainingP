@@ -21,7 +21,13 @@ class EducationController extends Controller
         $this->EducationService = $EducationService;
     }
 
-    public function storeEducationForm()
+    public function index(showEducation $request)
+    {
+        $response = $this->EducationService->showEducation();
+        return view('education.index', ['educations' => $response['data']]);
+    }
+
+    public function create()
     {
         $educationlevels = EducationLevel::all();
         $languages = Language::all();
@@ -29,16 +35,8 @@ class EducationController extends Controller
         return view('education.store', compact('educationlevels', 'languages'));
     }
 
-    public function updateEducationForm($id)
-    {
-        $education = Education::findOrFail($id);
-        $educationlevels = EducationLevel::all();
-        $languages = Language::all();
 
-        return view('education.update', compact('education', 'educationlevels', 'languages'));
-    }
-
-    public function storeEducation(storeEducation $request)
+    public function store(storeEducation $request)
     {
         $validated = $request->validated();
         $response = $this->EducationService->storeEducation($validated);
@@ -50,7 +48,16 @@ class EducationController extends Controller
         }
     }
 
-    public function updateEducation(updateEducation $request, $id)
+    public function edit($id)
+    {
+        $education = Education::findOrFail($id);
+        $educationlevels = EducationLevel::all();
+        $languages = Language::all();
+
+        return view('education.update', compact('education', 'educationlevels', 'languages'));
+    }
+
+    public function update(updateEducation $request, $id)
     {
         $validated = $request->validated();
         $response = $this->EducationService->updateEducation($validated, $id);
@@ -62,7 +69,7 @@ class EducationController extends Controller
         }
     }
 
-    public function deleteEducation(deleteEducation $request, $id)
+    public function destroy(deleteEducation $request, $id)
     {
         $response = $this->EducationService->deleteEducation($id);
 
@@ -73,9 +80,5 @@ class EducationController extends Controller
         }
     }
 
-    public function showEducation(showEducation $request)
-    {
-        $response = $this->EducationService->showEducation();
-        return view('education.index', ['educations' => $response['data']]);
-    }
+
 }

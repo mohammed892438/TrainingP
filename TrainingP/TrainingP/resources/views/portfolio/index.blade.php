@@ -18,7 +18,7 @@
     @endif
 
     <div class="mb-3 text-end">
-        <a href="{{ route('portfolio.store.form') }}" class="btn btn-primary">إضافة عمل جديد</a>
+        <a href="{{ route('portfolio.create') }}" class="btn btn-primary">إضافة عمل جديد</a>
     </div>
 
     @if($portfolios->isEmpty())
@@ -45,8 +45,8 @@
                             @endif
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <a href="{{ route('portfolio.update.form', $portfolio->id) }}" class="btn btn-warning btn-sm">تعديل</a>
-                            <form action="{{ route('portfolio.delete', $portfolio->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
+                            <a href="{{ route('portfolio.edit', $portfolio->id) }}" class="btn btn-warning btn-sm">تعديل</a>
+                            <form action="{{ route('portfolio.destroy', $portfolio->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm">حذف</button>

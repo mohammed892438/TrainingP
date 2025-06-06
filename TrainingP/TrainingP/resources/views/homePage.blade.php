@@ -35,16 +35,17 @@
         @endif
 
         <div class="mt-4">
-            <a href="{{ route('trainer.cv.view') }}" class="btn btn-secondary">View Your CV</a>
+            <a href="{{ route('trainerCv.index') }}" class="btn btn-secondary">View Your CV</a>
             @if ($cv)
-                <a href="{{ route('trainer.cv.update', $cv->id) }}" class="btn btn-success">Update CV</a>
+                <a href="{{ route('trainerCv.update', $cv->id) }}" class="btn btn-success">Update CV</a>
             @else
-                <a href="{{ route('trainer.cv.form') }}" class="btn btn-primary">Upload CV</a>
+                <a href="{{ route('trainerCv.create') }}" class="btn btn-primary">Upload CV</a>
             @endif
-            <a href="{{ route('training_experience.index') }}" class="btn btn-info">Manage Training Experience</a>
-            <a href="{{ route('work_experience.index') }}" class="btn btn-info">View Work Experiences</a>
+            <a href="{{ route('trainingExperience.index') }}" class="btn btn-info">Manage Training Experience</a>
+            <a href="{{ route('workExperience.index') }}" class="btn btn-info">View Work Experiences</a>
             <a href="{{ route('education.index') }}" class="btn btn-info">Educations management</a>
-            <a href="{{ route('user_certificate.index') }}" class="btn btn-info">Certificates management</a>
+            <a href="{{ route('userCertificates.index') }}" class="btn btn-info">Certificates management</a>
+            <a href="{{ route('portfolio.index') }}" class="btn btn-info">portfolio management</a>
             <a href="{{ route('skills.index') }}" class="btn btn-info">skills</a>
 
         </div>

@@ -25,7 +25,7 @@
             </div>
         @endif
 
-        <a href="{{ route('work_experience.store.form') }}" class="btn btn-primary mb-3">Add New Experience</a>
+        <a href="{{ route('workExperience.create') }}" class="btn btn-primary mb-3">Add New Experience</a>
 
         <table class="table">
             <thead>
@@ -47,8 +47,8 @@
                         <td>{{ $experience->end_date ?? 'N/A' }}</td>
                         <td>{{ $experience->country->name ?? 'N/A' }}</td>
                         <td>
-                            <a href="{{ route('work_experience.update.form', $experience->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('work_experience.delete', $experience->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('workExperience.edit', $experience->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('workExperience.destroy', $experience->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>

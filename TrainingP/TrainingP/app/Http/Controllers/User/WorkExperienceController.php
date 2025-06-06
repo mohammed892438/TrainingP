@@ -23,23 +23,17 @@ class WorkExperienceController extends Controller
     public function index()
     {
         $workExperiences = WorkExperience::where('users_id', auth()->id())->get();
-        return view('work_experience.index', compact('workExperiences'));
+        return view('workExperience.index', compact('workExperiences'));
     }
 
-    public function storeWorkExperienceForm()
+    public function create()
     {
         $countries = Country::all();
-        return view('work_experience.store', compact('countries'));
+        return view('workExperience.store', compact('countries'));
     }
 
-    public function updateWorkExperienceForm($id)
-    {
-        $workExperience = WorkExperience::findOrFail($id);
-        $countries = Country::all();
-        return view('work_experience.update', compact('workExperience', 'countries'));
-    }
 
-    public function storeWorkExperience(storeWorkExperienceRequest $request)
+    public function store(storeWorkExperienceRequest $request)
     {
         $validated = $request->validated();
         $response = $this->workExperience->storeWorkExperience($validated);
@@ -50,7 +44,14 @@ class WorkExperienceController extends Controller
         }
     }
 
-    public function updateWorkExperience(updateWorkExperienceRequest $request, $id)
+    public function edit($id)
+    {
+        $workExperience = WorkExperience::findOrFail($id);
+        $countries = Country::all();
+        return view('workExperience.update', compact('workExperience', 'countries'));
+    }
+
+    public function update(updateWorkExperienceRequest $request, $id)
     {
         $validated = $request->validated();
         $response = $this->workExperience->updateWorkExperience($validated, $id);
@@ -61,7 +62,7 @@ class WorkExperienceController extends Controller
         }
     }
 
-    public function deleteWorkExperience(deleteWorkExperienceRequest $request, $id)
+    public function destroy(deleteWorkExperienceRequest $request, $id)
     {
         $response = $this->workExperience->deleteWorkExperience($id);
         if ($response['success']) {

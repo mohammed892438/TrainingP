@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Trainer CV</title>
+    <title>Update Your CV</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Upload Your CV</h1>
-        <form action="{{ route('trainer.cv.upload') }}" method="POST" enctype="multipart/form-data">
+        <h1>Update Your CV</h1>
+        <form action="{{ route('trainerCv.update', $cv->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group">
-                <label for="uploadPdf">Upload CV (PDF)</label>
+                <label for="uploadPdf">Upload New CV (PDF)</label>
                 <input type="file" name="uploadPdf" id="uploadPdf" required>
             </div>
-            <button type="submit" class="btn btn-primary">Upload</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 </body>

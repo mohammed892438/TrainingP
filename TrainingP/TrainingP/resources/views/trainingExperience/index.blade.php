@@ -50,8 +50,8 @@
                         <td>{{ $experience->hours_number }}</td>
                         <td>{{ $experience->description }}</td>
                         <td>
-                            <a href="{{ route('training_experience.update.form', $experience->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('training_experience.delete', $experience->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('trainingExperience.edit', $experience->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('trainingExperience.destroy', $experience->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -62,7 +62,7 @@
             </tbody>
         </table>
 
-        <a href="{{ route('training_experience.store.form') }}" class="btn btn-primary">Add New Experience</a>
+        <a href="{{ route('trainingExperience.create') }}" class="btn btn-primary">Add New Experience</a>
     </div>
 </body>
 </html>

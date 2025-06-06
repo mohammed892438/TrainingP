@@ -20,18 +20,18 @@ class PortfolioController extends Controller
         $this->portfolioService = $portfolioService;
     }
 
-    public function showPortfolio(showPortfolio $request)
+    public function index(showPortfolio $request)
     {
         $response = $this->portfolioService->showPortfolio();
         return view('portfolio.index', ['portfolios' => $response['data']]);
     }
 
-    public function storePortfolioForm()
+    public function create()
     {
         return view('portfolio.store');
     }
 
-    public function storePortfolio(storePortfolio $request)
+    public function store(storePortfolio $request)
     {
         $validated = $request->validated();
         $response = $this->portfolioService->storePortfolio($validated);
@@ -43,14 +43,14 @@ class PortfolioController extends Controller
         }
     }
 
-    public function updatePortfolioForm($id){
+    public function edit($id){
 
         $portfolio = Portfolio::findOrFail($id);
 
         return view('portfolio.update', compact('portfolio'));
     }
 
-    public function updatePortfolio(updatePortfolio $request, $id)
+    public function update(updatePortfolio $request, $id)
     {
         $validated = $request->validated();
         $response = $this->portfolioService->updatePortfolio($validated, $id);
@@ -62,7 +62,7 @@ class PortfolioController extends Controller
         }
     }
 
-    public function deletePortfolio(deletePortfolio $request, $id)
+    public function destroy(deletePortfolio $request, $id)
     {
         $response = $this->portfolioService->deletePortfolio($id);
 

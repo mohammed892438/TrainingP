@@ -31,7 +31,7 @@
             </div>
         @endif
 
-        <form action="{{ route('user_certificate.store') }}" method="POST">
+        <form action="{{ route('userCertificates.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">

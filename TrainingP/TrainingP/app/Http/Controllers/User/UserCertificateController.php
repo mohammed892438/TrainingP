@@ -20,22 +20,21 @@ class UserCertificateController extends Controller
         $this->UserCertificateService = $UserCertificateService;
     }
 
-    public function storeUserCertificateForm()
+    public function index(showUserCertificate $request)
+    {
+        $response = $this->UserCertificateService->showUserCertificate();
+        return view('user_certificate.index', ['userCertificates' => $response['data']]);
+    }
+
+    public function create()
     {
         $certificates = Certificate::all();
 
         return view('user_certificate.store', compact('certificates'));
     }
 
-    public function updateUserCertificateForm($id)
-    {
-        $userCertificate = UserCertificate::findOrFail($id);
-        $certificates = Certificate::all();
 
-        return view('user_certificate.update', compact('userCertificate', 'certificates'));
-    }
-
-    public function storeUserCertificate(storeUserCertificate $request)
+    public function store(storeUserCertificate $request)
     {
         $validated = $request->validated();
         $response = $this->UserCertificateService->storeUserCertificate($validated);
@@ -47,7 +46,15 @@ class UserCertificateController extends Controller
         }
     }
 
-    public function updateUserCertificate(updateUserCertificate $request, $id)
+    public function edit($id)
+    {
+        $userCertificate = UserCertificate::findOrFail($id);
+        $certificates = Certificate::all();
+
+        return view('user_certificate.update', compact('userCertificate', 'certificates'));
+    }
+
+    public function update(updateUserCertificate $request, $id)
     {
         $validated = $request->validated();
         $response = $this->UserCertificateService->updateUserCertificate($validated, $id);
@@ -59,7 +66,7 @@ class UserCertificateController extends Controller
         }
     }
 
-    public function deleteUserCertificate(deleteUserCertificate $request, $id)
+    public function destroy(deleteUserCertificate $request, $id)
     {
         $response = $this->UserCertificateService->deleteUserCertificate($id);
 
@@ -70,9 +77,5 @@ class UserCertificateController extends Controller
         }
     }
 
-    public function showUserCertificate(showUserCertificate $request)
-    {
-        $response = $this->UserCertificateService->showUserCertificate();
-        return view('user_certificate.index', ['userCertificates' => $response['data']]);
-    }
+
 }

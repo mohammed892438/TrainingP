@@ -18,26 +18,25 @@ class TrainerCvController extends Controller
         $this->trainerCvService = $trainerCvService;
     }
 
-    public function showCvForm()
-    {
-        return view('trainer_cv.form');
-    }
-    public function showCvView()
+
+    public function index()
     {
         $response = $this->trainerCvService->getYourCv();
-        return view('trainer_cv.view', ['cv' => $response['data']]);
-    }
-    public function showUpdateForm($id)
-    {
-        $cv = TrainerCv::findOrFail($id); 
-        return view('trainer_cv.update', ['cv' => $cv]);
-    }
-    public function redirectToCvForm()
-    {
-        return redirect()->route('trainer.cv.form');
+        return view('trainerCv.index', ['cv' => $response['data']]);
     }
 
-    public function uploadCv(Request $request)
+    public function create()
+    {
+        return view('trainerCv.store');
+    }
+
+
+    // public function redirectToCvForm()
+    // {
+    //     return redirect()->route('trainerCv.form');
+    // }
+
+    public function store(Request $request)
 {
     $response = $this->trainerCvService->UploadTrainerCv($request);
     if ($response['success'] == true) {
@@ -47,17 +46,23 @@ class TrainerCvController extends Controller
     }
 }
 
-public function getYourCv(getYourCvRequest $request)
+public function edit($id)
+{
+    $cv = TrainerCv::findOrFail($id);
+    return view('trainerCv.update', ['cv' => $cv]);
+}
+
+public function show(getYourCvRequest $request)
 {
     $response = $this->trainerCvService->getYourCv();
     if ($response['success'] == true) {
-        return view('trainer_cv.view', ['cv' => $response['data'], 'msg' => $response['msg']]);
+        return view('trainerCv.index', ['cv' => $response['data'], 'msg' => $response['msg']]);
     } else {
         return back()->withErrors(['error' => $response['msg']]);
     }
 }
 
-public function updateCv(Request $request, $id)
+public function update(Request $request, $id)
 {
     $response = $this->trainerCvService->updateCv($request, $id);
     if ($response['success'] == true) {
@@ -67,7 +72,7 @@ public function updateCv(Request $request, $id)
     }
 }
 
-public function deleteCv(deleteCvRequest $request)
+public function destroy(deleteCvRequest $request)
 {
     $userId = Auth::id();
     $response = $this->trainerCvService->deleteCv($userId);

@@ -21,22 +21,22 @@ class TrainingExperienceController extends Controller
         $this->trainingExperience = $trainingExperience;
     }
 
-    public function storeTrainingExperienceForm()
+    public function index(showTrainingExperience $request)
     {
-        $providedServices = ProvidedService::all(); 
-        $countries = Country::all(); 
-
-        return view('training_experience.store', compact('providedServices', 'countries'));
+        $response = $this->trainingExperience->showTrainingExperience();
+        return view('trainingExperience.index', ['trainingExperiences' => $response['data']]);
     }
-    public function updateTrainingExperienceForm($id)
+
+    public function create()
     {
-        $trainingExperience = TrainingExperience::findOrFail($id);
-        $providedServices = ProvidedService::all(); 
-        $countries = Country::all(); 
+        $providedServices = ProvidedService::all();
+        $countries = Country::all();
 
-        return view('training_experience.update', compact('trainingExperience', 'providedServices', 'countries'));
+        return view('trainingExperience.store', compact('providedServices', 'countries'));
     }
-    public function storeTrainingExperience(storeTrainingExperience $request)
+
+
+    public function store(storeTrainingExperience $request)
     {
         $validated = $request->validated();
         $response = $this->trainingExperience->storeTrainingExperience($validated);
@@ -48,7 +48,16 @@ class TrainingExperienceController extends Controller
         }
     }
 
-    public function updateTrainingExperience(updateTrainingExperience $request, $id)
+    public function edit($id)
+    {
+        $trainingExperience = TrainingExperience::findOrFail($id);
+        $providedServices = ProvidedService::all();
+        $countries = Country::all();
+
+        return view('trainingExperience.update', compact('trainingExperience', 'providedServices', 'countries'));
+    }
+
+    public function update(updateTrainingExperience $request, $id)
     {
         $validated = $request->validated();
         $response = $this->trainingExperience->updateTrainingExperience($validated, $id);
@@ -60,7 +69,7 @@ class TrainingExperienceController extends Controller
         }
     }
 
-    public function deleteTrainingExperience(deleteTrainingExperience $request, $id)
+    public function destroy(deleteTrainingExperience $request, $id)
     {
         $response = $this->trainingExperience->deleteTrainingExperience($id);
 
@@ -71,9 +80,5 @@ class TrainingExperienceController extends Controller
         }
     }
 
-    public function showTrainingExperience(showTrainingExperience $request)
-    {
-        $response = $this->trainingExperience->showTrainingExperience();
-        return view('training_experience.index', ['trainingExperiences' => $response['data']]);
-    }
+
 }

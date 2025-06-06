@@ -42,8 +42,8 @@
                         <td>{{ $certificate->issue_date }}</td>
                         <td><a href="{{ $certificate->verification_link }}" target="_blank">Verify</a></td>
                         <td>
-                            <a href="{{ route('user_certificate.update.form', $certificate->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('user_certificate.delete', $certificate->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('userCertificates.edit', $certificate->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('userCertificates.destroy', $certificate->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -54,7 +54,7 @@
             </tbody>
         </table>
 
-        <a href="{{ route('user_certificate.store.form') }}" class="btn btn-primary">Add New Certificate</a>
+        <a href="{{ route('userCertificates.create') }}" class="btn btn-primary">Add New Certificate</a>
     </div>
 </body>
 </html>
