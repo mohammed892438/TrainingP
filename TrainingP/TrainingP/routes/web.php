@@ -5,6 +5,7 @@ use App\Http\Controllers\User\UserCertificateController;
 use App\Http\Controllers\User\AssistantController;
 use App\Http\Controllers\User\EducationController;
 use App\Http\Controllers\User\OrganizationController;
+use App\Http\Controllers\User\PortfolioController;
 use App\Http\Controllers\User\TraineeController;
 use App\Http\Controllers\User\TrainerController;
 use App\Http\Controllers\User\TrainerCvController;
@@ -111,6 +112,4 @@ Route::middleware('auth:web')->group(function () {
     Route::put('/user_certificate/{id}', [UserCertificateController::class, 'updateUserCertificate'])->name('user_certificate.update');
     Route::delete('/user_certificate/{id}', [UserCertificateController::class, 'deleteUserCertificate'])->name('user_certificate.delete');
 
-    //skill controller
-    Route::resource('skills', SkillController::class);
 });
