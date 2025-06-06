@@ -38,17 +38,21 @@ class OrganizationController extends Controller
     }
 
     public function completeRegister(completeRegisterRequest $request, $id)
-    {
-        $validated = $request->validated();
-        // dd($validated);
-        $response = $this->organizationService->completeRegister($validated, $id);
+{
+    $validated = $request->validated();
+    $response = $this->organizationService->completeRegister($validated, $id);
 
-        if($response['success'] == true){
-            return sendResponse($response['data'] , $response['msg']);
-        }
-        else{
-            return sendError($response['msg']);
-        }
+    if ($response['success'] == true) {
+        return redirect()->route('organizations_landing', ['id' => $id])->with('success', $response['msg']);
+    } else {
+        return back()->withErrors(['error' => $response['msg']]);
     }
+}
+
+public function showOrganizationsLanding($id){
+    $user = User::findOrFail($id);
+
+    return view('user.organization.landing',compact('user'));
+}
 
 }

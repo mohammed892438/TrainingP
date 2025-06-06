@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class TraineeController extends Controller
 {
     protected $traineeService;
-    
+
     public function __construct(TraineeService $traineeService)
     {
         $this->traineeService = $traineeService;
@@ -40,12 +40,17 @@ class TraineeController extends Controller
         $validated = $request->validated();
         $response = $this->traineeService->completeRegister($validated, $id);
 
-        if($response['success'] == true){
-            return sendResponse($response['data'] , $response['msg']);
+        if ($response['success'] == true) {
+            return redirect()->route('users_landing', ['id' => $id])->with('success', $response['msg']);
+        } else {
+            return back()->withErrors(['error' => $response['msg']]);
         }
-        else{
-            return sendError($response['msg']);
-        }
+    }
+
+    public function showUsersLanding($id){
+        $user = User::findOrFail($id);
+
+        return view('user.landing',compact('user'));
     }
 
 }

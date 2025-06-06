@@ -10,6 +10,7 @@ use App\Http\Controllers\User\TrainerController;
 use App\Http\Controllers\User\TrainerCvController;
 use App\Http\Controllers\User\TrainingExperienceController;
 use App\Http\Controllers\User\WorkExperienceController;
+use App\Models\Trainer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,22 +49,30 @@ Route::post('/resend-verification-email/{id}', [AuthController::class, 'resendVe
 Route::get('/complete-trainer-register/{id}', [TrainerController::class, 'showRegistrationForm'])
     ->name('complete-trainer-register');
 Route::post('/complete-trainer-register/{id}', [TrainerController::class, 'completeRegister'])->name('trainer.complete-register');
+Route::get('/user-landing/{id}', [TrainerController::class, 'showUsersLanding'])->name('users_landing');
 
 
 // Trainee Controller
 Route::get('/complete-trainee-register/{id}', [TraineeController::class, 'showRegistrationForm'])
     ->name('complete-trainee-register');
 Route::post('/complete-trainee-register/{id}', [TraineeController::class, 'completeRegister'])->name('trainee.complete-register');
+Route::get('/user-landing/{id}', [TraineeController::class, 'showUsersLanding'])->name('users_landing');
 
 // Assistant Controller
 Route::get('/complete-assistant-register/{id}', [AssistantController::class, 'showRegistrationForm'])
     ->name('complete-assistant-register');
 Route::post('/complete-assistant-register/{id}', [AssistantController::class, 'completeRegister'])->name('assistant.complete-register');
+Route::get('/user-landing/{id}', [AssistantController::class, 'showUsersLanding'])->name('users_landing');
+
 
 // Organization Controller
 Route::get('/complete-organization-register/{id}', [OrganizationController::class, 'showRegistrationForm'])
     ->name('complete-organization-register');
 Route::post('/complete-organization-register/{id}', [OrganizationController::class, 'completeRegister'])->name('organization-complete-register');
+Route::get('/organization-landing/{id}', [OrganizationController::class, 'showOrganizationsLanding'])->name('organizations_landing');
+
+
+
 
 // Middleware Group (Preserving Token Expiration Logic)
 Route::middleware('auth:web')->group(function () {

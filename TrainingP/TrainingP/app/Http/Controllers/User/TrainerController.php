@@ -44,9 +44,16 @@ class TrainerController extends Controller
     $response = $this->trainerService->completeRegister($validated, $id);
 
     if ($response['success'] == true) {
-        return redirect()->route('homePage')->with('success', $response['msg']);
+        return redirect()->route('users_landing', ['id' => $id])->with('success', $response['msg']);
     } else {
-        return sendError($response['msg']);
+        return back()->withErrors(['error' => $response['msg']]);
     }
 }
+
+public function showUsersLanding($id){
+    $user = User::findOrFail($id);
+
+    return view('user.landing',compact('user'));
+}
+
 }
