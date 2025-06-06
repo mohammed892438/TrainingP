@@ -15,8 +15,9 @@ class TrainingExperience extends Model
         'trainees_number',
         'trainees_type',
         'hours_number',
+        'description',
     ];
-    
+
     public function trainer()
     {
         return $this->belongsTo(Trainer::class);
@@ -31,5 +32,5 @@ class TrainingExperience extends Model
         return $this->belongsTo(ProvidedService::class, 'title_id');
     }
 
-   
+
 }

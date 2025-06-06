@@ -28,18 +28,19 @@ class AuthController extends Controller
     public function view()
 {
     $response = $this->trainerCvService->getYourCv();
-    $cv = $response['success'] ? $response['data'] : null; 
+    $cv = $response['success'] ? $response['data'] : null;
 
-    return view('homePage', compact('cv')); 
+    return view('homePage', compact('cv'));
 }
 
     public function ViewOrganization()
     {
         $response = $this->trainerCvService->getYourCv();
-        $cv = $response['success'] ? $response['data'] : null; 
+        $cv = $response['success'] ? $response['data'] : null;
 
-        return view('homePageOrganozation', compact('cv')); 
+        return view('homePageOrganozation', compact('cv'));
     }
+    
     public function RegisterView()
 {
     $userTypes = UserType::all();

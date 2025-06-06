@@ -9,7 +9,7 @@ use App\Http\Requests\workExperienceRequests\updateWorkExperienceRequest;
 use App\Models\WorkExperience;
 use App\Services\WorkExperienceService;
 use Illuminate\Http\Request;
-use App\Models\Country; 
+use App\Models\Country;
 
 class WorkExperienceController extends Controller
 {
@@ -19,22 +19,23 @@ class WorkExperienceController extends Controller
     {
         $this->workExperience = $workExperience;
     }
+
     public function index()
     {
-        $workExperiences = WorkExperience::where('users_id', auth()->id())->get(); 
+        $workExperiences = WorkExperience::where('users_id', auth()->id())->get();
         return view('work_experience.index', compact('workExperiences'));
     }
 
     public function storeWorkExperienceForm()
     {
-        $countries = Country::all(); 
+        $countries = Country::all();
         return view('work_experience.store', compact('countries'));
     }
 
     public function updateWorkExperienceForm($id)
     {
         $workExperience = WorkExperience::findOrFail($id);
-        $countries = Country::all(); 
+        $countries = Country::all();
         return view('work_experience.update', compact('workExperience', 'countries'));
     }
 

@@ -34,6 +34,12 @@
             </div>
 
             <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+
+
+            <div class="mb-3">
                 <label for="country_id" class="form-label">Country</label>
                 <select class="form-select" id="country_id" name="country_id" required>
                     <option value="">Select Country</option>

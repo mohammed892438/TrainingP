@@ -17,6 +17,8 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
+            $table->text('description');
+
             $table->foreignId('trainer_id')
             ->constrained('trainers')
             ->onDelete('cascade')

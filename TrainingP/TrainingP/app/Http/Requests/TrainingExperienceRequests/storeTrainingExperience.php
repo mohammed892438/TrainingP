@@ -24,6 +24,7 @@ class storeTrainingExperience extends FormRequest
         return [
             'title_id' => 'required|exists:provided_services,id',
             'country_id' => 'required|exists:countries,id',
+            'description' => 'required|string|min:10',
             'authority' => 'required|string|max:255',
             'engagement_type' => 'required|string|max:255',
             'trainees_number' => 'required|integer|min:1',
@@ -47,6 +48,10 @@ class storeTrainingExperience extends FormRequest
             'engagement_type.required' => 'نوع الاشتراك مطلوب.',
             'engagement_type.string' => 'يجب أن يكون نوع الاشتراك نصًا.',
             'engagement_type.max' => 'يجب ألا يزيد نوع الاشتراك عن 255 حرفًا.',
+
+            'description.required' => 'الوصف مطلوب.',
+            'description.string' => 'يجب أن يكون الوصف نصًا.',
+            'description.min' => 'يجب ألا يقل الوصف عن 10 حرفًا.',
 
             'trainees_number.required' => 'عدد المتدربين مطلوب.',
             'trainees_number.integer' => 'يجب أن يكون عدد المتدربين رقمًا صحيحًا.',

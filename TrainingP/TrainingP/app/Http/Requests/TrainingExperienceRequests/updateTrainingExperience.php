@@ -23,6 +23,7 @@ class updateTrainingExperience extends FormRequest
     {
         return [
             'title_id' => 'nullable|exists:provided_services,id',
+            'description' => 'nullable|string|min:10',
             'country_id' => 'nullable|exists:countries,id',
             'authority' => 'nullable|string|max:255',
             'engagement_type' => 'nullable|string|max:255',
@@ -51,6 +52,9 @@ class updateTrainingExperience extends FormRequest
 
             'hours_number.integer' => 'يجب أن يكون عدد الساعات رقمًا صحيحًا.',
             'hours_number.min' => 'يجب أن يكون عدد الساعات واحدًا على الأقل.',
+
+            'description.string' => 'يجب أن يكون الوصف نصًا.',
+            'description.min' => 'يجب ألا يقل الوصف عن 10 حرفًا.',
         ];
     }
 }

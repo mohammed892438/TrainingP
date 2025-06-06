@@ -34,6 +34,7 @@
                     <th>Trainees Number</th>
                     <th>Trainees Type</th>
                     <th>Hours Number</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -47,6 +48,7 @@
                         <td>{{ $experience->trainees_number }}</td>
                         <td>{{ $experience->trainees_type }}</td>
                         <td>{{ $experience->hours_number }}</td>
+                        <td>{{ $experience->description }}</td>
                         <td>
                             <a href="{{ route('training_experience.update.form', $experience->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('training_experience.delete', $experience->id) }}" method="POST" style="display:inline;">

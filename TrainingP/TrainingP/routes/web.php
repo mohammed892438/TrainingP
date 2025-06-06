@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\UserCertificateController;
 use App\Http\Controllers\User\AssistantController;
+use App\Http\Controllers\User\EducationController;
 use App\Http\Controllers\User\OrganizationController;
 use App\Http\Controllers\User\TraineeController;
 use App\Http\Controllers\User\TrainerController;
@@ -91,5 +93,21 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/work-experience/update/{id}', [WorkExperienceController::class, 'updateWorkExperienceForm'])->name('work_experience.update.form');
     Route::put('/work-experience/{id}', [WorkExperienceController::class, 'updateWorkExperience'])->name('work_experience.update');
     Route::delete('/work-experience/{id}', [WorkExperienceController::class, 'deleteWorkExperience'])->name('work_experience.delete');
+
+    //education
+    Route::get('/education', [EducationController::class, 'showEducation'])->name('education.index');
+    Route::get('/education/store', [EducationController::class, 'storeEducationForm'])->name('education.store.form');
+    Route::post('/education', [EducationController::class, 'storeEducation'])->name('education.store');
+    Route::get('/education/update/{id}', [EducationController::class, 'updateEducationForm'])->name('education.update.form');
+    Route::put('/education/{id}', [EducationController::class, 'updateEducation'])->name('education.update');
+    Route::delete('/education/{id}', [EducationController::class, 'deleteEducation'])->name('education.delete');
+
+    //certificate
+    Route::get('/user_certificate', [UserCertificateController::class, 'showUserCertificate'])->name('user_certificate.index');
+    Route::get('/user_certificate/store', [UserCertificateController::class, 'storeUserCertificateForm'])->name('user_certificate.store.form');
+    Route::post('/user_certificate', [UserCertificateController::class, 'storeUserCertificate'])->name('user_certificate.store');
+    Route::get('/user_certificate/update/{id}', [UserCertificateController::class, 'updateUserCertificateForm'])->name('user_certificate.update.form');
+    Route::put('/user_certificate/{id}', [UserCertificateController::class, 'updateUserCertificate'])->name('user_certificate.update');
+    Route::delete('/user_certificate/{id}', [UserCertificateController::class, 'deleteUserCertificate'])->name('user_certificate.delete');
 
 });

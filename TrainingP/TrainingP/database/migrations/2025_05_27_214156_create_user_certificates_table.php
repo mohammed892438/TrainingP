@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->string('verification_link');
 
-            $table->foreignId('users_id')
+            $table->foreignId('user_id')
             ->constrained()
             ->onDelete('cascade')
             ->onUpdate('cascade');
