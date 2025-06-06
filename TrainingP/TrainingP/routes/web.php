@@ -112,4 +112,6 @@ Route::middleware('auth:web')->group(function () {
     Route::put('/user_certificate/{id}', [UserCertificateController::class, 'updateUserCertificate'])->name('user_certificate.update');
     Route::delete('/user_certificate/{id}', [UserCertificateController::class, 'deleteUserCertificate'])->name('user_certificate.delete');
 
+    //skill controller
+    Route::resource('skills',SkillController::class);
 });

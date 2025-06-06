@@ -45,6 +45,7 @@
             <a href="{{ route('work_experience.index') }}" class="btn btn-info">View Work Experiences</a>
             <a href="{{ route('education.index') }}" class="btn btn-info">Educations management</a>
             <a href="{{ route('user_certificate.index') }}" class="btn btn-info">Certificates management</a>
+            <a href="{{ route('skills.index') }}" class="btn btn-info">skills</a>
 
         </div>
     </div>
