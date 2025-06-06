@@ -68,13 +68,14 @@
                         </select>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">الجنسية</label>
-                        <select class="form-select" name="nationality_id" required>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name_ar }}</option>
+                    <div class="mb-3">
+                        <label for="nationality" class="form-label">الجنسية</label>
+                        <select class="form-select" id="nationality" name="nationality[]" multiple required>
+                            @foreach($nationalities as $nationality)
+                                <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                             @endforeach
                         </select>
+                        <small class="text-muted">يمكنك اختيار أكثر من جنسية بالضغط على زر CTRL (في الويندوز) أو CMD (في الماك) والنقر على الخيارات.</small>
                     </div>
 
                     <div class="col-md-6">
@@ -143,12 +144,13 @@
 
                     <div class="col-md-6">
                         <label class="form-label">اللغات</label>
-                        <select class="form-select" name="languages_id" required>
+                        <select class="form-select" name="languages[]" multiple required>
                             @foreach($languages as $lang)
                                 <option value="{{ $lang->id }}">{{ $lang->name }}</option>
                             @endforeach
                         </select>
                     </div>
+
 
                     <div class="col-12">
                         <label class="form-label">نبذة تعريفية</label>

@@ -31,7 +31,7 @@ class AssistantService
             $Assistant->fill([
                 'id' =>$user->id,
                 'headline' => $data['headline'],
-                'nationality_id' => $data['nationality_id'],
+                'nationality' => $data['nationality'],
                 'sex' => $data['sex'],
                 'years_of_experience' =>$data['years_of_experience'],
                 'provided_services' => $data['provided_services'],
@@ -50,7 +50,7 @@ class AssistantService
                 'university' => $data['university'],
                 'graduation_year' => $data['graduation_year'],
                 'education_levels_id' => $data['education_levels_id'],
-                'languages_id' => $data['languages_id'],
+                'languages' => $data['languages'],
             ]);
 
             $education->save();

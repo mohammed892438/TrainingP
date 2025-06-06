@@ -17,16 +17,10 @@ return new class extends Migration
 
             $table->string('headline');
 
-            $table->unsignedBigInteger('nationality_id');
-
-            $table->foreign('nationality_id')
-                ->references('id')
-                ->on('countries')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->json('nationality');
 
             $table->integer('years_of_experience');
-            
+
             $table->json('experience_areas');
 
 

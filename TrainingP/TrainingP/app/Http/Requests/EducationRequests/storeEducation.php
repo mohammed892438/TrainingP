@@ -26,7 +26,8 @@ class storeEducation extends FormRequest
             'university' => 'required|string|max:255',
             'graduation_year' => 'required|date',
             'education_levels_id' => 'required|exists:education_levels,id',
-            'languages_id' => 'required|exists:languages,id',
+            'languages' => 'required|array',
+            'languages.*' => 'exists:languages,id',
         ];
     }
 
@@ -47,8 +48,8 @@ class storeEducation extends FormRequest
             'education_levels_id.required' => 'يرجى تحديد مستوى التعليم.',
             'education_levels_id.exists' => 'المستوى التعليمي المحدد غير موجود.',
 
-            'languages_id.required' => 'يرجى تحديد اللغة.',
-            'languages_id.exists' => 'اللغة المحددة غير موجودة.',
+            'languages.required' => 'اللغات مطلوبة.',
+            'languages.*.exists' => 'اللغات المحددة غير صحيحة.',
         ];
     }
 

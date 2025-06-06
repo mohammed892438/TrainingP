@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('educations', function (Blueprint $table) {
-            
+
             $table->unsignedBigInteger('id')->autoIncrement()->primary();
 
             $table->string('specialization');
@@ -24,10 +24,8 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreignId('languages_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->json('languages');
+
 
             $table->foreignId('user_id')
             ->constrained()

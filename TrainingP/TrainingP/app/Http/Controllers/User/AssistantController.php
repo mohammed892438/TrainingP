@@ -28,11 +28,12 @@ class AssistantController extends Controller
         $countries = Country::all();
         $services = ProvidedService::all();
         $experience_areas = ExperienceArea::all();
+        $nationalities = Country::all();
         $education_levels = EducationLevel::all();
         $languages = Language::all();
 
         return view('user.assistant.complete-register-form',
-        compact('user', 'countries', 'services','experience_areas', 'education_levels', 'languages'));
+        compact('user', 'countries', 'services','experience_areas', 'nationalities' , 'education_levels', 'languages'));
 
     }
 

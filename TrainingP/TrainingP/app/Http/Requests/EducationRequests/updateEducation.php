@@ -26,7 +26,8 @@ class updateEducation extends FormRequest
             'university' => 'nullable|string|max:255',
             'graduation_year' => 'nullable|date',
             'education_levels_id' => 'nullable|exists:education_levels,id',
-            'languages_id' => 'nullable|exists:languages,id',
+            'languages' => 'required|array',
+            'languages.*' => 'exists:languages,id',
         ];
 
     }
@@ -43,8 +44,8 @@ class updateEducation extends FormRequest
 
         'education_levels_id.exists' => 'المستوى التعليمي المحدد غير موجود.',
 
-        'languages_id.required' => 'يرجى تحديد اللغة.',
-        'languages_id.exists' => 'اللغة المحددة غير موجودة.',
+        'languages.required' => 'اللغات مطلوبة.',
+        'languages.*.exists' => 'اللغات المحددة غير صحيحة.',
     ];
 }
 

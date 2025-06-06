@@ -14,19 +14,20 @@ class Education extends Model
         'university',
         'graduation_year',
         'education_levels_id',
-        'languages_id',
+        'languages',
         'user_id',
     ];
+
+    protected $casts = [
+        'languages' => 'array',
+    ];
+
 
     public function educationLevel()
     {
         return $this->belongsTo(EducationLevel::class, 'education_levels_id');
     }
 
-    public function language()
-    {
-        return $this->belongsTo(Language::class, 'languages_id');
-    }
 
     public function user()
     {

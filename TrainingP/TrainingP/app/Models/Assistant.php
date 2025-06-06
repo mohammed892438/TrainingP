@@ -17,7 +17,7 @@ class Assistant extends Model
         'last_name',
         'sex',
         'headline',
-        'nationality_id',
+        'nationality',
         'years_of_experience',
         'experience_areas',
         'educations_id',
@@ -29,6 +29,7 @@ class Assistant extends Model
         'sex' => SexEnum::class,
         'experience_areas' => 'array',
         'provided_services' => 'array',
+        'nationality' => 'array',
     ];
 
     public function user()

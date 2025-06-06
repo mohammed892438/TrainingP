@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Education;
+use App\Models\Language;
 use Illuminate\Support\Facades\Auth;
 
 class EducationService
@@ -65,11 +66,19 @@ class EducationService
     public function showEducation(){
         try{
             $userId = Auth::id();
-            $education = education::where('user_id',$userId)->get();
+            $educations = education::where('user_id',$userId)->get();
+
+            $educations->map(function ($education) {
+                $languageIds = is_array($education->languages) ? $education->languages : [];
+                $languageNames = Language::whereIn('id', $languageIds)->pluck('name')->toArray();
+                $education->language_names = $languageNames;
+                return $education;
+            });
+
             return [
                 'msg' => 'تم جلب البيانات.',
                 'success' => true,
-                'data' => $education
+                'data' => $educations
             ];
         }catch(\Exception $e){
             return [

@@ -40,7 +40,8 @@ class completeRegisterRequest extends FormRequest
 
         'headline' => 'required|string|max:255',
 
-        'nationality_id' => 'required|exists:countries,id',
+        'nationality' => 'required|array',
+        'nationality.*' => 'exists:countries,id',
 
         'sex' => ['required', new Enum(SexEnum::class)],
 
@@ -60,7 +61,9 @@ class completeRegisterRequest extends FormRequest
 
         'education_levels_id' => 'required|exists:education_levels,id',
 
-        'languages_id' => 'required|exists:languages,id',
+        'languages' => 'required|array',
+        'languages.*' => 'exists:languages,id',
+
     ];
 }
 
@@ -100,8 +103,8 @@ public function messages(): array
         'headline.string' => 'يجب أن يكون المسمى الوظيفي نصًا.',
         'headline.max' => 'يجب ألا يتجاوز المسمى الوظيفي 255 حرفًا.',
 
-        'nationality_id.required' => 'الجنسية مطلوبة.',
-        'nationality_id.exists' => 'الجنسية المحددة غير صحيحة.',
+        'nationality.required' => 'الجنسية مطلوبة.',
+        'nationality.*.exists' => 'الجنسية المحددة غير صحيحة.',
 
         'sex.required' => 'الجنس مطلوب.',
         'sex.enum' => 'الجنس المحدد غير صالح.',
@@ -131,8 +134,8 @@ public function messages(): array
         'education_levels_id.required' => 'مستوى التعليم مطلوب.',
         'education_levels_id.exists' => 'مستوى التعليم المحدد غير صحيح.',
 
-        'languages_id.required' => 'اللغات مطلوبة.',
-        'languages_id.exists' => 'اللغات المحددة غير صحيحة.',
+        'languages.required' => 'اللغات مطلوبة.',
+        'languages.*.exists' => 'اللغات المحددة غير صحيحة.',
     ];
 }
 

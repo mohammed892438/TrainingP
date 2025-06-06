@@ -51,14 +51,11 @@
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label for="languages_id" class="form-label">Language</label>
-                <select class="form-select" id="languages_id" name="languages_id" required>
-                    <option value="">Select Language</option>
-                    @foreach ($languages as $language)
-                        <option value="{{ $language->id }}" {{ $education->languages_id == $language->id ? 'selected' : '' }}>
-                            {{ $language->name }}
-                        </option>
+            <div class="col-md-6">
+                <label class="form-label">اللغات</label>
+                <select class="form-select" name="languages[]" multiple required>
+                    @foreach($languages as $lang)
+                        <option value="{{ $lang->id }}">{{ $lang->name }}</option>
                     @endforeach
                 </select>
             </div>
