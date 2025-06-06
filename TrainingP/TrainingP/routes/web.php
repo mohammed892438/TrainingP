@@ -4,6 +4,7 @@ use App\Http\Controllers\User\UserCertificateController;
 use App\Http\Controllers\User\AssistantController;
 use App\Http\Controllers\User\EducationController;
 use App\Http\Controllers\User\OrganizationController;
+use App\Http\Controllers\User\PortfolioController;
 use App\Http\Controllers\User\TraineeController;
 use App\Http\Controllers\User\TrainerController;
 use App\Http\Controllers\User\TrainerCvController;
@@ -109,5 +110,13 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/user_certificate/update/{id}', [UserCertificateController::class, 'updateUserCertificateForm'])->name('user_certificate.update.form');
     Route::put('/user_certificate/{id}', [UserCertificateController::class, 'updateUserCertificate'])->name('user_certificate.update');
     Route::delete('/user_certificate/{id}', [UserCertificateController::class, 'deleteUserCertificate'])->name('user_certificate.delete');
+
+    //portfolio
+    Route::get('/portfolio', [PortfolioController::class, 'showPortfolio'])->name('portfolio.index');
+    Route::get('/portfolio/store', [PortfolioController::class, 'storePortfolioForm'])->name('portfolio.store.form');
+    Route::post('/portfolio', [PortfolioController::class, 'storePortfolio'])->name('portfolio.store');
+    Route::get('/portfolio/update/{id}', [PortfolioController::class, 'updatePortfolioForm'])->name('portfolio.update.form');
+    Route::put('/portfolio/{id}', [PortfolioController::class, 'updatePortfolio'])->name('portfolio.update');
+    Route::delete('/portfolio/{id}', [PortfolioController::class, 'deletePortfolio'])->name('portfolio.delete');
 
 });
