@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Config;
 class AuthServices
 {
@@ -39,7 +40,6 @@ public function verifyUser($id)
 {
     try {
         $user = User::findOrFail($id);
-
         if ($user->email_verified_at) {
             return [
                 'success' => false,
@@ -58,12 +58,18 @@ public function verifyUser($id)
             3 => 'complete-trainee-register',
             4 => 'complete-organization-register',
         ];
+        $routeName = $routes[$user->user_type_id] ?? 'home';
+        $link = URL::temporarySignedRoute(
+            $routeName,
+            now()->addMinutes(15),
+            ['id' => $user->id] 
+        );
 
         return [
             'success' => true,
             'msg' => 'تم التحقق من الحساب بنجاح.',
             'data' => [
-                'link' => route($routes[$user->user_type_id] ?? 'home', ['id' => $user->id])
+                'link' => $link
             ]
         ];
     } catch (\Exception $e) {

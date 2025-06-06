@@ -42,6 +42,9 @@
             @endif
             <a href="{{ route('training_experience.index') }}" class="btn btn-info">Manage Training Experience</a>
             <a href="{{ route('work_experience.index') }}" class="btn btn-info">View Work Experiences</a>
+            <a href="{{ route('skills.index') }}" class="btn btn-info">skills</a>
+            <a href="{{ route('education.index') }}" class="btn btn-info">Educations management</a>
+            <a href="{{ route('user_certificate.index') }}" class="btn btn-info">Certificates management</a>
 
 
         </div>
