@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserCertificateController;
 use App\Http\Controllers\User\AssistantController;
 use App\Http\Controllers\User\EducationController;
@@ -120,12 +121,6 @@ Route::middleware('auth:web')->group(function () {
     Route::put('/user_certificate/{id}', [UserCertificateController::class, 'updateUserCertificate'])->name('user_certificate.update');
     Route::delete('/user_certificate/{id}', [UserCertificateController::class, 'deleteUserCertificate'])->name('user_certificate.delete');
 
-    //portfolio
-    Route::get('/portfolio', [PortfolioController::class, 'showPortfolio'])->name('portfolio.index');
-    Route::get('/portfolio/store', [PortfolioController::class, 'storePortfolioForm'])->name('portfolio.store.form');
-    Route::post('/portfolio', [PortfolioController::class, 'storePortfolio'])->name('portfolio.store');
-    Route::get('/portfolio/update/{id}', [PortfolioController::class, 'updatePortfolioForm'])->name('portfolio.update.form');
-    Route::put('/portfolio/{id}', [PortfolioController::class, 'updatePortfolio'])->name('portfolio.update');
-    Route::delete('/portfolio/{id}', [PortfolioController::class, 'deletePortfolio'])->name('portfolio.delete');
-
+    //skill controller
+    Route::resource('skills',SkillController::class);
 });
