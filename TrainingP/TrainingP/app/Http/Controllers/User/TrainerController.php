@@ -12,48 +12,51 @@ use App\Models\WorkField;
 use App\Models\WorkSector;
 use App\Services\TrainerService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class TrainerController extends Controller
 {
-    protected $trainerService;
+  protected $trainerService;
 
-    public function __construct(TrainerService $trainerService)
-    {
-        $this->trainerService = $trainerService;
-    }
+  public function __construct(TrainerService $trainerService)
+  {
+    $this->trainerService = $trainerService;
+  }
 
-    public function showRegistrationForm($id)
-    {
-        $user = User::findOrFail($id);
-        $countries = Country::all();
-        $nationalities = Country::all();
-        $sexs = SexEnum::cases();
-        $work_sectors = WorkSector::all();
-        $provided_services = ProvidedService::all();
-        $work_fields = WorkField::all();
+  public function showRegistrationForm($id)
+  {
+    $user = User::findOrFail($id);
+    $countries = Country::all();
+    $nationalities = Country::all();
+    $sexs = SexEnum::cases();
+    $work_sectors = WorkSector::all();
+    $provided_services = ProvidedService::all();
+    $work_fields = WorkField::all();
 
-        return view('user.trainer.complete-register-form',
-        compact('user', 'countries', 'nationalities', 'sexs', 'work_sectors', 'provided_services', 'work_fields'));
+    return view(
+      'user.trainer.complete-register-form',
+      compact('user', 'countries', 'nationalities', 'sexs', 'work_sectors', 'provided_services', 'work_fields')
+    );
 
-    }
+  }
 
-    public function completeRegister(completeRegisterRequest $request, $id)
-{
+  public function completeRegister(completeRegisterRequest $request, $id)
+  {
     $validated = $request->validated();
 
     $response = $this->trainerService->completeRegister($validated, $id);
 
     if ($response['success'] == true) {
-        return redirect()->route('users_landing', ['id' => $id])->with('success', $response['msg']);
+      // ✅ تسجيل الدخول بعد الاكتمال
+      $user = User::findOrFail($id);
+      Auth::login($user);
+
+      return redirect()->route('homePage', ['id' => $id])->with('success', $response['msg']);
     } else {
-        return back()->withErrors(['error' => $response['msg']]);
+      return back()->withErrors(['error' => $response['msg']]);
     }
-}
+  }
 
-public function showUsersLanding($id){
-    $user = User::findOrFail($id);
-
-    return view('user.landing',compact('user'));
-}
 
 }

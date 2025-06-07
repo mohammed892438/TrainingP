@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('id')->unique();
 
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')

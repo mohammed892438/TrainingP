@@ -1,58 +1,459 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body>
+@extends('frontend.layouts.master')
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Laravel App</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container text-center mt-5">
-        <h1>Welcome to Laravel</h1>
-        <p>This is a simple home page built with Laravel Blade.</p>
-        @if(Auth::check())
-            <p>Hello, {{ Auth::user()->name }}!</p>
-            <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
-        @else
-            <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-        @endif
+@section('title', 'الرئيسية')
+  
+@section('css')
+@endsection
 
-        <div class="mt-4">
-            <a href="{{ route('trainerCv.index') }}" class="btn btn-secondary">View Your CV</a>
-            @if ($cv)
-                <a href="{{ route('trainerCv.update', $cv->id) }}" class="btn btn-success">Update CV</a>
-            @else
-                <a href="{{ route('trainerCv.create') }}" class="btn btn-primary">Upload CV</a>
-            @endif
-            <a href="{{ route('trainingExperience.index') }}" class="btn btn-info">الخبرات التدريبية </a>
-            <a href="{{ route('workExperience.index') }}" class="btn btn-info">الخبرات العملية </a>
-            <a href="{{ route('education.index') }}" class="btn btn-info">التعليم</a>
-            <a href="{{ route('userCertificates.index') }}" class="btn btn-info">الشهادات الاحترافية </a><br><br><br>
-            <a href="{{ route('portfolio.index') }}" class="btn btn-info">محفظة الاعمال </a>
-            <a href="{{ route('skills.index') }}" class="btn btn-info">المهارات</a>
-            <a href="{{ route('services.index') }}" class="btn btn-info">الخدمات</a>
-            <a href="{{ route('volunteerings.index') }}" class="btn btn-info">التطوع</a>
+@section('content')
 
-        </div>
-    </div>
+        <main>
+            <section class="intro-section">
+                <div class="grid">
+                    <div class="content">
+                        <div class="title">
+                            طوّر مسيرتك التدريبية ووسّع
+                            <div class="text-top">فرصك</div>
+                            المهنية مع
+                            <div
+                                class="text-underlined"
+                                style="color: var(--color-primary)"
+                            >
+                                TrainingP
+                            </div>
+                        </div>
+                        <div class="desc">
+                            منظومة متكاملة تجمع المدربين، والمتدربين، والمساعدين
+                            والمؤسسات في منصة احترافية واحدة — انطلق اليوم نحو
+                            فرص أفضل ودخل أكبر.
+                        </div>
+                    </div>
+                    <div class="advertisement">
+                        <div class="grid">
+                            <div class="pcard register-ex-screen">
+                                <div class="register-ex-screen-header">
+                                    <div class="title">سجل مجانًا الآن</div>
+                                    <div>
+                                        <svg
+                                            width="39"
+                                            height="12"
+                                            viewBox="0 0 39 12"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <circle
+                                                cx="5.6078"
+                                                cy="5.20833"
+                                                r="5"
+                                                transform="rotate(2.44 5.6078 5.20833)"
+                                                fill="#F55157"
+                                            />
+                                            <circle
+                                                cx="19.5951"
+                                                cy="5.80452"
+                                                r="5"
+                                                transform="rotate(2.44 19.5951 5.80452)"
+                                                fill="#FFC62A"
+                                            />
+                                            <circle
+                                                cx="33.5824"
+                                                cy="6.40023"
+                                                r="5"
+                                                transform="rotate(2.44 33.5824 6.40023)"
+                                                fill="#00AF6C"
+                                            />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="links">
+                                    <a class="pbtn pbtn-main" href="#"
+                                        >انضم كمتدرب</a
+                                    >
+                                    <a class="pbtn pbtn-success" href="#"
+                                        >سجّل كمساعد مدرب</a
+                                    >
+                                </div>
+                            </div>
+                            <div class="offer-wrapper">
+                                <div class="offer pcard">
+                                    <div class="title">
+                                        ابدأ الآن واحصل على رصيد 50$ - ينتهي
+                                        العرض في 31 آب 2025
+                                    </div>
+                                    <div>
+                                        <a class="pbtn pbtn-secondary" href="#"
+                                            >سجّل كمساعد مدرب</a
+                                        >
+                                    </div>
+                                </div>
+                                <div class="change-future pcard">
+                                    <div class="title">
+                                        غيّر مستقبلك اليوم مع
+                                    </div>
+                                    <div>
+                                        <img src={{ url('images/logos/logo.svg') }} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="why-us-section">
+                <div class="title">
+                    لماذا
+                    <div
+                        class="text-underlined"
+                        style="color: var(--color-primary)"
+                    >
+                        TrainingP؟
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="why-item">
+                        <div class="why-item-top">
+                        
+                            <img  src="./images/why-items/1.svg" />
+                        </div>
+                        <div class="why-item-content">
+                            <div class="title">
+                                مللت من التشتت في البحث عن الفرص؟
+                            </div>
+                            <div class="desc">نحن نجمعها لك في مكان واحد.</div>
+                        </div>
+                    </div>
+                    <div class="why-item reverse">
+                        <div class="why-item-content">
+                            <div class="title">
+                                سئمت من قلة العقود وانخفاض الدخل؟
+                            </div>
+                            <div class="desc">
+                                أنشئ تدريباتك المدفوعة وحقق دخلاً مستقلاً.
+                            </div>
+                        </div>
+                        <div class="why-item-top">
+                            <img src="./images/why-items/2.svg" />
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-item-top">
+                            <img src="./images/why-items/3.svg" />
+                        </div>
+                        <div class="why-item-content">
+                            <div class="title">ترهقك الطلبات الإدارية؟</div>
+                            <div class="desc">
+                                استعِن بمساعدين متخصصين يدعمون نجاحك
+                            </div>
+                        </div>
+                    </div>
+                    <div class="why-item reverse">
+                        <div class="why-item-content">
+                            <div class="title">ليس لديك ملف مدرب احترافي؟</div>
+                            <div class="desc">
+                                أنشئ محفظة أعمال احترافية تزيد فرص تعاقدك.
+                            </div>
+                        </div>
+                        <div class="why-item-top">
+                            <img src="./images/why-items/4.svg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="pfeatured">
+                    <div class="pfeatured-content">
+                        <div class="title">
+                            مع TrainingP، نمنحك الأدوات اللازمة للتركيز على عملك
+                            الحقيقي
+                        </div>
+                        <div class="desc">
+                            <span class="text-top text-top-white">التدريب</span>
+                        </div>
+                        <img src="./images/featured-box-right.svg" />
+                    </div>
+                </div>
+            </section>
+            <section class="features-section">
+                <div class="grid">
+                    <div class="title">
+                        ماذا ستحصل عليه عند
+                        <div
+                            class="text-underlined"
+                            style="color: var(--color-primary)"
+                        >
+                            تسجيلك؟
+                        </div>
+                    </div>
+                    <div class="pfeature-item">
+                        <div class="pfeature-item-col1">01</div>
+                        <div class="pfeature-item-col2">
+                            محفظة أعمال احترافية (Trainer Portfolio) جاهزة للعرض
+                            والتحميل.
+                        </div>
+                        <div class="pfeature-item-line-horizontal"></div>
+                        <div class="pfeature-item-line-vertical"></div>
+                    </div>
+                    <div class="pfeature-item">
+                        <div class="pfeature-item-col1">02</div>
+                        <div class="pfeature-item-col2">
+                            فرصة لنشر تدريباتك المدفوعة والوصول لمتدربين جدد.
+                        </div>
+                        <div class="pfeature-item-line-horizontal"></div>
+                    </div>
+                    <div class="pfeature-item">
+                        <div class="pfeature-item-col1">03</div>
+                        <div class="pfeature-item-col2">
+                            وصول شامل إلى المناقصات والوظائف التدريبية من مختلف
+                            المؤسسات.
+                        </div>
+                        <div class="pfeature-item-line-vertical center"></div>
+                    </div>
+                    <div class="pfeature-item">
+                        <div class="pfeature-item-col1">04</div>
+                        <div class="pfeature-item-col2">
+                            قاعدة بيانات وفلاتر متقدمة للبحث عن مساعدين يخففوا
+                            عنك أعباء العمل.
+                        </div>
+                        <div class="pfeature-item-line-vertical top"></div>
+                    </div>
+                    <div class="pfeature-item">
+                        <div class="pfeature-item-col1">05</div>
+                        <div class="pfeature-item-col2">
+                            رصيد هدية بقيمة 50$ لاستخدامه مباشرة في خدمات
+                            المنصة.
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="steps-section">
+                <div class="title">
+                    خطوات بسيطة
+                    <div
+                        class="text-underlined"
+                        style="color: var(--color-primary)"
+                    >
+                        للانطلاق
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="steps-wrapper">
+                        <div class="step-item">
+                            <div class="step-item-top">
+                                <div class="step-item-icon">
+                                    <img src="./images/steps/1.svg" />
+                                </div>
+                                <div class="step-item-text">01</div>
+                            </div>
+                            <div class="step-item-bottom">
+                                سجّل حسابك مجانًا
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-item-top">
+                                <div class="step-item-icon">
+                                    <img src="./images/steps/2.svg" />
+                                </div>
+                                <div class="step-item-text">02</div>
+                            </div>
+                            <div class="step-item-bottom">
+                                أنشئ ملفك التدريبي.
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-item-top">
+                                <div class="step-item-icon">
+                                    <img src="./images/steps/3.svg" />
+                                </div>
+                                <div class="step-item-text">03</div>
+                            </div>
+                            <div class="step-item-bottom">
+                                ابدأ بتقديم طلباتك، أو أنشئ تدريباتك الخاصة وحقق
+                                دخلك
+                            </div>
+                        </div>
+                    </div>
+                    <div class="steps-icons">
+                        <div class="steps-icon">
+                            <img src="./images/steps/icons/1.svg" />
+                        </div>
+                        <div class="steps-icon">
+                            <img src="./images/steps/icons/2.svg" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="reviews-section">
+                <div class="title-wrapper">
+                    <div class="title">
+                        شهادات
+                        <div
+                            class="text-underlined"
+                            style="color: var(--color-primary)"
+                        >
+                            مبكرة
+                        </div>
+                    </div>
+                    <div class="swiper-actions">
+                        <button class="prev pbtn pbtn-outlined">
+                            <img src="./images/reviews/prev.svg" />
+                        </button>
+                        <button class="next pbtn pbtn-main">
+                            <img src="./images/reviews/next.svg" />
+                        </button>
+                    </div>
+                </div>
+                <div class="reviews-wrapper swiper">
+                    <div class="swiper-content">
+                        <div class="swiper-slide">
+                            <div class="review-item">
+                                <div class="review-item-top">
+                                    <div class="review-item-person">
+                                        <img src="./images/reviews/1.jpg" />
+                                        <div class="review-item-person-content">
+                                            <div
+                                                class="review-item-person-name"
+                                            >
+                                                أحمد راشد الحافظ
+                                            </div>
+                                            <div
+                                                class="review-item-person-position"
+                                            >
+                                                مدرب
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-item-icon">
+                                        <img src="./images/reviews/icon.svg" />
+                                    </div>
+                                </div>
+                                <div class="review-item-bottom">
+                                    أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب
+                                    جديدة بدون تعقيد.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="review-item">
+                                <div class="review-item-top">
+                                    <div class="review-item-person">
+                                        <img src="./images/reviews/2.jpg" />
+                                        <div class="review-item-person-content">
+                                            <div
+                                                class="review-item-person-name"
+                                            >
+                                                أحمد راشد الحافظ
+                                            </div>
+                                            <div
+                                                class="review-item-person-position"
+                                            >
+                                                مدرب
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-item-icon">
+                                        <img src="./images/reviews/icon.svg" />
+                                    </div>
+                                </div>
+                                <div class="review-item-bottom">
+                                    أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب
+                                    جديدة بدون تعقيد.
+                                </div>
+                            </div>
+                        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+                        <div class="swiper-slide">
+                            <div class="review-item">
+                                <div class="review-item-top">
+                                    <div class="review-item-person">
+                                        <img src="./images/reviews/2.jpg" />
+                                        <div class="review-item-person-content">
+                                            <div
+                                                class="review-item-person-name"
+                                            >
+                                                أحمد راشد الحافظ
+                                            </div>
+                                            <div
+                                                class="review-item-person-position"
+                                            >
+                                                مدرب
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-item-icon">
+                                        <img src="./images/reviews/icon.svg" />
+                                    </div>
+                                </div>
+                                <div class="review-item-bottom">
+                                    أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب
+                                    جديدة بدون تعقيد.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="review-item">
+                                <div class="review-item-top">
+                                    <div class="review-item-person">
+                                        <img src="./images/reviews/1.jpg" />
+                                        <div class="review-item-person-content">
+                                            <div
+                                                class="review-item-person-name"
+                                            >
+                                                أحمد راشد الحافظ
+                                            </div>
+                                            <div
+                                                class="review-item-person-position"
+                                            >
+                                                مدرب
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-item-icon">
+                                        <img src="./images/reviews/icon.svg" />
+                                    </div>
+                                </div>
+                                <div class="review-item-bottom">
+                                    أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب
+                                    جديدة بدون تعقيد.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-bullets">
+                        <div class="bullet active"></div>
+                        <div class="bullet"></div>
+                    </div>
+                </div>
+                <div class="pfeatured style2">
+                    <div class="pfeatured-content">
+                        <div class="grid">
+                            <div class="col">
+                                <img src="./images/featured-box-right.svg" />
+                            </div>
+                            <div class="col">
+                                <div class="subtitle">
+                                    مستقبلك التدريبي يبدأ هنا.
+                                </div>
+                                <div class="title">
+                                    فرص أكثر، ظهور أكبر، تواصل أسرع وكل ذلك عبر
+                                    TrainingP.
+                                </div>
+                                <a href="{{ route('register') }}" class="pbtn pbtn-light top-white">
+                                    سجّل الآن مجانًا
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
+@endsection
+
+
+{{-- تضمين ملفات حافا سكريبت جديدة JS --}}
+@section('scripts')
+@endsection
+
+
+

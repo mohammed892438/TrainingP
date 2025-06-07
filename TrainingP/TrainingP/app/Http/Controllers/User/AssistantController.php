@@ -12,6 +12,7 @@ use App\Models\ProvidedService;
 use App\Models\User;
 use App\Services\AssistantService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AssistantController extends Controller
 {
@@ -43,16 +44,16 @@ class AssistantController extends Controller
         $response = $this->assistantService->completeRegister($validated , $id);
 
         if ($response['success'] == true) {
-            return redirect()->route('users_landing', ['id' => $id])->with('success', $response['msg']);
+                // ✅ تسجيل الدخول بعد الاكتمال
+      $user = User::findOrFail($id);
+      Auth::login($user);
+
+            return redirect()->route('homePage', ['id' => $id])->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']]);
         }
     }
 
-    public function showUsersLanding($id){
-        $user = User::findOrFail($id);
 
-        return view('user.landing',compact('user'));
-    }
 
 }

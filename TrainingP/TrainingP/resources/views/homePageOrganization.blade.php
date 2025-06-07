@@ -1,55 +1,320 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body>
+@extends('frontend.layouts.master_organization')
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Laravel App</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                </ul>
+
+@section('title', 'الرئيسية')
+  
+@section('css')
+@endsection
+
+@section('content')
+
+
+    <main class="companies">
+      <section class="intro-section">
+        <div class="grid">
+          <div class="content">
+            <div class="title">
+              <p>
+                اعثر على أفضل المدربين والمستشارين بكل سهولة في منصتك المهنية مع
+                <span
+                  class="text-underlined text-top right"
+                  style="color: var(--color-primary)"
+                >
+                  TrainingP
+                </span>
+              </p>
             </div>
+            <div class="desc">
+              منصة TrainingP تتيح للمؤسسات الوصول السريع إلى شبكة واسعة من
+              المدربين المحترفين، مع إمكانية نشر المناقصات واحتياجات المدربين
+              والميسرين وحتى إعلانات التدريبات - كل ذلك في مكان واحد وبدون عناء
+              البحث المتفرق.
+            </div>
+            <div class="action">
+              <a href="{{ route('register-org') }}" class="pbtn pbtn-main">
+                سجّل مؤسستك الآن وابدأ برصيد 100$
+              </a>
+            </div>
+          </div>
         </div>
-    </nav>
-
-    <div class="container text-center mt-5">
-        <h1>Welcome to Laravel Organization page</h1>
-        <p>This is a simple home page built with Laravel Blade.</p>
-        @if(Auth::check())
-            <p>Hello, {{ Auth::user()->name }}!</p>
-            <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
-        @else
-            <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-        @endif
-        <div class="mt-4">
-            <a href="{{ route('trainer.cv.view') }}" class="btn btn-secondary">View Your CV</a>
-            @if ($cv)
-                <a href="{{ route('trainer.cv.update', $cv->id) }}" class="btn btn-success">Update CV</a>
-            @else
-                <a href="{{ route('trainer.cv.form') }}" class="btn btn-primary">Upload CV</a>
-            @endif
-            <a href="{{ route('training_experience.index') }}" class="btn btn-info">Manage Training Experience</a>
-            <a href="{{ route('work_experience.index') }}" class="btn btn-info">View Work Experiences</a>
-            <a href="{{ route('skills.index') }}" class="btn btn-info">skills</a>
-            <a href="{{ route('education.index') }}" class="btn btn-info">Educations management</a>
-            <a href="{{ route('user_certificate.index') }}" class="btn btn-info">Certificates management</a>
-
-
+      </section>
+      <section class="features-section">
+        <div class="grid">
+          <div class="title">
+            <p>
+              لماذا
+              <span class="text-underlined" style="color: var(--color-primary)">
+                TrainingP؟
+              </span>
+            </p>
+          </div>
+          <div class="pfeature-item">
+            <div class="pfeature-item-col1">01</div>
+            <div class="pfeature-item-col2">
+              <div class="title">نشر الفرص في منصات عامة؟</div>
+              <div class="desc">
+                أعلن احتياجك واضمن وصوله إلى شبكة واسعة متخصصة من المدربين
+                والمستشارين والمرشدين.
+              </div>
+            </div>
+            <div class="pfeature-item-line-horizontal"></div>
+            <div class="pfeature-item-line-vertical"></div>
+          </div>
+          <div class="pfeature-item">
+            <div class="pfeature-item-col1">02</div>
+            <div class="pfeature-item-col2">
+              <div class="title">كثرة المتقدمين دون ملفات احترافية؟</div>
+              <div class="desc">
+                ملفات المدربين في TrainingP تعرض الخبرات التدريبية والاستشارية
+                والعملية والشهادات باحتراف وتميُّز.
+              </div>
+            </div>
+            <div class="pfeature-item-line-horizontal"></div>
+          </div>
+          <div class="pfeature-item">
+            <div class="pfeature-item-col1">03</div>
+            <div class="pfeature-item-col2">
+              <div class="title">صعوبة الوصول إلى خبرات متخصصة؟</div>
+              <div class="desc">
+                تصفّح المدربين والمستشارين حسب الموضوعات الدقيقة والتخصصات
+                النادرة بسهولة.
+              </div>
+            </div>
+            <div class="pfeature-item-line-vertical center"></div>
+          </div>
+          <div class="pfeature-item">
+            <div class="pfeature-item-col1">04</div>
+            <div class="pfeature-item-col2">
+              <div class="title">لا وقت للانتظار؟</div>
+              <div class="desc">
+                ابحث فورًا في بنك المدربين واختر من بين أفضل الكفاءات دون إعلان
+                مسبق.
+              </div>
+            </div>
+            <div class="pfeature-item-line-vertical top"></div>
+          </div>
+          <div class="pfeature-item">
+            <div class="pfeature-item-col1">05</div>
+            <div class="pfeature-item-col2">
+              <div class="title">وعود منمقة ومعلومات مضللة؟</div>
+              <div class="desc">
+                تقدّم TrainingP ملفات موثقة ومؤشرات واضحة لخبرات المدرب، تساعدكم
+                على التحقق قبل اتخاذ القرار.
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </section>
+      <div class="pfeatured small">
+        <div class="pfeatured-content">
+          <div class="title">
+            في منصتكم TrainingP، نوفر لكم الوقت، ونرفع جودة الاختيار، ونسهّل
+            الوصول إلى الكفاءات التي يصعب العثور عليها
+          </div>
+        </div>
+      </div>
+      <section class="companies-features-section">
+        <div class="title">
+          <p>
+            ماذا تقدم TrainingP
+            <span class="text-underlined" style="color: var(--color-primary)">
+              للمؤسسات؟
+            </span>
+          </p>
+        </div>
+        <div class="grid">
+          <div class="company-feature-item">
+            <img src="../images/company-features/1.svg" />
+            <div class="desc">بروفايلات مدربين احترافية مع تفاصيل كاملة</div>
+          </div>
+          <div class="company-feature-item">
+            <img src="../images/company-features/2.svg" />
+            <div class="desc">بحث متقدم بأكثر من 20 معيار</div>
+          </div>
+          <div class="company-feature-item">
+            <img src="../images/company-features/3.svg" />
+            <div class="desc" style="text-align: right; line-height: 30px">
+              <p>إمكانية نشر:</p>
+              <ul>
+                <li>وظائف مدربين وميسرين</li>
+                <li>مناقصات تدريبية</li>
+                <li>إعلانات تدريبات مفتوحة للمتدربين</li>
+              </ul>
+            </div>
+          </div>
+          <div class="company-feature-item">
+            <img src="../images/company-features/4.svg" />
+            <div class="desc">
+              رصيد مجاني بقيمة 50$ لاستخدامه في الاشتراك ونشر الإعلانات
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="start-section">
+        <div class="title">
+          <p>
+            كيف
+            <span class="text-underlined" style="color: var(--color-primary)">
+              تبدأ؟
+            </span>
+          </p>
+        </div>
+        <div class="grid">
+          <div class="start-item">
+            <img src="../images/how-to-start/1.svg" />
+            <div class="title">سجّل مؤسستك مجانًا خلال دقيقتين</div>
+            <div class="index">01</div>
+          </div>
+          <div class="start-item">
+            <img src="../images/how-to-start/2.svg" />
+            <div class="title">
+              ابدأ بنشر الوظائف والمناقصات التدريبية أو ابدأ البحث عن المدربين
+            </div>
+            <div class="index">02</div>
+          </div>
+          <div class="start-item">
+            <img src="../images/how-to-start/3.svg" />
+            <div class="title">
+              تواصل مع الكفاءات المناسبة مباشرة عبر وسائل الاتصال.
+            </div>
+            <div class="index">03</div>
+          </div>
+        </div>
+      </section>
+      <section class="reviews-section">
+        <div class="title-wrapper">
+          <div class="title">
+            شهادات
+            <div class="text-underlined" style="color: var(--color-primary)">
+              مبكرة
+            </div>
+          </div>
+          <div class="swiper-actions">
+            <button class="prev pbtn pbtn-outlined">
+              <img src="../images/reviews/prev.svg" />
+            </button>
+            <button class="next pbtn pbtn-main">
+              <img src="../images/reviews/next.svg" />
+            </button>
+          </div>
+        </div>
+        <div class="reviews-wrapper swiper">
+          <div class="swiper-content">
+            <div class="swiper-slide">
+              <div class="review-item">
+                <div class="review-item-top">
+                  <div class="review-item-person">
+                    <img src="../images/reviews/1.jpg" />
+                    <div class="review-item-person-content">
+                      <div class="review-item-person-name">
+                        أحمد راشد الحافظ
+                      </div>
+                      <div class="review-item-person-position">مدرب</div>
+                    </div>
+                  </div>
+                  <div class="review-item-icon">
+                    <img src="../images/reviews/icon.svg" />
+                  </div>
+                </div>
+                <div class="review-item-bottom">
+                  أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب جديدة بدون تعقيد.
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="review-item">
+                <div class="review-item-top">
+                  <div class="review-item-person">
+                    <img src="../images/reviews/2.jpg" />
+                    <div class="review-item-person-content">
+                      <div class="review-item-person-name">
+                        أحمد راشد الحافظ
+                      </div>
+                      <div class="review-item-person-position">مدرب</div>
+                    </div>
+                  </div>
+                  <div class="review-item-icon">
+                    <img src="../images/reviews/icon.svg" />
+                  </div>
+                </div>
+                <div class="review-item-bottom">
+                  أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب جديدة بدون تعقيد.
+                </div>
+              </div>
+            </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+            <div class="swiper-slide">
+              <div class="review-item">
+                <div class="review-item-top">
+                  <div class="review-item-person">
+                    <img src="../images/reviews/2.jpg" />
+                    <div class="review-item-person-content">
+                      <div class="review-item-person-name">
+                        أحمد راشد الحافظ
+                      </div>
+                      <div class="review-item-person-position">مدرب</div>
+                    </div>
+                  </div>
+                  <div class="review-item-icon">
+                    <img src="../images/reviews/icon.svg" />
+                  </div>
+                </div>
+                <div class="review-item-bottom">
+                  أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب جديدة بدون تعقيد.
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="review-item">
+                <div class="review-item-top">
+                  <div class="review-item-person">
+                    <img src="../images/reviews/1.jpg" />
+                    <div class="review-item-person-content">
+                      <div class="review-item-person-name">
+                        أحمد راشد الحافظ
+                      </div>
+                      <div class="review-item-person-position">مدرب</div>
+                    </div>
+                  </div>
+                  <div class="review-item-icon">
+                    <img src="../images/reviews/icon.svg" />
+                  </div>
+                </div>
+                <div class="review-item-bottom">
+                  أخيرًا منصة تحترم وقتي كمدرب وتفتح لي أبواب جديدة بدون تعقيد.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-bullets">
+            <div class="bullet active"></div>
+            <div class="bullet"></div>
+          </div>
+        </div>
+        <div class="pfeatured reverse">
+          <div class="pfeatured-content">
+            <div class="grid">
+              <div class="col">
+                <div class="title">
+                  سجّل مؤسستك اليوم وابدأ رحلتك نحو نجاح تدريبي أسرع وأكثر
+                  احترافية
+                </div>
+                <a href="{{ route('register-org') }}" class="pbtn pbtn-main top-white"> تسجيل المؤسسة </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+
+@endsection
+
+
+{{-- تضمين ملفات حافا سكريبت جديدة JS --}}
+@section('scripts')
+@endsection
+
+
+

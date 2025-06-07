@@ -12,6 +12,7 @@ use App\Models\OrganizationType;
 use App\Models\User;
 use App\Services\OrganizationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizationController extends Controller
 {
@@ -43,16 +44,14 @@ class OrganizationController extends Controller
     $response = $this->organizationService->completeRegister($validated, $id);
 
     if ($response['success'] == true) {
-        return redirect()->route('organizations_landing', ['id' => $id])->with('success', $response['msg']);
+            // ✅ تسجيل الدخول بعد الاكتمال
+      $user = User::findOrFail($id);
+      Auth::login($user);
+        return redirect()->route('homePageOrganization', ['id' => $id])->with('success', $response['msg']);
     } else {
         return back()->withErrors(['error' => $response['msg']]);
     }
 }
 
-public function showOrganizationsLanding($id){
-    $user = User::findOrFail($id);
-
-    return view('user.organization.landing',compact('user'));
-}
 
 }

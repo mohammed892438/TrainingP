@@ -67,7 +67,7 @@ public function verifyUser($id)
 
         return [
             'success' => true,
-            'msg' => 'تم التحقق من الحساب بنجاح.',
+            'msg' => 'تم التحقق من الحساب بنجاح يرجى تكملة معلومات الحساب.',
             'data' => [
                 'link' => $link
             ]

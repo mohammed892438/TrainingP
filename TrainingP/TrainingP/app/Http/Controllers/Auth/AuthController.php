@@ -35,10 +35,7 @@ class AuthController extends Controller
 
     public function ViewOrganization()
     {
-        $response = $this->trainerCvService->getYourCv();
-        $cv = $response['success'] ? $response['data'] : null;
-
-        return view('homePageOrganozation', compact('cv'));
+          return view('homePageOrganization');
     }
     
     public function RegisterView()
@@ -47,6 +44,12 @@ class AuthController extends Controller
     return view('auth.register', compact('userTypes'));
 }
 
+
+    public function RegisterViewOrganization()
+{
+    $userTypes = UserType::all();
+    return view('auth.register_organaization', compact('userTypes'));
+}
 
 public function register(RegisterRequest $request)
 {
