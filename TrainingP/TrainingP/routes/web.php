@@ -4,6 +4,7 @@ use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserCertificateController;
 use App\Http\Controllers\User\AssistantController;
 use App\Http\Controllers\User\EducationController;
+use App\Http\Controllers\User\GoalController;
 use App\Http\Controllers\User\OrganizationController;
 use App\Http\Controllers\User\PortfolioController;
 use App\Http\Controllers\User\ServiceController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\User\TrainerCvController;
 use App\Http\Controllers\User\TrainingExperienceController;
 use App\Http\Controllers\User\VolunteeringController;
 use App\Http\Controllers\User\WorkExperienceController;
+use App\Models\Goal;
 use App\Models\Trainer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -104,6 +106,8 @@ Route::middleware('auth:web')->group(function () {
     //volunteering
     Route::resource('volunteerings',VolunteeringController::class);
 
+    //goals
+    Route::resource('goals',GoalController::class);
 
 });
 

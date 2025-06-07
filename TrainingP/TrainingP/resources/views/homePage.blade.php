@@ -2,7 +2,7 @@
 
 
 @section('title', 'الرئيسية')
-  
+
 @section('css')
 @endsection
 
@@ -23,6 +23,7 @@
                                 TrainingP
                             </div>
                         </div>
+                        
                         <div class="desc">
                             منظومة متكاملة تجمع المدربين، والمتدربين، والمساعدين
                             والمؤسسات في منصة احترافية واحدة — انطلق اليوم نحو
@@ -113,7 +114,7 @@
                 <div class="grid">
                     <div class="why-item">
                         <div class="why-item-top">
-                        
+
                             <img  src="./images/why-items/1.svg" />
                         </div>
                         <div class="why-item-content">
