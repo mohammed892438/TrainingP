@@ -110,3 +110,6 @@ Route::middleware('auth:web')->group(function () {
 
 
 require __DIR__.'/front_fetch.php';
+// Route::get('/cities', function () {
+//     return response()->file(public_path('assets/states.json'));
+// });

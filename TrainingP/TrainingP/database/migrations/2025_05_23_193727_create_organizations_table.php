@@ -34,6 +34,8 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
+            $table->json('branches')->nullable();
+
             $table->json('organization_sectors');
 
             $table->string('work_type')->nullable();

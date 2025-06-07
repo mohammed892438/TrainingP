@@ -24,7 +24,7 @@ class completeRegisterRequest extends FormRequest
     public function rules(): array
 {
     return [
-        'phone_number' => 'required|string|min:10|max:20',
+        'phone_number' => ['required', 'regex:/^\+?\d{8,19}$/'],
 
         'city' => 'required|string',
 
@@ -70,10 +70,8 @@ class completeRegisterRequest extends FormRequest
 public function messages(): array
 {
     return [
-        'phone_number.required' => 'رقم الهاتف مطلوب.',
-        'phone_number.string' => 'يجب أن يكون رقم الهاتف نصًا.',
-        'phone_number.min' => 'يجب ألا يقل رقم الهاتف عن 10 أرقام.',
-        'phone_number.max' => 'يجب ألا يتجاوز رقم الهاتف 20 رقمًا.',
+        'phone_number.required' => 'حقل رقم الجوال مطلوب.',
+        'phone_number.regex' => 'يجب أن يكون رقم الجوال مكونًا من 8 إلى 20 رقمًا، ويمكن أن يبدأ بعلامة "+" فقط.',
 
         'city.required' => 'المدينة مطلوبة.',
         'city.string' => 'يجب أن تكون المدينة نصًا.',

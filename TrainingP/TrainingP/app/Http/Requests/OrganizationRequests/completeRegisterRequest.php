@@ -22,10 +22,10 @@ class completeRegisterRequest extends FormRequest
     public function rules(): array
 {
     return [
-        'name_en' => 'required|string|max:255',
+        'name_en' => 'nullable|string|max:255',
         'name_ar' => 'required|string|max:255',
         'city' => 'required|string|max:255',
-        'phone_number' => 'required|regex:/^[0-9]{10,15}$/',
+        'phone_number' => ['required', 'regex:/^\+?\d{8,19}$/'],
         'website' => 'required|url',
         'country_id' => 'required|exists:countries,id',
         'organization_type_id' => 'required|exists:organization_types,id',
@@ -37,6 +37,13 @@ class completeRegisterRequest extends FormRequest
         'established_year' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
 
         'bio' => 'required|string|min:10|max:2000',
+
+        'branch_country_id' => 'nullable|array',
+        'branch_country_id.*' => 'required|exists:countries,id',
+
+        'branch_city' => 'nullable|array',
+        'branch_city.*' => 'required|string|max:255',
+
     ];
 
 }
@@ -44,13 +51,12 @@ class completeRegisterRequest extends FormRequest
 public function messages(): array
 {
     return [
-        'name_en.required' => 'اسم المؤسسة بالإنجليزية مطلوب',
         'name_ar.required' => 'اسم المؤسسة بالعربية مطلوب',
 
         'city.required' => 'المدينة مطلوبة',
 
-        'phone_number.required' => 'رقم الهاتف مطلوب',
-        'phone_number.regex' => 'يجب أن يكون رقم الهاتف بين 10 إلى 15 رقمًا',
+        'phone_number.required' => 'حقل رقم الجوال مطلوب.',
+        'phone_number.regex' => 'يجب أن يكون رقم الجوال مكونًا من 8 إلى 20 رقمًا، ويمكن أن يبدأ بعلامة "+" فقط.',
 
         'website.required' => 'الموقع الإلكتروني مطلوب',
         'website.url' => 'يجب أن يكون الموقع الإلكتروني رابطًا صالحًا',
@@ -78,6 +84,17 @@ public function messages(): array
         'bio.required' => 'النبذة مطلوبة',
         'bio.min' => 'يجب ألا تقل النبذة عن 10 أحرف',
         'bio.max' => 'يجب ألا تزيد النبذة عن 2000 حرف',
+
+        'branch_country_id.array' => 'يجب أن تكون الدول في صيغة مصفوفة.',
+        'branch_country_id.*.required' => 'يرجى اختيار الدولة لكل فرع.',
+        'branch_country_id.*.exists' => 'الدولة المحددة لأحد الفروع غير موجودة.',
+
+        'branch_city.array' => 'يجب أن تكون المدن في صيغة مصفوفة.',
+        'branch_city.*.required' => 'يرجى إدخال اسم المدينة لكل فرع.',
+        'branch_city.*.string' => 'يجب أن يكون اسم المدينة نصًا.',
+        'branch_city.*.max' => 'يجب ألا يزيد اسم المدينة عن 255 حرفًا.',
+
+
     ];
 
 }

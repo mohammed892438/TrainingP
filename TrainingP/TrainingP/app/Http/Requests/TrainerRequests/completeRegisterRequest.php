@@ -42,7 +42,7 @@ class completeRegisterRequest extends FormRequest
             'bio' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'city' => 'required|string',
-            'phone_number' => ['required', 'numeric', 'digits_between:10,20'],
+            'phone_number' => ['required', 'regex:/^\+?\d{8,19}$/'],
         ];
     }
 
@@ -104,9 +104,8 @@ class completeRegisterRequest extends FormRequest
 
             'city.required' => 'المدينة مطلوبة.',
 
-            'phone.required' => 'رقم الهاتف مطلوب.',
-            'phone.numeric' => 'رقم الهاتف يجب أن يكون أرقام فقط.',
-            'phone.digits_between' => 'رقم الهاتف يجب أن يحتوي على 10 إلى 15 رقمًا.',
+            'phone_number.required' => 'حقل رقم الجوال مطلوب.',
+            'phone_number.regex' => 'يجب أن يكون رقم الجوال مكونًا من 8 إلى 20 رقمًا، ويمكن أن يبدأ بعلامة "+" فقط.',
 
         ];
     }

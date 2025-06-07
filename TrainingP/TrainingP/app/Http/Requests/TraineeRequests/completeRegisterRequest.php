@@ -31,7 +31,7 @@ class completeRegisterRequest extends FormRequest
             'country_id' => ['required', 'exists:countries,id'],
             'nationality' => 'required|array|min:1',
             'nationality.*' => 'exists:countries,id',
-            'phone_number' => ['required', 'numeric', 'digits_between:10,15'],
+            'phone_number' => ['required', 'regex:/^\+?\d{8,19}$/'],
             'city' => 'required|string',
             'sex' => ['required', new Enum(SexEnum::class)],
             'work_fields' => ['required', 'array'],
@@ -84,9 +84,8 @@ class completeRegisterRequest extends FormRequest
             'nationality.array' => 'يجب اختيار جنسية واحدة على الأقل.',
             'nationality.*.exists' => 'الجنسية المحددة غير صحيحة.',
 
-            'phone_number.required' => 'رقم الهاتف مطلوب.',
-            'phone_number.numeric' => 'رقم الهاتف يجب أن يكون أرقام فقط.',
-            'phone_number.digits_between' => 'رقم الهاتف يجب أن يحتوي على 10 إلى 15 رقمًا.',
+            'phone_number.required' => 'حقل رقم الجوال مطلوب.',
+            'phone_number.regex' => 'يجب أن يكون رقم الجوال مكونًا من 8 إلى 20 رقمًا، ويمكن أن يبدأ بعلامة "+" فقط.',
 
         ];
 

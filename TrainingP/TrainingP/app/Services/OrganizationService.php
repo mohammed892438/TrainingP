@@ -26,6 +26,25 @@ class OrganizationService
 
             $user->save();
 
+            $branches = [];
+
+            if (isset($data['branch_country_id'], $data['branch_city'])) {
+                $branches = array_filter(
+                    array_map(function ($countryId, $index) use ($data) {
+                        $city = $data['branch_city'][$index] ?? null;
+
+                        if ($countryId && $city) {
+                            return [
+                                'country_id' => $countryId,
+                                'city' => $city,
+                            ];
+                        }
+
+                        return null;
+                    }, $data['branch_country_id'], array_keys($data['branch_country_id']))
+                );
+            }
+
             $organization = new Organization();
             $organization->fill([
                 'id'                    => $user->id,
@@ -35,7 +54,10 @@ class OrganizationService
                 'annual_budgets_id'     =>$data['annual_budgets_id'],
                 'established_year'      =>$data['established_year'],
                 'website'               =>$data['website'],
+                'branches'             => $branches,
             ]);
+
+            // dd($branches);
 
             $organization->save();
 

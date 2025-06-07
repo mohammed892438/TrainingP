@@ -16,10 +16,12 @@ class Organization extends Model
         'annual_budgets_id',
         'organization_sectors',
         'work_type',
+        'branches',
     ];
 
     protected $casts = [
         'organization_sectors' => 'array',
+        'branches' => 'array',
     ];
 
     public function user()
