@@ -41,12 +41,14 @@
             @else
                 <a href="{{ route('trainerCv.create') }}" class="btn btn-primary">Upload CV</a>
             @endif
-            <a href="{{ route('trainingExperience.index') }}" class="btn btn-info">Manage Training Experience</a>
-            <a href="{{ route('workExperience.index') }}" class="btn btn-info">View Work Experiences</a>
-            <a href="{{ route('education.index') }}" class="btn btn-info">Educations management</a>
-            <a href="{{ route('userCertificates.index') }}" class="btn btn-info">Certificates management</a>
-            <a href="{{ route('portfolio.index') }}" class="btn btn-info">portfolio management</a>
-            <a href="{{ route('skills.index') }}" class="btn btn-info">skills</a>
+            <a href="{{ route('trainingExperience.index') }}" class="btn btn-info">الخبرات التدريبية </a>
+            <a href="{{ route('workExperience.index') }}" class="btn btn-info">الخبرات العملية </a>
+            <a href="{{ route('education.index') }}" class="btn btn-info">التعليم</a>
+            <a href="{{ route('userCertificates.index') }}" class="btn btn-info">الشهادات الاحترافية </a><br><br><br>
+            <a href="{{ route('portfolio.index') }}" class="btn btn-info">محفظة الاعمال </a>
+            <a href="{{ route('skills.index') }}" class="btn btn-info">المهارات</a>
+            <a href="{{ route('services.index') }}" class="btn btn-info">الخدمات</a>
+            <a href="{{ route('volunteerings.index') }}" class="btn btn-info">التطوع</a>
 
         </div>
     </div>

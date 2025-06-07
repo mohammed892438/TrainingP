@@ -88,6 +88,11 @@ class User extends Authenticatable
         return $this->hasMany(Service::class, 'users_id');
     }
 
+    public function volunteerings()
+    {
+        return $this->hasMany(Volunteering::class, 'users_id');
+    }
+
     public function advertisements()
     {
         return $this->hasMany(Advertisement::class);

@@ -6,10 +6,12 @@ use App\Http\Controllers\User\AssistantController;
 use App\Http\Controllers\User\EducationController;
 use App\Http\Controllers\User\OrganizationController;
 use App\Http\Controllers\User\PortfolioController;
+use App\Http\Controllers\User\ServiceController;
 use App\Http\Controllers\User\TraineeController;
 use App\Http\Controllers\User\TrainerController;
 use App\Http\Controllers\User\TrainerCvController;
 use App\Http\Controllers\User\TrainingExperienceController;
+use App\Http\Controllers\User\VolunteeringController;
 use App\Http\Controllers\User\WorkExperienceController;
 use App\Models\Trainer;
 use Illuminate\Support\Facades\Route;
@@ -95,8 +97,16 @@ Route::middleware('auth:web')->group(function () {
     Route::resource('userCertificates',UserCertificateController::class);
 
     //portfolio
-     Route::resource('portfolio',PortfolioController::class);
+    Route::resource('portfolio',PortfolioController::class);
 
     //skill controller
     Route::resource('skills',SkillController::class);
+
+    //services
+    Route::resource('services',ServiceController::class);
+
+    //volunteering
+    Route::resource('volunteerings',VolunteeringController::class);
+
+
 });

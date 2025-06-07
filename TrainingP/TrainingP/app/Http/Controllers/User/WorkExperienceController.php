@@ -72,7 +72,7 @@ class WorkExperienceController extends Controller
         }
     }
 
-    public function getWorkExperienceForUser(getWorkExperienceForUser $request)
+    public function show(getWorkExperienceForUser $request)
     {
         $response = $this->workExperience->getWorkExperienceForUser();
         if ($response['success']) {

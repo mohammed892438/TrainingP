@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+
     public function up(): void
     {
         Schema::create('services', function (Blueprint $table) {
@@ -16,17 +16,25 @@ return new class extends Migration
 
             $table->string('description');
 
-            $table->string('training_areas');
+            $table->json('training_areas');
 
             $table->string('client_type');
 
             $table->string('client_level');
 
-            $table->string('added-value');
+            $table->string('application_method');
 
-            $table->string('notes');
+            $table->decimal('hourly_wage',8,2);
 
-            
+            $table->foreignId('work_experience_id')
+            ->constrained()
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->text('added_value');
+
+            $table->text('notes');
+
 
             $table->foreignId('users_id')
             ->constrained()
@@ -37,7 +45,7 @@ return new class extends Migration
         });
     }
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('services');
