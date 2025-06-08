@@ -68,4 +68,5 @@ class Organization extends Model
     {
         return $this->hasMany(Commitment::class, 'organizations_id');
     }
+    
 }

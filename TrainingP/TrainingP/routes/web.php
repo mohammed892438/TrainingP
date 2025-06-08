@@ -1,5 +1,8 @@
 <?php
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\ChallengeAndProblemController;
+use App\Http\Controllers\User\CommitmentController;
+use App\Http\Controllers\User\partnershipController;
 use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserCertificateController;
 use App\Http\Controllers\User\AssistantController;
@@ -13,6 +16,7 @@ use App\Http\Controllers\User\TrainerController;
 use App\Http\Controllers\User\TrainerCvController;
 use App\Http\Controllers\User\TrainingExperienceController;
 use App\Http\Controllers\User\VolunteeringController;
+use App\Http\Controllers\User\WorkEnvironmentController;
 use App\Http\Controllers\User\WorkExperienceController;
 use App\Models\Goal;
 use App\Models\Trainer;
@@ -109,7 +113,12 @@ Route::middleware('auth:web')->group(function () {
     //goals
     Route::resource('goals',GoalController::class);
 
-});
+    //challenge and problems
+    Route::resource('challengeAndProblems',ChallengeAndProblemController::class);
+
+    //commitments controller
+    Route::resource('commitments', CommitmentController::class);
+}); 
 
 
 
