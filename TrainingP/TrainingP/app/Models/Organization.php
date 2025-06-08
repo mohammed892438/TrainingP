@@ -25,9 +25,9 @@ class Organization extends Model
     ];
 
     public function user()
-    {
-        return $this->belongsTo(User::class, 'id');
-    }
+{
+    return $this->belongsTo(User::class, 'organizations_id');
+}
 
     public function type()
     {

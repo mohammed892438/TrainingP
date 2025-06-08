@@ -81,7 +81,7 @@ Route::post('/complete-organization-register/{id}', [OrganizationController::cla
 
 
 // Middleware Group (Preserving Token Expiration Logic)
-Route::middleware('auth:web')->group(function () {
+Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     //trainer cv

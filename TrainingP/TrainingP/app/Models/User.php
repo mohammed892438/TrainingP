@@ -59,9 +59,9 @@ class User extends Authenticatable
     }
 
     public function organization()
-{
-    return $this->belongsTo(Organization::class, 'organizations_id');
-}
+    {
+        return $this->hasOne(Organization::class, 'id', 'organizations_id');
+    }
 
 
     public function workExperiences()

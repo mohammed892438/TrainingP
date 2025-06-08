@@ -107,26 +107,32 @@ public function showLoginForm()
 
 
 public function login(LoginRequest $request)
-    {
-        $validated = $request->validated();
-        $response = $this->authService->login($validated);
-        if($response['success'] == true){
-            if($response['data']['user_type_id'] == 4){
-                return redirect()->route('homePageOrganization')->with('success',$response['msg']);
-            }else{
-                return redirect()->route('homePage')->with('success',$response['msg']);
-            }
+{
+    $validated = $request->validated();
+    $response = $this->authService->login($validated);
+
+    if ($response['success'] == true) {
+        if ($response['data']['user_type_id'] == 4) {
+            return redirect()->route('homePageOrganization')->with('success', $response['msg']);
+        } else {
+            return redirect()->route('homePage')->with('success', $response['msg']);
         }
-        else{
-            return  redirect()->route('homePage')->with('failed',$response['msg']);
+    } else {
+        if (isset($response['redirectVerify']) && $response['redirectVerify'] === true) {
+            return redirect(route('verify-user-blade', ['id' => $response['userId']]))->with('failed', $response['msg']);
         }
+        if (isset($response['redirect'])) {
+            return redirect($response['redirect'])->with('failed', $response['msg']);
+        }
+        return view('index')->with('failed', $response['msg']);
     }
+}
 
     public function logout(Request $request)
     {
         $response = $this->authService->logout($request);
 
-        return redirect()->route('login')->with('success', $response['msg']);
+        return view('index')->with('success', $response['msg']);
     }
 
 

@@ -3,6 +3,10 @@
 namespace App\Services;
 
 use App\Mail\CompleteProfileMail;
+use App\Models\Assistant;
+use App\Models\Organization;
+use App\Models\Trainee;
+use App\Models\Trainer;
 use App\Models\UserType;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -116,16 +120,72 @@ public function resendVerificationEmail($id)
 }
 
 
-
-
-
-
 public function login(array $data)
 {
     try {
         $remember = isset($data['remember']) ? (bool)$data['remember'] : false;
+
+        // Attempt to authenticate the user
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']], $remember)) {
-            session(['user_id' => Auth::id(), 'email' => Auth::user()->email]);
+            $user = Auth::user();
+
+            // Check if the email is verified
+            if (is_null($user->email_verified_at)) {
+                Mail::to($user->email)->send(new CompleteProfileMail($user));
+                Auth::logout(); 
+                return [
+                    'msg' => 'يرجى التحقق من بريدك الإلكتروني قبل تسجيل الدخول.',
+                    'success' => false,
+                    'redirectVerify' => true, 
+                    'userId' => $user->id 
+                ];
+            }
+
+            $routes = [
+                1 => 'complete-trainer-register',
+                2 => 'complete-assistant-register',
+                3 => 'complete-trainee-register',
+                4 => 'complete-organization-register',
+            ];
+
+            $profileExists = false;
+            switch ($user->user_type_id) {
+                case 1: // Trainer
+                    $profileExists = Trainer::where('id', $user->id)->exists();
+                    break;
+                case 2: // Assistant
+                    $profileExists = Assistant::where('id', $user->id)->exists();
+                    break;
+                case 3: // Trainee
+                    $profileExists = Trainee::where('id', $user->id)->exists();
+                    break;
+                case 4: // Organization
+                    $profileExists = Organization::where('id', $user->id)->exists();
+                    break;
+                default:
+                    return [
+                        'msg' => 'نوع المستخدم غير معروف.',
+                        'success' => false,
+                        'redirect' => null
+                    ];
+            }
+            if (!$profileExists) {
+                $routeName = $routes[$user->user_type_id] ?? 'home';
+                $link = URL::temporarySignedRoute(
+                    $routeName,
+                    now()->addMinutes(15),
+                    ['id' => $user->id] 
+                );
+
+                return [
+                    'msg' => 'يرجى إكمال ملفك الشخصي.',
+                    'success' => false,
+                    'redirect' => $link
+                ];
+            }
+
+            // Create session if the profile is complete
+            session(['user_id' => $user->id, 'email' => $user->email]);
             if ($remember) {
                 config(['session.lifetime' => 20160]); // 14 days
             }
@@ -133,7 +193,7 @@ public function login(array $data)
             return [
                 'msg' => 'تم تسجيل الدخول بنجاح.',
                 'success' => true,
-                'data' => Auth::user()
+                'data' => $user
             ];
         }
 

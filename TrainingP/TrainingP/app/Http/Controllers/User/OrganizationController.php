@@ -45,8 +45,8 @@ class OrganizationController extends Controller
 
     if ($response['success'] == true) {
             // ✅ تسجيل الدخول بعد الاكتمال
-      $user = User::findOrFail($id);
-      Auth::login($user);
+        $user = User::findOrFail($id);
+        Auth::login($user);
         return redirect()->route('homePageOrganization', ['id' => $id])->with('success', $response['msg']);
     } else {
         return back()->withErrors(['error' => $response['msg']]);

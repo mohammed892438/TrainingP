@@ -29,7 +29,7 @@
             @forelse($collaborations as $collaboration)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ Auth::user()->organization->name }}</td>
+                    <td>{{ Auth::user()->name  }}</td>
                     <td>{{ optional($collaboration->coporation)->name }}</td>
                     <td>
                         <a href="{{ route('collaborations.edit', $collaboration->id) }}" class="btn btn-warning btn-sm">تعديل</a>
