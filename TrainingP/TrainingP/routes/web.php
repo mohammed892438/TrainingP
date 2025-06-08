@@ -6,6 +6,7 @@ use App\Http\Controllers\User\partnershipController;
 use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserCertificateController;
 use App\Http\Controllers\User\AssistantController;
+use App\Http\Controllers\User\CollaborationController;
 use App\Http\Controllers\User\EducationController;
 use App\Http\Controllers\User\GoalController;
 use App\Http\Controllers\User\OrganizationController;
@@ -118,11 +119,12 @@ Route::middleware('auth:web')->group(function () {
 
     //commitments controller
     Route::resource('commitments', CommitmentController::class);
-}); 
+
+    //Collaboration
+    Route::resource('collaborations', CollaborationController::class);
+
+});
 
 
 
 require __DIR__.'/front_fetch.php';
-// Route::get('/cities', function () {
-//     return response()->file(public_path('assets/states.json'));
-// });

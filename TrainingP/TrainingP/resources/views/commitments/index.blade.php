@@ -1,85 +1,68 @@
 
-    <h1>الالتزامات</h1>
-    <a href="{{ route('commitments.create') }}" class="btn">إضافة التزام جديد</a>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
-    @if(session('success'))
-        <div class="alert success">{{ session('success') }}</div>
-    @endif
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الالتزامات</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
 
-    @if($errors->any())
-        <div class="alert error">
-            @foreach($errors->all() as $error)
-                <div>{{ $error }}</div>
-            @endforeach
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">قائمة الالتزامات</h1>
+
+        @if(session('success'))
+            <div class="alert alert-success text-center">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger text-center">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        <div class="mb-3 text-end">
+            <a href="{{ route('commitments.create') }}" class="btn btn-primary">إضافة التزام جديد</a>
         </div>
-    @endif
 
-    <table class="commitment-table">
-        <thead>
-            <tr>
-                <th>الاسم</th>
-                <th>جهة الالتزام</th>
-                <th>العمليات</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($commitments as $commitment)
+        <table class="table table-bordered text-center">
+            <thead class="table-dark">
                 <tr>
-                    <td>{{ $commitment->name }}</td>
-                    <td>{{ $commitment->committed_to }}</td>
-                    <td>
-                        <a href="{{ route('commitments.edit', $commitment) }}" class="btn edit">تعديل</a>
-                        <form action="{{ route('commitments.destroy', $commitment) }}" method="POST" style="display:inline;">
+                    <th>#</th>
+                    <th>اسم الالتزام</th>
+                    <th>جهة الالتزام</th>
+                    <th>تاريخ الإضافة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($commitments as $commitment)
+                    <tr>
+                        <td>{{ $commitment->id }}</td>
+                        <td>{{ $commitment->name }}</td>
+                        <td>{{ $commitment->committed_to }}</td>
+                        <td>{{ $commitment->created_at->format('Y-m-d') }}</td>
+                        <td>
+                            <a href="{{ route('commitments.edit', $commitment->id) }}" class="btn btn-warning btn-sm">تعديل</a>
+                            <form action="{{ route('commitments.destroy', $commitment->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn delete">حذف</button>
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من الحذف؟')">حذف</button>
                         </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5">لا توجد بيانات.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</body>
 
-    <style>
-        .commitment-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .commitment-table th, .commitment-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        .commitment-table th {
-            background-color: #f2f2f2;
-        }
-        .btn {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn.edit {
-            background-color: #2196F3; /* Blue */
-        }
-        .btn.delete {
-            background-color: #f44336; /* Red */
-        }
-        .alert {
-            margin: 15px 0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .alert.success {
-            background-color: #dff0d8;
-            color: #3c763d;
-        }
-        .alert.error {
-            background-color: #f2dede;
-            color: #a94442;
-        }
-    </style>
+</html>

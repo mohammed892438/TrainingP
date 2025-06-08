@@ -28,33 +28,40 @@ class CommitmentController extends Controller
 
     public function create()
     {
+
         return view('commitments.create');
     }
 
     public function store(StoreCommitmentRequest $request)
     {
-        $data = $request->validated();
-        $data['organization_id'] = Auth::id();
-        try {
-            $this->commitmentService->createCommitment($data);
-            return redirect()->route('commitments.index')->with('success', 'تم إنشاء الالتزام بنجاح.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()]);
+        $validated = $request->validated();
+        $response = $this->commitmentService->createCommitment($validated);
+
+        if ($response['success']) {
+            return redirect()->route('commitments.index')->with('success', $response['msg']);
+        } else {
+            return back()->withErrors(['error' => $response['msg']])->withInput();
         }
     }
 
-    public function edit(Commitment $commitment)
+
+
+    public function edit($id)
     {
+        $commitment = Commitment::findOrFail($id);
         return view('commitments.edit', compact('commitment'));
     }
 
-    public function update(StoreCommitmentRequest $request, Commitment $commitment)
+
+    public function update(StoreCommitmentRequest $request, $id)
     {
-        try {
-            $this->commitmentService->updateCommitment($commitment, $request->validated());
-            return redirect()->route('commitments.index')->with('success', 'تم تحديث الالتزام بنجاح.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()]);
+        $validated = $request->validated();
+        $response = $this->commitmentService->updateCommitment($validated, $id);
+
+        if ($response['success']) {
+            return redirect()->route('homePage')->with('success', $response['msg']);
+        } else {
+            return back()->withErrors(['error' => $response['msg']])->withInput();
         }
     }
 

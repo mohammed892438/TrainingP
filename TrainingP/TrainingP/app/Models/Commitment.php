@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commitment extends Model
 {
-    protected $fillable = ['name', 'committed_to', 'organization_id'];
+    protected $fillable = ['name', 'committed_to', 'organizations_id'];
     protected $casts = [
         'committed_to' => CommittedToEnum::class,
     ];

@@ -3,40 +3,46 @@
 namespace App\Services;
 
 use App\Models\Commitment;
+use Illuminate\Support\Facades\Auth;
 
 class CommitmentService
 {
     public function createCommitment($data)
     {
-        try {
-            $Commitment = Commitment::create($data);
+        try{
+            $userId = Auth::id();
+            $data['organizations_id'] = $userId;
+            $commitment = Commitment::create($data);
             return [
-                'msg' => 'تم تخزين الالتزام بنجاح',
+                'msg' => 'تم تخزين البيانات.',
                 'success' => true,
-                'data' => $Commitment
+                'data' => $commitment
             ];
-        } catch (\Exception $e) {
+
+        }catch(\Exception $e){
             return [
-                'msg' => 'فشل إنشاء الالتزام: ' . $e->getMessage(),
-                'success' => false,
+                'msg' => $e->getMessage(),
+                'success'=> false,
                 'data' => []
             ];
         }
     }
 
-    public function updateCommitment($commitment, $data)
+    public function updateCommitment($data, $id)
     {
-        try {
-            $commitment = $commitment->update($data);
+        try{
+            $commitment = Commitment::findOrFail($id);
+            $commitment->update($data);
             return [
-                'msg' => 'تم تعديل على الألتزام',
+                'msg' => 'تم تعديل البيانات.',
                 'success' => true,
                 'data' => $commitment
             ];
-        } catch (\Exception $e) {
+
+        }catch(\Exception $e){
             return [
-                'msg' => 'فشل تحديث الالتزام: ' . $e->getMessage(),
-                'success' => false,
+                'msg' => $e->getMessage(),
+                'success'=> false,
                 'data' => []
             ];
         }
@@ -45,7 +51,7 @@ class CommitmentService
     public function getAllCommitments($organizationId)
     {
         try {
-            $commitment =  Commitment::where('organization_id', $organizationId)->get();
+            $commitment =  Commitment::where('organizations_id', $organizationId)->get();
             return [
                 'msg' => 'تم جلب جيمع الألتزام',
                 'success' => true,

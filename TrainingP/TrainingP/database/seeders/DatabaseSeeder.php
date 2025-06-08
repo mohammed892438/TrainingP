@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             OrganizationTypesTableSeeder::class,
             OrganizationSectorsTableSeeder::class,
             CertificateSeeder::class,
+            CorporationSeeder::class,
+
         ]);
 
     }
