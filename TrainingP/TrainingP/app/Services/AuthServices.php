@@ -23,7 +23,7 @@ class AuthServices
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         $user->save();
-
+        Auth::login($user);
         Mail::to($user->email)->send(new CompleteProfileMail($user));
 
         return [

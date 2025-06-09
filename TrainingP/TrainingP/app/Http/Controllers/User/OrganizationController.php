@@ -44,9 +44,6 @@ class OrganizationController extends Controller
     $response = $this->organizationService->completeRegister($validated, $id);
 
     if ($response['success'] == true) {
-            // ✅ تسجيل الدخول بعد الاكتمال
-        $user = User::findOrFail($id);
-        Auth::login($user);
         return redirect()->route('homePageOrganization', ['id' => $id])->with('success', $response['msg']);
     } else {
         return back()->withErrors(['error' => $response['msg']]);

@@ -42,10 +42,6 @@ class TraineeController extends Controller
         $response = $this->traineeService->completeRegister($validated, $id);
 
         if ($response['success'] == true) {
-                // ✅ تسجيل الدخول بعد الاكتمال
-        $user = User::findOrFail($id);
-        Auth::login($user);
-
             return redirect()->route('homePage', ['id' => $id])->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']]);
