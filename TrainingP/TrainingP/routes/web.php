@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\ChallengeAndProblemController;
 use App\Http\Controllers\User\CommitmentController;
 use App\Http\Controllers\User\partnershipController;
@@ -33,51 +34,8 @@ Route::get('/user', function (Request $request) {
     return Auth::user();
 })->middleware('auth');
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        $user = Auth::user();
-        if (is_null($user->email_verified_at)) {
-            return redirect()->route('verify-user-blade', ['id' => $user->id])->with('msg', 'يرجى التحقق من بريدك الإلكتروني.');
-        }
-        $routes = [
-            1 => 'complete-trainer-register',
-            2 => 'complete-assistant-register',
-            3 => 'complete-trainee-register',
-            4 => 'complete-organization-register',
-        ];
+Route::get('/', [HomeController::class, 'index']);
 
-        $profileExists = false;
-        switch ($user->user_type_id) {
-            case 1: // Trainer
-                $profileExists = Trainer::where('id', $user->id)->exists();
-                break;
-            case 2: // Assistant
-                $profileExists = Assistant::where('id', $user->id)->exists();
-                break;
-            case 3: // Trainee
-                $profileExists = Trainee::where('id', $user->id)->exists();
-                break;
-            case 4: // Organization
-                $profileExists = Organization::where('id', $user->id)->exists();
-                break;
-            default:
-                return redirect('/')->with('msg', 'نوع المستخدم غير معروف.');
-        }
-
-        if (!$profileExists) {
-            $routeName = $routes[$user->user_type_id] ?? 'home';
-            return redirect()->route($routeName, ['id' => $user->id]);
-        }
-        if ($user->user_type_id == 4) {
-            return redirect()->route('homePageOrganization'); 
-        }
-
-        return redirect()->route('homePage');
-
-    }
-
-    return view('index'); 
-});
 //home page
 Route::get('/homePage', [AuthController::class, 'View'])->name('homePage');
 Route::get('/homePageOrganization', [AuthController::class, 'ViewOrganization'])->name('homePageOrganization');
