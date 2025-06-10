@@ -48,9 +48,10 @@ class CommitmentService
         }
     }
 
-    public function getAllCommitments($organizationId)
+    public function getAllCommitments()
     {
         try {
+            $organizationId = Auth::id();
             $commitment =  Commitment::where('organizations_id', $organizationId)->get();
             return [
                 'msg' => 'تم جلب جيمع الألتزام',

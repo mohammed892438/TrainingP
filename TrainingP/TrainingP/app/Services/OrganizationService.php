@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Organization;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
@@ -78,5 +79,26 @@ class OrganizationService
                 'data' => []
             ];
         }
-   }
+    }
+    public function getOrganizationForUser()
+{
+    try {
+        $userId = Auth::id();
+        $organizations = Organization::with(['user','annualBudget','type'])
+            ->where('id', $userId)
+            ->get(); 
+        return [
+            'msg' => 'تم جلب البيانات.',
+            'success' => true,
+            'data' => $organizations 
+        ];
+    } catch (\Exception $e) {
+        return [
+            'msg' => $e->getMessage(),
+            'success' => false,
+            'data' => []
+        ];
+    }
+}
+
 }

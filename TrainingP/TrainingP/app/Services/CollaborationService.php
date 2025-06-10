@@ -10,7 +10,7 @@ class CollaborationService {
     public function showcollaborations(){
         try{
             $userId = Auth::id();
-            $collaborations = Collaboration::where('organizations_id',$userId)->get();
+            $collaborations = Collaboration::with(['organization','coporation'])->where('organizations_id',$userId)->get();
             return [
                 'msg' => 'تم جلب البيانات.',
                 'success' => true,

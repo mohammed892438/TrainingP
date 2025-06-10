@@ -22,7 +22,7 @@ class CommitmentController extends Controller
 
     public function index(indexCommitmentRequest $request)
     {
-        $commitments = $this->commitmentService->getAllCommitments(Auth::id());
+        $commitments = $this->commitmentService->getAllCommitments();
         return view('commitments.index', ['commitments' => $commitments['data']]);
     }
 

@@ -50,5 +50,14 @@ class OrganizationController extends Controller
     }
 }
 
+public function show(Request $request)
+{
+    $response = $this->organizationService->getOrganizationForUser();
+    if ($response['success']) {
+        return sendResponse($response['data'], $response['msg']);
+    } else {
+        return sendError($response['msg']);
+    }
+}
 
 }
