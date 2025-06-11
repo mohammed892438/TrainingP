@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\CompletionData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainingExperienceRequests\deleteTrainingExperience;
@@ -42,7 +42,7 @@ class TrainingExperienceController extends Controller
         $response = $this->trainingExperience->storeTrainingExperience($validated);
 
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }
@@ -63,7 +63,7 @@ class TrainingExperienceController extends Controller
         $response = $this->trainingExperience->updateTrainingExperience($validated, $id);
 
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }

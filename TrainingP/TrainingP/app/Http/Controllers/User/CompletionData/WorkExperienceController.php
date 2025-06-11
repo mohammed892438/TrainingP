@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\CompletionData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\workExperienceRequests\deleteWorkExperienceRequest;
@@ -38,7 +38,7 @@ class WorkExperienceController extends Controller
         $validated = $request->validated();
         $response = $this->workExperience->storeWorkExperience($validated);
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }
@@ -56,7 +56,7 @@ class WorkExperienceController extends Controller
         $validated = $request->validated();
         $response = $this->workExperience->updateWorkExperience($validated, $id);
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }
@@ -66,7 +66,7 @@ class WorkExperienceController extends Controller
     {
         $response = $this->workExperience->deleteWorkExperience($id);
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']]);
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Organization;
 
 use App\Http\Controllers\Controller;
 use App\Services\ChallengeAndProblemService;
@@ -22,7 +22,7 @@ class OrganizationProfileController extends Controller
 
     protected $collaborationService;
 
-    public function __construct(OrganizationService $organizationService , 
+    public function __construct(OrganizationService $organizationService ,
         ChallengeAndProblemService $challengeAndProblemService ,
         CommitmentService $commitmentService,
         GoalService $goalService,
@@ -48,9 +48,9 @@ class OrganizationProfileController extends Controller
     $collaborationService = $this->collaborationService->showcollaborations();
     $collaboration = collect($collaborationService['data']);
     $user = Auth::user();
-    return view('organization.organizationProfil', [
+    return view('user.organization.organizationProfil', [
         'user' => $user,
-        'organization' => $organization, 
+        'organization' => $organization,
         'challenges' => $challengeAndProblems,
         'commitments' => $commitment,
         'goals' => $goal,

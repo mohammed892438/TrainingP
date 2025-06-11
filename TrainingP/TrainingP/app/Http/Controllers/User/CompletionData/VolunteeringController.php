@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\CompletionData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VolunteeringRequests\showVolunteering;
@@ -41,7 +41,7 @@ class VolunteeringController extends Controller
         $response = $this->volunteeringService->storeVolunteering($validated);
 
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }
@@ -61,7 +61,7 @@ class VolunteeringController extends Controller
         $validated = $request->validated();
         $response = $this->volunteeringService->updateVolunteering($validated, $id);
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }

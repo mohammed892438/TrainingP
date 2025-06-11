@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\CompletionData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainerCvRequests\deleteCvRequest;
@@ -40,7 +40,7 @@ class TrainerCvController extends Controller
 {
     $response = $this->trainerCvService->UploadTrainerCv($request);
     if ($response['success'] == true) {
-        return redirect()->route('homePage')->with('success', $response['msg']);
+        return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
     } else {
         return back()->withErrors(['error' => $response['msg']]);
     }
@@ -66,7 +66,7 @@ public function update(Request $request, $id)
 {
     $response = $this->trainerCvService->updateCv($request, $id);
     if ($response['success'] == true) {
-        return redirect()->route('homePage')->with('success', $response['msg']);
+        return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
     } else {
         return back()->withErrors(['error' => $response['msg']]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\CompletionData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SkillRequests\destroySkillRequest;
@@ -37,7 +37,7 @@ class SkillController extends Controller
         $response = $this->skillService->storeSkill($validatedData);
 
         if ($response['success']) {
-            return redirect()->route('skills.index')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Organization;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationRequests\completeRegisterRequest;
@@ -72,7 +72,7 @@ public function showEditForm()
     $employee_number = EmployeeNumber::all();
     $annual_budget = AnnualBudget::all();
 
-    return view('organization.edit-register-form', compact(
+    return view('user.organization.edit-register-form', compact(
         'organization',
         'countries',
         'organization_type',

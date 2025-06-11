@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\CompletionData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCertificateRequests\deleteUserCertificate;
@@ -40,7 +40,7 @@ class UserCertificateController extends Controller
         $response = $this->UserCertificateService->storeUserCertificate($validated);
 
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }
@@ -60,7 +60,7 @@ class UserCertificateController extends Controller
         $response = $this->UserCertificateService->updateUserCertificate($validated, $id);
 
         if ($response['success']) {
-            return redirect()->route('homePage')->with('success', $response['msg']);
+            return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
         } else {
             return back()->withErrors(['error' => $response['msg']])->withInput();
         }

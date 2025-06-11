@@ -1,26 +1,27 @@
 <?php
+
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\ChallengeAndProblemController;
-use App\Http\Controllers\User\CommitmentController;
-use App\Http\Controllers\User\OrganizationProfileController;
+use App\Http\Controllers\User\Organization\ChallengeAndProblemController;
+use App\Http\Controllers\User\Organization\CommitmentController;
+use App\Http\Controllers\User\Organization\OrganizationProfileController;
 use App\Http\Controllers\User\partnershipController;
-use App\Http\Controllers\User\SkillController;
-use App\Http\Controllers\User\UserCertificateController;
-use App\Http\Controllers\User\AssistantController;
-use App\Http\Controllers\User\CollaborationController;
-use App\Http\Controllers\User\EducationController;
-use App\Http\Controllers\User\GoalController;
-use App\Http\Controllers\User\OrganizationController;
-use App\Http\Controllers\User\PortfolioController;
-use App\Http\Controllers\User\ServiceController;
-use App\Http\Controllers\User\TraineeController;
-use App\Http\Controllers\User\TrainerController;
-use App\Http\Controllers\User\TrainerCvController;
-use App\Http\Controllers\User\TrainingExperienceController;
-use App\Http\Controllers\User\VolunteeringController;
-use App\Http\Controllers\User\WorkEnvironmentController;
-use App\Http\Controllers\User\WorkExperienceController;
+use App\Http\Controllers\User\CompletionData\SkillController;
+use App\Http\Controllers\User\CompletionData\UserCertificateController;
+use App\Http\Controllers\User\Assistant\AssistantController;
+use App\Http\Controllers\User\Organization\CollaborationController;
+use App\Http\Controllers\User\CompletionData\EducationController;
+use App\Http\Controllers\User\Organization\GoalController;
+use App\Http\Controllers\User\Organization\OrganizationController;
+use App\Http\Controllers\User\CompletionData\PortfolioController;
+use App\Http\Controllers\User\CompletionData\ServiceController;
+use App\Http\Controllers\User\Trainee\TraineeController;
+use App\Http\Controllers\User\Trainer\TrainerProfileController;
+use App\Http\Controllers\User\Trainer\TrainerController;
+use App\Http\Controllers\User\CompletionData\TrainerCvController;
+use App\Http\Controllers\User\CompletionData\TrainingExperienceController;
+use App\Http\Controllers\User\CompletionData\VolunteeringController;
+use App\Http\Controllers\User\CompletionData\WorkExperienceController;
 use App\Models\Assistant;
 use App\Models\Goal;
 use App\Models\Organization;
@@ -69,7 +70,7 @@ Route::post('/complete-trainer-register/{id}', [TrainerController::class, 'compl
 Route::get('/complete-trainee-register/{id}', [TraineeController::class, 'showRegistrationForm'])
     ->name('complete-trainee-register');
 Route::post('/complete-trainee-register/{id}', [TraineeController::class, 'completeRegister'])->name('trainee.complete-register');
-Route::get('/show-trainer-profile' , [TrainerProfile::class , 'showProfile'])->name('show_trainer_profile');
+
 
 // Assistant Controller
 Route::get('/complete-assistant-register/{id}', [AssistantController::class, 'showRegistrationForm'])
@@ -130,6 +131,12 @@ Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
 
     //organization profile
     Route::get('/organization/profile', [OrganizationProfileController::class, 'showOrganizationProfile'])->name('organization.profile');
+
+    //trainer profile
+    Route::get('/show-trainer-profile' , [TrainerProfileController::class , 'showProfile'])->name('show_trainer_profile');
+    Route::get('/edit-trainer-profile' , [TrainerProfileController::class , 'editProfile'])->name('edit_trainer_profile');
+    Route::put('/update-trainer-profile' , [TrainerProfileController::class , 'updateProfile'])->name('update_trainer_profile');
+
 
     //update on organzation profile
     Route::get('organization/edit', [OrganizationController::class, 'showEditForm'])->name('organization.edit');
