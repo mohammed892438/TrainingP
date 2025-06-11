@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('trainer_cvs', function (Blueprint $table) {
-            $table->id();
+            $table->id()->unique();
 
             $table->string('cv_file');
 

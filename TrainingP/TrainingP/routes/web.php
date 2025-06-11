@@ -1,7 +1,9 @@
 <?php
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\ChallengeAndProblemController;
 use App\Http\Controllers\User\CommitmentController;
+use App\Http\Controllers\User\OrganizationProfileController;
 use App\Http\Controllers\User\partnershipController;
 use App\Http\Controllers\User\SkillController;
 use App\Http\Controllers\User\UserCertificateController;
@@ -171,6 +173,12 @@ Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
     //Collaboration
     Route::resource('collaborations', CollaborationController::class);
 
+    //organization profile
+    Route::get('/organization/profile', [OrganizationProfileController::class, 'showOrganizationProfile'])->name('organization.profile');
+
+    //update on organzation profile
+    Route::get('organization/edit', [OrganizationController::class, 'showEditForm'])->name('organization.edit');
+    Route::put('organization/update', [OrganizationController::class, 'update'])->name('organization.update');
 });
 
 

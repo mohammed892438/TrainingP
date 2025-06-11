@@ -11,6 +11,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="{{ asset('images/logos/logo.svg') }}">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
