@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>إنشاء الحساب</title>
+    <title>إنشاء حساب منظمة</title>
     <!-- روابط CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
     <link
@@ -24,21 +24,21 @@
     <div class="verify-bg mb-5">
         <div class="container-lg py-4">
             <!-- Form Container -->
-            
-                <form id="organizationForm"action="{{ route('organization-complete-register', $user->id) }}" method="POST">
-                    @csrf
-                    
-                    <!-- الخطوة 1: المعلومات الرئيسية -->
-                    <div class="step-form active" id="step1">
-                        <div class="header text-center mb-5">
-                            <h1 class="page-title">المعلومات
-                                <span class="intro-highlighted-text">
-                                    الرئيسية
-                                    <img src="../images/cots-style.svg" class="cots-style-img" alt="" />
-                                </span>
-                            </h1>
-                        </div>
-                        <div class="form-container">
+
+            <form id="organizationForm"action="{{ route('organization-complete-register', $user->id) }}" method="POST">
+                @csrf
+
+                <!-- الخطوة 1: المعلومات الرئيسية -->
+                <div class="step-form active" id="step1">
+                    <div class="header text-center mb-5">
+                        <h1 class="page-title">المعلومات
+                            <span class="intro-highlighted-text">
+                                الرئيسية
+                                <img src="../images/cots-style.svg" class="cots-style-img" alt="" />
+                            </span>
+                        </h1>
+                    </div>
+                    <div class="form-container">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">اسم المؤسسة (بالعربية)</label>
@@ -134,109 +134,120 @@
                             </svg>
                         </button>
                     </div>
-  </div>
-                  <!-- الخطوة 2: معلومات التواصل -->
-<div class="step-form" id="step2">
-    <div class="header text-center mb-5">
-        <h1 class="page-title">معلومات
-            <span class="intro-highlighted-text">
-                التواصل
-                <img src="../images/cots-style.svg" class="cots-style-img" alt="" />
-            </span>
-        </h1>
-    </div>
-    <div class="form-container">
-        <div class="row g-3">
-            @php
-                $countries = json_decode(file_get_contents(public_path('assets/countries.json')));
-            @endphp
+                </div>
+                <!-- الخطوة 2: معلومات التواصل -->
+                <div class="step-form" id="step2">
+                    <div class="header text-center mb-5">
+                        <h1 class="page-title">معلومات
+                            <span class="intro-highlighted-text">
+                                التواصل
+                                <img src="../images/cots-style.svg" class="cots-style-img" alt="" />
+                            </span>
+                        </h1>
+                    </div>
+                    <div class="form-container">
+                        <div class="row g-3">
+                            <!-- الهاتف -->
+                            @php
+                                $countries = json_decode(file_get_contents(public_path('assets/countries.json')));
+                            @endphp
 
-            <!-- الهاتف -->
-            <div class="col-md-6">
-                <label class="form-label">رقم الهاتف</label>
-                <div class="form-control p-0" dir="ltr">
-                    <div class="d-flex align-items-center w-100 ps-3 pe-3 gap-2" style="min-height: 48px;" id="phoneWrapper">
-                        <div class="dropdown position-relative" id="flagDropdown" dir="rtl">
-                            <div class="selected-flag d-flex align-items-center gap-1">
-                                <span class="dropdown-arrow">🞃</span>
-                                <img src="{{ asset('flags/tr.svg') }}" id="selectedFlag" class="flag-img" alt="flag">
-                            </div>
-                            <div class="flag-options" id="flagOptions">
-                                <input type="text" id="searchBox" class="search-box" placeholder="اكتب رمز الدولة...">
-                                @foreach ($countries as $country)
-                                    <div class="flag-item" data-code="{{ $country->phone_code }}" data-iso="{{ strtolower($country->iso2) }}">
-                                        <img src="{{ asset('flags/' . strtolower($country->iso2) . '.svg') }}" class="flag-img">
-                                        <span class="flag-code">+{{ $country->phone_code }}</span>
+                            <div class="col-md-6">
+                                <label class="form-label">رقم الهاتف</label>
+                                <div class="form-control p-0" dir="ltr">
+                                    <div class="d-flex align-items-center w-100 ps-3 pe-3 gap-2"
+                                        style="min-height: 48px;" id="phoneWrapper">
+                                        <div class="dropdown position-relative" id="flagDropdown" dir="rtl">
+                                            <div class="selected-flag d-flex align-items-center gap-1">
+                                                <span class="dropdown-arrow">🞃</span>
+                                                <img src="{{ asset('flags/tr.svg') }}" id="selectedFlag"
+                                                    class="flag-img" alt="flag">
+                                            </div>
+                                            <div class="flag-options" id="flagOptions">
+                                                <input type="text" id="searchBox" class="search-box"
+                                                    placeholder="اكتب رمز الدولة...">
+                                                @foreach ($countries as $country)
+                                                    <div class="flag-item" data-code="{{ $country->phone_code }}"
+                                                        data-iso="{{ strtolower($country->iso2) }}">
+                                                        <img src="{{ asset('flags/' . strtolower($country->iso2) . '.svg') }}"
+                                                            class="flag-img">
+                                                        <span class="flag-code">+{{ $country->phone_code }}</span>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="divider-line"></div>
+                                        <div class="code-box" id="phoneCode" dir="ltr">+90</div>
+                                        <input type="text" id="phone_number" name="phone_number" required
+                                            class="flex-grow-1 border-0 ps-2 phone-input" pattern="[0-9]{6,15}"
+                                            title="يجب أن يحتوي على أرقام فقط (6-15 رقم)">
                                     </div>
-                                @endforeach
+                                </div>
+                                <div class="error-message" id="phone_number_error">يجب إدخال رقم هاتف صحيح</div>
                             </div>
+
+                            <!-- الإيميل -->
+                            <div class="col-md-6">
+                                <label class="form-label">البريد الإلكتروني للتواصل</label>
+                                <input type="email" class="form-control" value="{{ $user->email }}" disabled>
+                                <input type="hidden" name="email" value="{{ $user->email }}">
+                            </div>
+
+                            <!-- العنوان الرئيسي -->
+                            <div class="col-md-3">
+                                <label class="form-label">عنوان المركز الرئيسي</label>
+                                <select class="form-select" id="country_id" name="country_id" required>
+                                    <option value="" selected disabled>اختر الدولة</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="error-message" id="country_id_error">يجب اختيار الدولة</div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">المدينة</label>
+                                <select class="form-select" id="city" name="city" required>
+                                    <option value="" selected disabled>اختر المدينة</option>
+                                </select>
+                                <div class="error-message" id="city_error">يجب اختيار المدينة</div>
+                            </div>
+
+                            <!-- الموقع الإلكتروني -->
+                            <div class="col-md-6">
+                                <label class="form-label">الموقع الإلكتروني</label>
+                                <input type="url" class="form-control" id="website" name="website"
+                                    placeholder="أدخل الموقع الإلكتروني الخاص بمؤسستك" style="direction: rtl;"
+                                    required>
+                                <div class="error-message" id="website_error">يجب إدخال موقع إلكتروني صحيح</div>
+                            </div>
+
+                            <!-- زر إضافة فرع -->
+                            <div class="col-md-12">
+                                <a href="javascript:void(0);" class="text-primary" onclick="addBranch()">➕ إضافة فرع
+                                    للمنظمة</a>
+                            </div>
+
+                            <!-- حاوية الفروع -->
+                            <div id="branchesContainer" class="col-12"></div>
                         </div>
-                        <div class="divider-line"></div>
-                        <div class="code-box" id="phoneCode" dir="ltr">+90</div>
-                        <input type="text" id="phone_number" name="phone_number" required class="flex-grow-1 border-0 ps-2 phone-input" pattern="[0-9]{6,15}" title="يجب أن يحتوي على أرقام فقط (6-15 رقم)">
+
+                        <!-- أزرار -->
+                        <div class="d-flex justify-content-between mt-4 gap-3">
+                            <button type="submit" class="btn btn-primary flex-grow-1" onclick="validateStep2()">
+                                إنهاء التسجيل
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="..." fill="white" />
+                                    <path d="..." fill="white" />
+                                </svg>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" style="min-width: 120px;"
+                                onclick="goToStep(1)">رجوع</button>
+                        </div>
                     </div>
                 </div>
-                <div class="error-message" id="phone_number_error">يجب إدخال رقم هاتف صحيح</div>
-            </div>
-
-            <!-- الإيميل -->
-            <div class="col-md-6">
-                <label class="form-label">البريد الإلكتروني للتواصل</label>
-                <input type="email" class="form-control" value="{{ $user->email }}" disabled>
-                <input type="hidden" name="email" value="{{ $user->email }}">
-            </div>
-
-            <!-- العنوان الرئيسي -->
-            <div class="col-md-3">
-                <label class="form-label">عنوان المركز الرئيسي</label>
-                <select class="form-select" id="country_id" name="country_id" required>
-                    <option value="" selected disabled>اختر الدولة</option>
-                    @foreach ($countries as $country)
-                        <option value="{{ $country->id }}">{{ $country->name }}</option>
-                    @endforeach
-                </select>
-                <div class="error-message" id="country_id_error">يجب اختيار الدولة</div>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">المدينة</label>
-                <select class="form-select" id="city" name="city" required>
-                    <option value="" selected disabled>اختر المدينة</option>
-                </select>
-                <div class="error-message" id="city_error">يجب اختيار المدينة</div>
-            </div>
-
-            <!-- الموقع الإلكتروني -->
-            <div class="col-md-6">
-                <label class="form-label">الموقع الإلكتروني</label>
-                <input type="url" class="form-control" id="website" name="website" placeholder="أدخل الموقع الإلكتروني الخاص بمؤسستك" style="direction: rtl;" required>
-                <div class="error-message" id="website_error">يجب إدخال موقع إلكتروني صحيح</div>
-            </div>
-
-            <!-- زر إضافة فرع -->
-            <div class="col-md-12">
-                <a href="javascript:void(0);" class="text-primary" onclick="addBranch()">➕ إضافة فرع للمنظمة</a>
-            </div>
-
-            <!-- حاوية الفروع -->
-            <div id="branchesContainer" class="col-12"></div>
-        </div>
-
-        <!-- أزرار -->
-        <div class="d-flex justify-content-between mt-4 gap-3">
-            <button type="submit" class="btn btn-primary flex-grow-1" onclick="validateStep2()">
-                إنهاء التسجيل 
-                <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="..." fill="white"/>
-                    <path d="..." fill="white"/>
-                </svg>
-            </button>
-            <button type="button" class="btn btn-outline-secondary" style="min-width: 120px;" onclick="goToStep(1)">رجوع</button>
-        </div>
-    </div>
-</div>
-                </form>
-                  <!-- عرض الأخطاء والرسائل -->
+            </form>
+            <!-- عرض الأخطاء والرسائل -->
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -251,8 +262,8 @@
                     {{ session('success') }}
                 </div>
             @endif
-            </div>
         </div>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -273,7 +284,7 @@
 
             // جلب بيانات الدول والمدن
             const citySelect = document.getElementById("city");
-    
+
             $('#country_id').on('change', function() {
                 var selected_country_id = $(this).val();
                 $('#city').empty().append('<option value="" selected disabled>اختر المدينة</option>');
@@ -281,7 +292,8 @@
                 fetch('/cities')
                     .then(response => response.json())
                     .then(data => {
-                        let filteredCities = data.filter(city => city.country_id == selected_country_id);
+                        let filteredCities = data.filter(city => city.country_id ==
+                            selected_country_id);
                         filteredCities.forEach(city => {
                             let option = new Option(city.name, city.name);
                             $('#city').append(option);
@@ -347,10 +359,6 @@
             errorElement.textContent = message;
             errorElement.style.display = 'block';
 
-            // معالجة خاصة لـ Select2
-            if ($(element).hasClass('select2-hidden-accessible')) {
-                $(element).next('.select2-container').find('.select2-selection').addClass('is-invalid');
-            }
         }
 
         // إخفاء رسالة الخطأ
@@ -361,13 +369,18 @@
             element.classList.remove('is-invalid');
             errorElement.style.display = 'none';
 
-            // معالجة خاصة لـ Select2
-            if ($(element).hasClass('select2-hidden-accessible')) {
-                $(element).next('.select2-container').find('.select2-selection').removeClass('is-invalid');
-            }
+  
+
         }
 
-        // تحقق من صحة الحقل
+function handleSelect2Validation(id, isValid) {
+    const container = $('#' + id).next('.select2-container');
+    if (!isValid) {
+        container.addClass('is-invalid');
+    } else {
+        container.removeClass('is-invalid');
+    }
+}
 
 
         // تحقق من صحة الحقول المحددة
@@ -378,12 +391,23 @@
                 const element = document.getElementById(field.id);
                 const value = field.isSelect2 ? $(element).val() : element.value;
 
-                if (!field.validation(value)) {
-                    showError(field.id, field.errorId, field.errorMessage);
-                    isValid = false;
-                } else {
-                    hideError(field.id, field.errorId);
-                }
+if (!field.validation(value)) {
+    showError(field.id, field.errorId, field.errorMessage);
+
+    // معالجة خاصية select2
+    if (field.isSelect2) {
+        handleSelect2Validation(field.id, false);
+    }
+
+    isValid = false;
+} else {
+    hideError(field.id, field.errorId);
+
+    if (field.isSelect2) {
+        handleSelect2Validation(field.id, true);
+    }
+}
+
             });
 
             return isValid;
@@ -488,33 +512,33 @@
                 }
             ];
 
-          return validateFields(fields);
+            return validateFields(fields);
         }
 
 
 
-let branchCount = 0;
-let allCities = [];
+        let branchCount = 0;
+        let allCities = [];
 
-window.addEventListener("DOMContentLoaded", function () {
-    // تحميل المدن من السيرفر
-    fetch('/cities')
-        .then(response => response.json())
-        .then(data => {
-            allCities = data;
+        window.addEventListener("DOMContentLoaded", function() {
+            // تحميل المدن من السيرفر
+            fetch('/cities')
+                .then(response => response.json())
+                .then(data => {
+                    allCities = data;
+                });
         });
-});
 
-function addBranch() {
-    branchCount++;
+        function addBranch() {
+            branchCount++;
 
-    const countries = @json($countries);
-    let countryOptions = `<option value="" disabled selected>اختر الدولة</option>`;
-    countries.forEach(c => {
-        countryOptions += `<option value="${c.id}">${c.name}</option>`;
-    });
+            const countries = @json($countries);
+            let countryOptions = `<option value="" disabled selected>اختر الدولة</option>`;
+            countries.forEach(c => {
+                countryOptions += `<option value="${c.id}">${c.name}</option>`;
+            });
 
-    const branchHtml = `
+            const branchHtml = `
         <div class="row g-3 border p-3 rounded mb-3 position-relative branch-item m-3" id="branch_${branchCount}">
             <div class="col-md-6">
                 <label class="form-label">الدولة (فرع)</label>
@@ -531,31 +555,39 @@ function addBranch() {
             <button type="button" class="btn-close position-absolute top-0 end-0 m-2" onclick="removeBranch(${branchCount})" title="حذف الفرع"></button>
         </div>`;
 
-    document.getElementById('branchesContainer').insertAdjacentHTML('beforeend', branchHtml);
-}
+            document.getElementById('branchesContainer').insertAdjacentHTML('beforeend', branchHtml);
+        }
 
-function removeBranch(id) {
-    const el = document.getElementById(`branch_${id}`);
-    if (el) el.remove();
-}
+        function removeBranch(id) {
+            const el = document.getElementById(`branch_${id}`);
+            if (el) el.remove();
+        }
 
-// تحديث المدن عند تغيير الدولة داخل أي فرع
-document.addEventListener('change', function (e) {
-    if (e.target && e.target.classList.contains('branch-country')) {
-        const selectedCountryId = e.target.value;
-        const branchId = e.target.getAttribute('data-branch');
-        const citySelect = document.getElementById(`branch_city_${branchId}`);
+        // تحديث المدن عند تغيير الدولة داخل أي فرع
+        document.addEventListener('change', function(e) {
+            if (e.target && e.target.classList.contains('branch-country')) {
+                const selectedCountryId = e.target.value;
+                const branchId = e.target.getAttribute('data-branch');
+                const citySelect = document.getElementById(`branch_city_${branchId}`);
 
-        citySelect.innerHTML = `<option value="" disabled selected>اختر المدينة</option>`;
+                citySelect.innerHTML = `<option value="" disabled selected>اختر المدينة</option>`;
 
-        const cities = allCities.filter(city => city.country_id == selectedCountryId);
-        cities.forEach(city => {
-            const option = new Option(city.name, city.name);
-            citySelect.appendChild(option);
+                const cities = allCities.filter(city => city.country_id == selectedCountryId);
+                cities.forEach(city => {
+                    const option = new Option(city.name, city.name);
+                    citySelect.appendChild(option);
+                });
+            }
         });
-    }
-});
+        //دمج الكود مع رقم الهاتف قبل الارسال
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const code = document.getElementById('phoneCode').textContent.trim(); // مثال: +90
+            const number = document.getElementById('phone_number').value.trim(); // مثال: 5551234567
+            const fullPhone = code + number; // النتيجة: +905551234567
 
+            // عدّل قيمة حقل الهاتف قبل الإرسال
+            document.getElementById('phone_number').value = fullPhone;
+        });
     </script>
 </body>
 

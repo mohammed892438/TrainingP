@@ -103,6 +103,8 @@
     color: var(--color-text-light);
     margin-bottom: 15px;
     text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .stepper .step.active .step-title {
@@ -573,4 +575,38 @@
 .select2-container--default .select2-selection--multiple .select2-search--inline .select2-search__field::placeholder {
     color: #6c757d; /* لون النص عندما لا يكون هناك اختيار */
   opacity: 0.6;
+}
+.tagify.is-invalid {
+    border: 1px solid #dc3545 !important;
+}
+
+
+.section-title {
+    font-size: 1.25rem;
+    color: #003090; /* لون أزرق غامق */
+    font-weight: bold;
+    position: relative;
+    padding-right: 25px; /* إزاحة العنوان قليلاً لليسار لإفساح المجال للنقطة */
+    direction: rtl;
+    display: inline-block;
+}
+
+.section-title::before {
+    content: "•";
+    color: #003090;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 0;
+    top: -2px;
+    line-height: 1;
+}
+.phone-ltr {
+    direction: ltr;
+    text-align: right;
+}
+
+.phone-ltr::placeholder {
+    direction: rtl;       /* ✅ هذا يعيد النص داخل placeholder للاتجاه العربي */
+    text-align: right;    /* ✅ ويحافظ على تنسيقه بصرياً */
+    unicode-bidi: plaintext; /* 🧙‍♂️ يخلي المتصفح يلتزم بترتيب النص المختلط */
 }

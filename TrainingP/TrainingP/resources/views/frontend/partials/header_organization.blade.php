@@ -21,7 +21,7 @@
         <li><a href="{{ route('login') }}" class="punderlined">تسجيل الدخول</a></li>
         <li><a href="{{ route('register-org') }}" class="pbtn pbtn-main">إنشاء حساب مجانًا</a></li>
         <li>
-          <a href="#" class="piconed">
+          <a href="{{ route('homePage') }}" class="piconed">
             <span>للمدربين والأفراد</span>
             <img src="{{ asset('images/send.svg') }}" />
           </a>
@@ -106,7 +106,7 @@
           <li><a href="{{ route('login') }}" class="punderlined pbtn pbtn-light">تسجيل الدخول</a></li>
           <li><a href="{{ route('register-org') }}" class="pbtn pbtn-light ptext-center">إنشاء حساب مجانًا</a></li>
           <li>
-            <a href="#" class="piconed pbtn pbtn-light">
+            <a href="{{ route('homePage') }}" class="piconed pbtn pbtn-light">
               <span>للمدربين والأفراد</span>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                    xmlns="http://www.w3.org/2000/svg">
