@@ -40,7 +40,7 @@ class OrganizationProfileController extends Controller
     $organizationService = $this->organizationService->getOrganizationForUser();
     $organization = $organizationService['data']->first();
     $challengeAndProblemService = $this->challengeAndProblemService->showchallengeAndProblem();
-    $challenges = collect($challengeAndProblemService['data']);
+    $challengeAndProblems = collect($challengeAndProblemService['data']);
     $commitmentService = $this->commitmentService->getAllCommitments();
     $commitment = collect($commitmentService['data']);
     $goalService = $this->goalService->showGoal();
@@ -51,7 +51,7 @@ class OrganizationProfileController extends Controller
     return view('organization.organizationProfil', [
         'user' => $user,
         'organization' => $organization, 
-        'challenges' => $challenges,
+        'challenges' => $challengeAndProblems,
         'commitments' => $commitment,
         'goals' => $goal,
         'collaborations' => $collaboration,

@@ -129,6 +129,10 @@ Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
 
     //organization profile
     Route::get('/organization/profile', [OrganizationProfileController::class, 'showOrganizationProfile'])->name('organization.profile');
+
+    //update on organzation profile
+    Route::get('organization/edit', [OrganizationController::class, 'showEditForm'])->name('organization.edit');
+    Route::put('organization/update', [OrganizationController::class, 'update'])->name('organization.update');
 });
 
 
