@@ -35,7 +35,8 @@ class Trainer extends Model
         'work_sectors' => 'array',
         'provided_services' => 'array',
         'work_fields' => 'array',
-        'nationality' => 'array'
+        'nationality' => 'array',
+        'important_topics' => 'array',
     ];
 
     public function user()

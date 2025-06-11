@@ -15,4 +15,6 @@ class ProvidedService extends Model
     {
         return $this->hasMany(Assistant::class, 'provided_services_id');
     }
+
+
 }

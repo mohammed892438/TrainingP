@@ -28,7 +28,7 @@ return new class extends Migration
             $table->json('work_fields');
             
 
-            $table->text('important_topics');
+            $table->json('important_topics');
 
             $table->foreign('id')
                 ->references('id')

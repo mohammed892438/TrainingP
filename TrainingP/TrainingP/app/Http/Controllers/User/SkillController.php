@@ -21,8 +21,8 @@ class SkillController extends Controller
 
     public function index()
     {
-        $skills = Skill::where('users_id', auth()->id())->get();
-        return view('skills.index', compact('skills'));
+        $response = $this->skillService->showSkill();
+        return view('skills.index', ['skills' => $response['data']]);
     }
     public function create()
     {

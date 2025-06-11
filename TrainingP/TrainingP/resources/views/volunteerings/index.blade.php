@@ -27,7 +27,7 @@
             @foreach($volunteerings as $volunteering)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $volunteering->type }}</td>
+                    <td>{{ $volunteering->serviceType->name}}</td>
                     <td>{{ $volunteering->mounthly_hours }}</td>
                     <td>
                         <ul>

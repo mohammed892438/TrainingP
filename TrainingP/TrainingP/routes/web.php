@@ -13,6 +13,7 @@ use App\Http\Controllers\User\OrganizationController;
 use App\Http\Controllers\User\PortfolioController;
 use App\Http\Controllers\User\ServiceController;
 use App\Http\Controllers\User\TraineeController;
+use App\Http\Controllers\User\Trainer\TrainerProfile;
 use App\Http\Controllers\User\TrainerController;
 use App\Http\Controllers\User\TrainerCvController;
 use App\Http\Controllers\User\TrainingExperienceController;
@@ -69,14 +70,14 @@ Route::get('/', function () {
             return redirect()->route($routeName, ['id' => $user->id]);
         }
         if ($user->user_type_id == 4) {
-            return redirect()->route('homePageOrganization'); 
+            return redirect()->route('homePageOrganization');
         }
 
         return redirect()->route('homePage');
 
     }
 
-    return view('index'); 
+    return view('index');
 });
 //home page
 Route::get('/homePage', [AuthController::class, 'View'])->name('homePage');
@@ -104,6 +105,8 @@ Route::post('/resend-verification-email/{id}', [AuthController::class, 'resendVe
 Route::get('/complete-trainer-register/{id}', [TrainerController::class, 'showRegistrationForm'])
     ->name('complete-trainer-register');
 Route::post('/complete-trainer-register/{id}', [TrainerController::class, 'completeRegister'])->name('trainer.complete-register');
+
+Route::get('/show-trainer-profile' , [TrainerProfile::class , 'showProfile'])->name('show_trainer_profile');
 
 
 // Trainee Controller

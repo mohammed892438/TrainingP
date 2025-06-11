@@ -66,7 +66,7 @@ class WorkExperienceService
     public function getWorkExperienceForUser(){
         try{
             $userId = Auth::id();
-            $workExperience = WorkExperience::where('user_id',$userId)->get();
+            $workExperience = WorkExperience::where('users_id',$userId)->get();
             return [
                 'msg' => 'تم جلب البيانات.',
                 'success' => true,

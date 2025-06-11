@@ -60,4 +60,22 @@ class SkillService
             ];
         }
     }
+
+    public function showSkill(){
+        try{
+            $userId = Auth::id();
+            $skill = Skill::where('users_id',$userId)->get();
+            return [
+                'msg' => 'تم جلب البيانات.',
+                'success' => true,
+                'data' => $skill
+            ];
+        }catch(\Exception $e){
+            return [
+                'msg' => $e->getMessage(),
+                'success' => false,
+                'data' => []
+            ];
+        }
+    }
 }

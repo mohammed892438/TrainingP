@@ -21,4 +21,10 @@ class Volunteering extends Model
     {
         return $this->belongsTo(User::class, 'users_id');
     }
+
+    public function serviceType()
+    {
+        return $this->belongsTo(ProvidedService::class, 'type');
+    }
+
 }

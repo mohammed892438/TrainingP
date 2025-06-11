@@ -11,7 +11,7 @@ class volunteeringService
     public function showVolunteering(){
         try{
             $userId = Auth::id();
-            $volunteering = Volunteering::where('users_id',$userId)->get();
+            $volunteering = Volunteering::where('users_id',$userId)->with('serviceType') ->get();
             return [
                 'msg' => 'تم جلب البيانات.',
                 'success' => true,

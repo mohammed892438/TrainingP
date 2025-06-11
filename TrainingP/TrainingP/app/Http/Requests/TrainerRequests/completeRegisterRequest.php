@@ -14,6 +14,20 @@ class completeRegisterRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $topics = json_decode($this->important_topics, true) ?? [];
+
+        // خذ فقط قيم value من كل عنصر
+        $cleanedTopics = array_map(function ($item) {
+            return is_array($item) && isset($item['value']) ? $item['value'] : $item;
+        }, $topics);
+
+        $this->merge([
+            'important_topics' => $cleanedTopics,
+        ]);
+    }
+
     public function rules(): array
     {
         return [
@@ -34,7 +48,9 @@ class completeRegisterRequest extends FormRequest
             'work_fields' => 'required|array|min:1',
             'work_fields.*' => 'exists:work_fields,id',
 
-            'important_topics' => 'required|string',
+            'important_topics' => 'required|array|min:1',
+            'important_topics.*' => 'string|max:255',
+
             'status' => ['nullable','string',new Enum(TrainerStatusEnum::class)],
             'hourly_wage' => 'nullable|numeric|min:0',
             'name_en' => 'required|string|max:255',
@@ -80,8 +96,12 @@ class completeRegisterRequest extends FormRequest
             'work_fields.array' => 'يجب اختيار مجال واحد على الأقل.',
             'work_fields.*.exists' => 'مجال العمل المحدد غير صحيح.',
 
-            'important_topics.required' => 'المواضيع المهمة مطلوبة.',
-            'important_topics.string' => 'يجب أن تكون المواضيع المهمة نصًا.',
+            'important_topics.required' => 'يجب إدخال المواضيع المهمة.',
+            'important_topics.array'    => 'يجب أن تكون المواضيع المهمة على شكل قائمة.',
+            'important_topics.min'      => 'يجب إدخال موضوع واحد على الأقل.',
+
+            'important_topics.*.string' => 'كل موضوع يجب أن يكون نصاً.',
+            'important_topics.*.max'    => 'لا يمكن أن يتجاوز أي موضوع 255 حرفاً.',
 
             'status.string' => 'يجب أن تكون الحالة نصًا.',
             'status.enum' => 'الحالة المحددة غير صحيحة.',
