@@ -23,21 +23,29 @@ return new class extends Migration
 
             $table->json('work_sectors');
 
-            $table->json('provided_services'); 
+            $table->json('provided_services');
 
             $table->json('work_fields');
-            
 
-            $table->json('important_topics');
+            $table->test('extra_work_fields');
+
+            $table->json('international_exp');
+
+            $table->string('linkedin_url')->nullable();
+
+            $table->string('website')->nullable();
+
+            $table->json('important_topics')->nullable();
 
             $table->foreign('id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->string('status')->nullable();
 
             $table->decimal('hourly_wage', 8, 2)->nullable();
+
+            $table->string('currency')->nullable();
 
             $table->timestamps();
         });

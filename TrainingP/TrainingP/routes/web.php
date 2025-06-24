@@ -14,6 +14,7 @@ use App\Http\Controllers\User\CompletionData\EducationController;
 use App\Http\Controllers\User\Organization\GoalController;
 use App\Http\Controllers\User\Organization\OrganizationController;
 use App\Http\Controllers\User\CompletionData\PortfolioController;
+use App\Http\Controllers\User\CompletionData\PreviousTrainingController;
 use App\Http\Controllers\User\CompletionData\ServiceController;
 use App\Http\Controllers\User\Trainee\TraineeController;
 use App\Http\Controllers\User\Trainer\TrainerProfileController;
@@ -91,31 +92,15 @@ Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     //trainer cv
-    Route::resource('trainerCv',TrainerCvController::class);
+    Route::post('upload/trainerCv',[TrainerCvController::class , 'uploafdCv'])->name('upload_cv');
+    Route::delete('delete/trainerCv', [TrainerCvController::class, 'deleteCv'])->name('delete_cv');
 
-    //training experience
-    Route::resource('trainingExperience',TrainingExperienceController::class);
-
-    //work experience
-    Route::resource('workExperience',WorkExperienceController::class);
-
-    //education
-    Route::resource('education',EducationController::class);
-
-    //certificate
-    Route::resource('userCertificates',UserCertificateController::class);
-
-    //portfolio
-    Route::resource('portfolio',PortfolioController::class);
-
-    //skill controller
-    Route::resource('skills',SkillController::class);
-
-    //services
-    Route::resource('services',ServiceController::class);
-
-    //volunteering
-    Route::resource('volunteerings',VolunteeringController::class);
+    //trainer previous training
+    Route::view('/upload/previoustraing' , 'user.trainer.store_pre_traing')->name('create_pre_trainig');
+    Route::post('upload/previoustraing',[PreviousTrainingController::class , 'storePreviousTraining'])->name('upload_pre_training');
+    Route::view('/edit/previoustraing/{id}' , 'user.trainer.update_pre_traing')->name('edit_pre_trainig');
+    Route::put('/edit/previoustraing/{id}' , [PreviousTrainingController::class, 'updatePreviousTraining'])->name('update_pre_trainig');
+    Route::delete('delete/previoustraing/{id}', [PreviousTrainingController::class, 'deletePreviousTraining'])->name('delete_pre_training');
 
     //goals
     Route::resource('goals',GoalController::class);
@@ -134,8 +119,18 @@ Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
 
     //trainer profile
     Route::get('/show-trainer-profile' , [TrainerProfileController::class , 'showProfile'])->name('show_trainer_profile');
-    Route::get('/edit-trainer-profile' , [TrainerProfileController::class , 'editProfile'])->name('edit_trainer_profile');
-    Route::put('/update-trainer-profile' , [TrainerProfileController::class , 'updateProfile'])->name('update_trainer_profile');
+
+    //edit profile personal info
+    Route::view('/edit-trainer-pesonal-info' , 'user.trainer.update_personal_info')->name('edit_personal_info');
+    Route::put('/edit-trainer-pesonal-info' , [TrainerProfileController::class, 'updatePersonalInfo'])->name('update_personal_info');
+
+    //edit profile experiance
+    Route::get('/edit-trainer-exp' , [TrainerProfileController::class, 'editExperiance'])->name('edit_experiance');
+    Route::put('/edit-trainer-exp' , [TrainerProfileController::class, 'updateExperiance'])->name('update_experiance');
+
+    //edit profile contact info
+    Route::get('/edit-trainer-contact-info' , [TrainerProfileController::class, 'editContactinfo'])->name('edit_contact_info');
+    Route::put('/edit-trainer-contact-info' , [TrainerProfileController::class, 'updateContactinfo'])->name('update_contact_info');
 
 
     //update on organzation profile

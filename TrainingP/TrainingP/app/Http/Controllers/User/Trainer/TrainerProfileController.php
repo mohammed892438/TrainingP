@@ -4,48 +4,28 @@ namespace App\Http\Controllers\User\Trainer;
 
 use App\Enums\SexEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TrainerRequests\updateProfile;
+use App\Http\Requests\TrainerRequests\profilePhoto;
+use App\Http\Requests\TrainerRequests\updateContactInfo;
+use App\Http\Requests\TrainerRequests\updateExperiance;
+use App\Http\Requests\TrainerRequests\updatePersonalInfo;
 use App\Models\Country;
 use App\Models\ProvidedService;
 use App\Models\Trainer;
 use App\Models\User;
 use App\Models\WorkField;
 use App\Models\WorkSector;
-use App\Services\EducationService;
-use App\Services\PortfolioService;
-use App\Services\ServiceService;
-use App\Services\SkillService;
-use App\Services\TrainerCvService;
 use App\Services\TrainerService;
-use App\Services\TrainingExperienceService;
-use App\Services\UserCertificateService;
-use App\Services\volunteeringService;
-use App\Services\WorkExperienceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TrainerProfileController extends Controller
 {
-    protected $workExperience, $EducationService , $UserCertificateService , $skillService , $volunteeringService ,
-    $trainingExperience ,  $portfolioService , $serviceService , $trainerCvService , $trainerService;
+    protected $trainerService;
 
-    public function __construct(EducationService $EducationService , WorkExperienceService $workExperience ,
-    UserCertificateService $UserCertificateService , SkillService $skillService ,volunteeringService $volunteeringService ,
-    TrainingExperienceService $trainingExperience , PortfolioService $portfolioService , ServiceService $serviceService ,
-    TrainerCvService $trainerCvService , TrainerService $trainerService)
-    {
-        $this->EducationService = $EducationService;
-        $this->workExperience = $workExperience;
-        $this->UserCertificateService = $UserCertificateService;
-        $this->skillService = $skillService;
-        $this->volunteeringService = $volunteeringService;
-        $this->trainingExperience = $trainingExperience;
-        $this->portfolioService = $portfolioService;
-        $this->serviceService = $serviceService;
-        $this->trainerCvService = $trainerCvService;
-        $this->trainerService = $trainerService;
-    }
-
+  public function __construct(TrainerService $trainerService)
+  {
+    $this->trainerService = $trainerService;
+  }
 
     public function showProfile()
 {
@@ -57,42 +37,11 @@ class TrainerProfileController extends Controller
 
     $providedServices = ProvidedService::whereIn('id', $trainer->provided_services ?? [])->get();
 
-    $importantTopics = $trainer->important_topics ?? [];
-
     $workSectors = WorkSector::whereIn('id', $trainer->work_sectors ?? [])->get();
 
-    $response1 = $this->workExperience->getWorkExperienceForUser();
-    $workexperiences = $response1['data'] ?? [];
+    $workFields = WorkField::whereIn('id', $trainer->work_fields ?? [])->get();
 
-    $response2 = $this->EducationService->showEducation();
-    $educations = $response2['data'] ?? [];
-
-    $response3 = $this->UserCertificateService->showUserCertificate();
-    $Certificates = $response3['data'] ?? [];
-
-    $response4 = $this->volunteeringService->showVolunteering();
-    $volunteerings = $response4['data'] ?? [];
-
-    $response5 = $this->trainingExperience->showTrainingExperience();
-    $trainingexperiences = $response5['data'] ?? [];
-
-    $response6 = $this->portfolioService->showPortfolio();
-    $Portfolios = $response6['data'] ?? [];
-
-    $response7 = $this->serviceService->showService();
-    $services = $response7['data'] ?? [];
-
-    $response8 = $this->skillService->showSkill();
-    $skills = $response8['data'] ?? [];
-
-    $response9 = $this->trainerCvService->getYourCv();
-    $trainercv = $response9['data'] ?? [];
-
-
-
-    return view('user.trainer.show_profile', compact('user', 'trainer' , 'workexperiences' , 'educations' , 'Certificates' ,
-    'volunteerings' , 'trainingexperiences' , 'Portfolios' , 'services' ,'skills' , 'providedServices' , 'workSectors' ,
-    'importantTopics' , 'trainercv' ));
+    return view('user.trainer.show_profile',compact('user','trainer','providedServices','workSectors','workFields'));
 }
 
 public function editProfile(){
@@ -119,11 +68,55 @@ public function editProfile(){
 
 }
 
-public function updateProfile(updateProfile $request){
+public function updatePersonalInfo(updatePersonalInfo $request){
 
-    $validated = $request->validated();
+    $data = $request->validated();
 
-    $response = $this->trainerService->updateProfil($validated);
+    $response = $this->trainerService->updatePersonalInfo($data);
+
+    if ($response['success'] == true) {
+      return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
+    } else {
+      return back()->withErrors(['error' => $response['msg']]);
+    }
+}
+
+public function editExperiance()
+{
+    $work_sectors = WorkSector::all(); // adjust model name if needed
+    $provided_services = ProvidedService::all();
+    $work_fields = WorkField::all();
+    $countries = Country::all();
+
+    return view('user.trainer.update_exp', compact('work_sectors', 'provided_services', 'work_fields','countries'));
+}
+
+
+public function updateExperiance(updateExperiance $request){
+
+    $data = $request->validated();
+
+    $response = $this->trainerService->updateExperiance($data);
+
+    if ($response['success'] == true) {
+      return redirect()->route('show_trainer_profile')->with('success', $response['msg']);
+    } else {
+      return back()->withErrors(['error' => $response['msg']]);
+    }
+}
+
+public function editContactinfo(){
+
+    $countries = Country::all();
+
+    return view('user.trainer.update_contact_info', compact('countries'));
+}
+
+public function updateContactinfo(updateContactInfo $request){
+
+    $data = $request->validated();
+
+    $response = $this->trainerService->updateContactinfo($data);
 
     if ($response['success'] == true) {
       return redirect()->route('show_trainer_profile')->with('success', $response['msg']);

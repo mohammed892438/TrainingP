@@ -442,7 +442,7 @@
                         handleSelect2Validation(field.id, true);
                     }
                 }
-                
+
 
             });
 

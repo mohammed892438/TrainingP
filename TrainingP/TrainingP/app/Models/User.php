@@ -64,35 +64,12 @@ class User extends Authenticatable
     }
 
 
-    public function workExperiences()
-    {
-        return $this->hasMany(WorkExperience::class, 'users_id');
-    }
-
-    public function certificates()
-    {
-        return $this->hasMany(Certificate::class, 'users_id');
-    }
-
-    public function skills()
-    {
-        return $this->hasMany(Skill::class, 'users_id');
-    }
 
     public function trainerCv()
     {
         return $this->hasOne(TrainerCv::class, 'user_id');
     }
 
-    public function services()
-    {
-        return $this->hasMany(Service::class, 'users_id');
-    }
-
-    public function volunteerings()
-    {
-        return $this->hasMany(Volunteering::class, 'users_id');
-    }
 
     public function advertisements()
     {

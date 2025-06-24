@@ -23,20 +23,23 @@ class Trainer extends Model
         'work_fields',
         'important_topics',
         'nationality',
-        'status',
         'hourly_wage',
+        'extra_work_fields',
+        'international_exp',
+        'linkedin_url',
+        'website',
+        'currency',
     ];
 
 
     protected $casts = [
         'sex' => SexEnum::class,
-        'status' => TrainerStatusEnum::class,
-
         'work_sectors' => 'array',
         'provided_services' => 'array',
         'work_fields' => 'array',
         'nationality' => 'array',
         'important_topics' => 'array',
+        'international_exp' => 'array',
     ];
 
     public function user()
@@ -44,28 +47,9 @@ class Trainer extends Model
         return $this->belongsTo(User::class, 'id');
     }
 
-    public function nationality()
+    public function previousTraining()
     {
-        return $this->belongsTo(Country::class, 'nationality_id');
+        return $this->hasOne(previousTraining::class, 'trainer_id');
     }
 
-    public function workSector()
-    {
-        return $this->belongsTo(WorkSector::class, 'work_sectors_id');
-    }
-
-    public function providedService()
-    {
-        return $this->belongsTo(ProvidedService::class, 'provided_services_id');
-    }
-
-    public function workField()
-    {
-        return $this->belongsTo(WorkField::class, 'work_fields_id');
-    }
-
-    public function trainingExperiences()
-    {
-        return $this->hasMany(TrainingExperience::class);
-    }
 }

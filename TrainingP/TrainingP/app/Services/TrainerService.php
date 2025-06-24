@@ -35,11 +35,10 @@ class TrainerService
             'work_fields'       => $data['work_fields'],
             'provided_services' => $data['provided_services'],
             'work_sectors'      => $data['work_sectors'],
+            'international_exp' => $data['international_exp']?? null,
             'nationality'       => $data['nationality'],
             'sex'               => $data['sex'],
             'headline'          => $data['headline'],
-            'status'            => $data['status'] ?? null,
-            'hourly_wage'       => $data['hourly_wage'] ?? null,
         ]);
 
         $trainer->setTranslations('last_name', [
@@ -70,16 +69,13 @@ class TrainerService
     }
 }
 
-public function updateProfil($data){
+public function updatePersonalInfo($data){
     try {
         $id = Auth::id();
         DB::beginTransaction();
 
         $user = User::findOrFail($id);
         $user->update([
-            'phone_number' => $data['phone_number'],
-            'city' => $data['city'],
-            'country_id' => $data['country_id'],
             'bio' => $data['bio'],
         ]);
 
@@ -88,8 +84,8 @@ public function updateProfil($data){
             'ar' => $data['name_ar'],
         ]);
 
-        if (request()->hasFile('profile_photo')) {
-            $file = request()->file('profile_photo');
+        if (request()->hasFile('photo')) {
+            $file = request()->file('photo');
             $path = $file->store('photos', 'public');
             $user->photo = $path;
         }
@@ -98,17 +94,12 @@ public function updateProfil($data){
 
         $trainer = Trainer::findOrFail($user->id);
 
-        $trainer->fill([
-            'id'                 => $user->id,
-            'important_topics'  => $data['important_topics'],
-            'work_fields'       => $data['work_fields'],
-            'provided_services' => $data['provided_services'],
-            'work_sectors'      => $data['work_sectors'],
+        $trainer->update([
             'nationality'       => $data['nationality'],
-            'sex'               => $data['sex'],
             'headline'          => $data['headline'],
-            'status'            => $data['status'] ?? null,
             'hourly_wage'       => $data['hourly_wage'] ?? null,
+            'currency'         => $data['currency'] ?? null,
+            'linkedin_url'     =>$data['linkedin_url'],
         ]);
 
         $trainer->setTranslations('last_name', [
@@ -137,6 +128,97 @@ public function updateProfil($data){
             'data' => []
         ];
     }
+}
+
+
+public function updateExperiance($data){
+
+    try {
+        $id = Auth::id();
+        DB::beginTransaction();
+
+        $user = User::findOrFail($id);
+
+        $trainer = Trainer::findOrFail($user->id);
+
+        $trainer->update([
+            'work_sectors'      => $data['work_sectors'],
+            'provided_services' => $data['provided_services'],
+            'work_fields'       => $data['work_fields'],
+            'important_topics'  => $data['important_topics'],
+            'international_exp' => $data['international_exp'],
+        ]);
+
+        $trainer->save();
+
+        DB::commit();
+
+        return [
+            'msg' => 'تم تخزين البيانات.',
+            'success' => true,
+            'data' => [
+                'user' => $user,
+                'trainer' => $trainer
+            ]
+        ];
+    } catch (\Exception $e) {
+        DB::rollBack();
+
+        return [
+            'msg' => $e->getMessage(),
+            'success' => false,
+            'data' => []
+        ];
+    }
+
+}
+
+
+public function updateContactinfo($data){
+
+    try {
+        $id = Auth::id();
+
+        DB::beginTransaction();
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'phone_number'  => $data['phone_number'],
+            'city'          => $data['city'],
+            'country_id'    => $data['country_id'],
+        ]);
+
+        $user->save();
+
+        $trainer = Trainer::findOrFail($user->id);
+
+        $trainer->update([
+            'website'      => $data['website'],
+        ]);
+
+        $trainer->save();
+
+        DB::commit();
+
+        return [
+            'msg' => 'تم تخزين البيانات.',
+            'success' => true,
+            'data' => [
+                'user' => $user,
+                'trainer' => $trainer
+            ]
+        ];
+    } catch (\Exception $e) {
+        DB::rollBack();
+
+        return [
+            'msg' => $e->getMessage(),
+            'success' => false,
+            'data' => []
+        ];
+    }
+
 }
 
 }

@@ -14,19 +14,19 @@ class completeRegisterRequest extends FormRequest
         return true;
     }
 
-    protected function prepareForValidation()
-    {
-        $topics = json_decode($this->important_topics, true) ?? [];
+    // protected function prepareForValidation()
+    // {
+    //     $topics = json_decode($this->important_topics, true) ?? [];
 
-        // خذ فقط قيم value من كل عنصر
-        $cleanedTopics = array_map(function ($item) {
-            return is_array($item) && isset($item['value']) ? $item['value'] : $item;
-        }, $topics);
+    //     // خذ فقط قيم value من كل عنصر
+    //     $cleanedTopics = array_map(function ($item) {
+    //         return is_array($item) && isset($item['value']) ? $item['value'] : $item;
+    //     }, $topics);
 
-        $this->merge([
-            'important_topics' => $cleanedTopics,
-        ]);
-    }
+    //     $this->merge([
+    //         'important_topics' => $cleanedTopics,
+    //     ]);
+    // }
 
     public function rules(): array
     {
@@ -39,6 +39,9 @@ class completeRegisterRequest extends FormRequest
             'nationality' => 'required|array|min:1',
             'nationality.*' => 'exists:countries,id',
 
+            'international_exp' => 'sometimes|array|min:1',
+            'international_exp.*' => 'exists:countries,id',
+
             'work_sectors' => 'required|array|min:1',
             'work_sectors.*' => 'exists:work_sectors,id',
 
@@ -48,16 +51,28 @@ class completeRegisterRequest extends FormRequest
             'work_fields' => 'required|array|min:1',
             'work_fields.*' => 'exists:work_fields,id',
 
-            'important_topics' => 'required|array|min:1',
-            'important_topics.*' => 'string|max:255',
+            // 'important_topics' => 'required|array|min:1',
+            // 'important_topics.*' => 'string|max:255',
+            'important_topics' => ['required', 'string'],
 
-            'status' => ['nullable','string',new Enum(TrainerStatusEnum::class)],
+            'website' => 'sometimes|url',
+
+            'linkedin_url'  => 'sometimes|url',
+
             'hourly_wage' => 'nullable|numeric|min:0',
+
+            'currency' => 'nullable|string',
+
             'name_en' => 'required|string|max:255',
+
             'name_ar' => 'required|string|max:255',
+
             'bio' => 'nullable|string',
+
             'country_id' => 'required|exists:countries,id',
+
             'city' => 'required|string',
+
             'phone_number' => ['required', 'regex:/^\+?\d{8,19}$/'],
         ];
     }
@@ -75,6 +90,10 @@ class completeRegisterRequest extends FormRequest
 
             'sex.required' => 'الجنس مطلوب.',
             'sex.enum' => 'الجنس المحدد غير صالح.',
+
+            'website.url' => 'يجب أن يكون الموقع الإلكتروني رابطًا صالحًا',
+
+            'linkedin_url.url' => 'يجب أن يكون رابطًا صالحًا',
 
             'headline.required' => 'المسمى الوظيفي مطلوب.',
             'headline.string' => 'يجب أن يكون المسمى الوظيفي نصًا.',
@@ -97,17 +116,18 @@ class completeRegisterRequest extends FormRequest
             'work_fields.*.exists' => 'مجال العمل المحدد غير صحيح.',
 
             'important_topics.required' => 'يجب إدخال المواضيع المهمة.',
-            'important_topics.array'    => 'يجب أن تكون المواضيع المهمة على شكل قائمة.',
-            'important_topics.min'      => 'يجب إدخال موضوع واحد على الأقل.',
+            'important_topics.string'    => 'يجب أن تكون المواضيع المهمة نصاً  .',
 
-            'important_topics.*.string' => 'كل موضوع يجب أن يكون نصاً.',
-            'important_topics.*.max'    => 'لا يمكن أن يتجاوز أي موضوع 255 حرفاً.',
+            'international_exp.array' => 'يجب اختيار خبرة دولية واحدة على الأقل.',
+            'international_exp.*.exists' => 'الخبرة الدولية المحددة غير صحيحة.',
 
-            'status.string' => 'يجب أن تكون الحالة نصًا.',
-            'status.enum' => 'الحالة المحددة غير صحيحة.',
+            // 'important_topics.*.string' => 'كل موضوع يجب أن يكون نصاً.',
+            // 'important_topics.*.max'    => 'لا يمكن أن يتجاوز أي موضوع 255 حرفاً.',
 
             'hourly_wage.numeric' => 'يجب أن تكون الأجرة بالساعة رقمًا.',
             'hourly_wage.min' => 'يجب ألا تكون الأجرة بالساعة أقل من 0.',
+
+            'currency.string' => 'يجب أن تكون العملة نصًا.',
 
             'name_en.required' => 'الاسم باللغة الإنجليزية مطلوب.',
             'name_en.string' => 'يجب أن يكون الاسم باللغة الإنجليزية نصًا.',
