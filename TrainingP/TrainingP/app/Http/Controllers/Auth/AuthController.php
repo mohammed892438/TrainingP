@@ -8,7 +8,6 @@ use App\Http\Requests\AuthRequests\RegisterRequest;
 use App\Http\Requests\AuthRequests\verfiyRequest;
 use App\Models\UserType;
 use App\Services\AuthServices;
-use App\Services\TrainerCvService;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseJson;
 use App\Http\Requests\AuthRequests\LoginRequest;
@@ -18,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     protected $authService;
-    protected $trainerCvService;
 
     public function __construct(AuthServices $authService)
     {
@@ -33,7 +31,7 @@ class AuthController extends Controller
     {
             return view('homePageOrganization');
     }
-    
+
     public function RegisterView()
 {
     $userTypes = UserType::all();
