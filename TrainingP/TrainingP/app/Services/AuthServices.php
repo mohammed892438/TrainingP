@@ -231,6 +231,45 @@ public function logout($request)
     }
 }
 
-   
+    public function searchByNameOrEmail(?string $query): array
+    {
+        $users = User::when($query, function ($q) use ($query) {
+            $q->where('name', 'like', "%$query%")
+                ->orWhere('email', 'like', "%$query%");
+        })->limit(10)->get();
+
+        return $users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'type' => match((int) $user->user_type_id) {
+                    1 => 'مدرب',
+                    2 => 'مساعد',
+                    default => 'غير معروف',
+                },
+                    ];
+        })->toArray();
+    }
+    public function searchByType(?string $query, ?int $userTypeId): array
+    {
+        $users = User::when($query, function ($q) use ($query) {
+            $q->where('name', 'like', "%$query%")
+              ->orWhere('email', 'like', "%$query%");
+        })
+        ->when($userTypeId, function ($q) use ($userTypeId) {
+            $q->where('user_type_id', $userTypeId);
+        })
+        ->limit(10)->get();
+    
+        return $users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->getRoleNames()->first() ?? 'غير محدد',
+            ];
+        })->toArray();
+    }
 
 }

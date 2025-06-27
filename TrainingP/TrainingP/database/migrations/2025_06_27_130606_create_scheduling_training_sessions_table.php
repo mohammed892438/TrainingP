@@ -11,22 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_certificates', function (Blueprint $table) {
+        Schema::create('scheduling_training_sessions', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('certificate_id')
-            ->constrained()
+            $table->foreignId('training_program_id')
+            ->references('id')
+            ->on('training_programs')
             ->onDelete('cascade');
-
-            $table->date('issue_date');
-
-            $table->string('verification_link');
-
-            $table->foreignId('user_id')
-            ->constrained()
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
+        
+            $table->date('session_date');
+            $table->unsignedInteger('duration_minutes'); 
+        
             $table->timestamps();
         });
     }
@@ -36,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_certificates');
+        Schema::dropIfExists('scheduling_training_sessions');
     }
 };

@@ -24,7 +24,6 @@ class Trainer extends Model
         'important_topics',
         'nationality',
         'hourly_wage',
-        'extra_work_fields',
         'international_exp',
         'linkedin_url',
         'website',

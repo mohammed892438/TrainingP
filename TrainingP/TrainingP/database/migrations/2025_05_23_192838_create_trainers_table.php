@@ -27,9 +27,7 @@ return new class extends Migration
 
             $table->json('work_fields');
 
-            $table->test('extra_work_fields');
-
-            $table->json('international_exp');
+            $table->json('international_exp')->nullable();
 
             $table->string('linkedin_url')->nullable();
 

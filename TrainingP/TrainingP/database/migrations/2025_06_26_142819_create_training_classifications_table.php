@@ -11,20 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('portfolios', function (Blueprint $table) {
+        Schema::create('training_classifications', function (Blueprint $table) {
             $table->id();
-
-            $table->string('title');
-
-            $table->string('photo')->nullable();
-
-            $table->string('file');
-
-            $table->foreignId('user_id')
-            ->constrained('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -34,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('portfolios');
+        Schema::dropIfExists('training_classifications');
     }
 };
