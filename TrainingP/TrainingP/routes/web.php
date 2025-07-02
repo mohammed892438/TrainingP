@@ -23,6 +23,7 @@ use App\Http\Controllers\User\CompletionData\TrainerCvController;
 use App\Http\Controllers\User\CompletionData\TrainingExperienceController;
 use App\Http\Controllers\User\CompletionData\VolunteeringController;
 use App\Http\Controllers\User\CompletionData\WorkExperienceController;
+use App\Http\Controllers\User\Trainer\TrainingAnnouncementController;
 use App\Models\Assistant;
 use App\Models\Goal;
 use App\Models\Organization;
@@ -90,6 +91,9 @@ Route::post('/complete-organization-register/{id}', [OrganizationController::cla
 // Middleware Group (Preserving Token Expiration Logic)
 Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/users/search-by-name', [AuthController::class, 'searchbyName'])->name('users.searchbyName');
+    Route::get('/users/search', [AuthController::class, 'search'])->name('users.search');
+
 
     //trainer cv
     Route::post('upload/trainerCv',[TrainerCvController::class , 'uploafdCv'])->name('upload_cv');
@@ -127,11 +131,25 @@ Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
     Route::put('/edit-trainer-exp' , [TrainerProfileController::class, 'updateExperiance'])->name('update_experiance');
     //contact info
     Route::put('/edit-trainer-contact-info' , [TrainerProfileController::class, 'updateContactinfo'])->name('update_contact_info');
-
-
+    
     //update on organzation profile
     Route::get('organization/edit', [OrganizationController::class, 'showEditForm'])->name('organization.edit');
     Route::put('organization/update', [OrganizationController::class, 'update'])->name('organization.update');
+
+    //training announcement 
+    Route::get('/Basic-training-information', [TrainingAnnouncementController::class, 'BasicTrainingInformationView'])->name('BasicTrainingInformationView.create');
+    Route::post('/BasicTrainingInformation', [TrainingAnnouncementController::class, 'BasicTrainingInformation'])->name('BasicTrainingInformation.store');
+    Route::get('/training/goals', [TrainingAnnouncementController::class, 'trainingGoalsView'])->name('trainingGoals.create');
+    Route::post('/training/goals', [TrainingAnnouncementController::class, 'trainingGoals'])->name('trainingGoals.store');
+    Route::get('/training-assistant-management/create', [TrainingAnnouncementController::class, 'createTrainingAndAssistantManagement'])->name('training_assistant_management.create');
+    Route::post('/training-assistant-management/store', [TrainingAnnouncementController::class, 'storeTrainingAndAssistantManagement'])->name('training_assistant_management.store');
+    Route::get('/scheduling-training-sessions/create', [TrainingAnnouncementController::class, 'createSchedulingTrainingSessions'])->name('scheduling_training_sessions.create');
+    Route::post('/scheduling-training-sessions', [TrainingAnnouncementController::class, 'storeSchedulingTrainingSessions'])->name('scheduling_training_sessions.store');
+    Route::get('/additional-settings/create', [TrainingAnnouncementController::class, 'createAdditionalSettings'])->name('additional_settings.create');
+    Route::post('/additional-settings', [TrainingAnnouncementController::class, 'storeAdditionalSettings'])->name('additional_settings.store');
+    Route::get('/training-review', [TrainingAnnouncementController::class, 'review'])->name('training.review');
+    Route::post('/training-save', [TrainingAnnouncementController::class, 'store'])->name('training.store.all');
+
 });
 
 

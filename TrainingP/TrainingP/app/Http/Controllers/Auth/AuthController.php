@@ -29,7 +29,7 @@ class AuthController extends Controller
 
     public function ViewOrganization()
     {
-          return view('homePageOrganization');
+            return view('homePageOrganization');
     }
 
     public function RegisterView()
@@ -128,6 +128,21 @@ public function login(LoginRequest $request)
 
         return view('index')->with('success', $response['msg']);
     }
+    public function searchbyName(Request $request)
+    {
+        $query = $request->input('search_term');
+        $results = $this->authService->searchByNameOrEmail($query);
 
+        return response()->json($results);
+    }
+    public function search(Request $request)
+{
+    $query = $request->input('q');
+    $userTypeId = $request->input('user_type_id'); 
+
+    $results = $this->authService->searchByType($query, $userTypeId);
+
+    return response()->json($results);
+}
 
 }

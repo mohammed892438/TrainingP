@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-         $this->call([
+        $this->call([
             CountrySeeder::class,
             ProvidedServiceSeeder::class,
             SectorSeeder::class,
@@ -33,9 +33,10 @@ class DatabaseSeeder extends Seeder
             UserTypeSeeder::class,
             OrganizationTypesTableSeeder::class,
             OrganizationSectorsTableSeeder::class,
-            CertificateSeeder::class,
-            CorporationSeeder::class,
-
+            programTypeSeeder::class,
+            TrainingClassificationSeeder::class,
+            trainingLevelSeeder::class,
+            programPresentationMethodSeeder::class
         ]);
 
     }
