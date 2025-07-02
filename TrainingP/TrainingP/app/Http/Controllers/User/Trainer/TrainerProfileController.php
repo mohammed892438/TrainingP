@@ -30,43 +30,26 @@ class TrainerProfileController extends Controller
     public function showProfile()
 {
     $id = Auth::id();
-
     $user = User::with('country')->findOrFail($id);
-
     $trainer = Trainer::where('id', $id)->firstOrFail();
+    $sexs = SexEnum::cases();
+    $work_sectors = WorkSector::all();
+    $provided_services = ProvidedService::all();
+    $work_fields = WorkField::all();
+    $countries = Country::all();
 
-    $providedServices = ProvidedService::whereIn('id', $trainer->provided_services ?? [])->get();
+    $trainer_providedServices = ProvidedService::whereIn('id', $trainer->provided_services ?? [])->get();
 
-    $workSectors = WorkSector::whereIn('id', $trainer->work_sectors ?? [])->get();
+    $trainer_workSectors = WorkSector::whereIn('id', $trainer->work_sectors ?? [])->get();
 
-    $workFields = WorkField::whereIn('id', $trainer->work_fields ?? [])->get();
+    $trainer_workFields = WorkField::whereIn('id', $trainer->work_fields ?? [])->get();
+
+    $trainer_importantTopics = $trainer->important_topics ?? [];
 
     return view('user.trainer.show_profile',compact('user','trainer','providedServices','workSectors','workFields'));
 }
 
-public function editProfile(){
-    $id = Auth::id();
 
-    $user = User::with('country')->findOrFail($id);
-
-    $trainer = Trainer::where('id', $id)->firstOrFail();
-
-    $sexs = SexEnum::cases();
-
-    $nationalities = Country::all();
-
-    $workSectors = WorkSector::all();
-
-    $providedServices = ProvidedService::all();
-
-    $workFields = WorkField::all();
-
-    $importantTopics = $trainer->important_topics ?? [];
-
-    return view('user.trainer.update_profile', compact('user', 'trainer' , 'nationalities' , 'workSectors' , 'providedServices' ,
-    'workFields' , 'importantTopics' , 'sexs' ));
-
-}
 
 public function updatePersonalInfo(updatePersonalInfo $request){
 
@@ -79,16 +62,6 @@ public function updatePersonalInfo(updatePersonalInfo $request){
     } else {
       return back()->withErrors(['error' => $response['msg']]);
     }
-}
-
-public function editExperiance()
-{
-    $work_sectors = WorkSector::all(); // adjust model name if needed
-    $provided_services = ProvidedService::all();
-    $work_fields = WorkField::all();
-    $countries = Country::all();
-
-    return view('user.trainer.update_exp', compact('work_sectors', 'provided_services', 'work_fields','countries'));
 }
 
 
@@ -105,12 +78,6 @@ public function updateExperiance(updateExperiance $request){
     }
 }
 
-public function editContactinfo(){
-
-    $countries = Country::all();
-
-    return view('user.trainer.update_contact_info', compact('countries'));
-}
 
 public function updateContactinfo(updateContactInfo $request){
 

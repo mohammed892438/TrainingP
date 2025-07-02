@@ -120,16 +120,12 @@ Route::middleware(['auth:web','CheckEmailVerified'])->group(function () {
     //trainer profile
     Route::get('/show-trainer-profile' , [TrainerProfileController::class , 'showProfile'])->name('show_trainer_profile');
 
-    //edit profile personal info
-    Route::view('/edit-trainer-pesonal-info' , 'user.trainer.update_personal_info')->name('edit_personal_info');
+    //edit profile
+    //personal info
     Route::put('/edit-trainer-pesonal-info' , [TrainerProfileController::class, 'updatePersonalInfo'])->name('update_personal_info');
-
-    //edit profile experiance
-    Route::get('/edit-trainer-exp' , [TrainerProfileController::class, 'editExperiance'])->name('edit_experiance');
+    //experiance
     Route::put('/edit-trainer-exp' , [TrainerProfileController::class, 'updateExperiance'])->name('update_experiance');
-
-    //edit profile contact info
-    Route::get('/edit-trainer-contact-info' , [TrainerProfileController::class, 'editContactinfo'])->name('edit_contact_info');
+    //contact info
     Route::put('/edit-trainer-contact-info' , [TrainerProfileController::class, 'updateContactinfo'])->name('update_contact_info');
 
 

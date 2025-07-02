@@ -97,10 +97,19 @@ public function updatePersonalInfo($data){
         $trainer->update([
             'nationality'       => $data['nationality'],
             'headline'          => $data['headline'],
-            'hourly_wage'       => $data['hourly_wage'] ?? null,
-            'currency'         => $data['currency'] ?? null,
-            'linkedin_url'     =>$data['linkedin_url'],
         ]);
+
+        if (isset($data['hourly_wage'])) {
+            $trainer->hourly_wage = $data['hourly_wage'];
+        }
+
+        if (isset($data['currency'])) {
+            $trainer->currency = $data['currency'];
+        }
+
+        if (isset($data['linkedin_url'])) {
+            $trainer->linkedin_url = $data['linkedin_url'];
+        }
 
         $trainer->setTranslations('last_name', [
             'en' => $data['last_name_en'],
@@ -194,7 +203,7 @@ public function updateContactinfo($data){
         $trainer = Trainer::findOrFail($user->id);
 
         $trainer->update([
-            'website'      => $data['website'],
+            'website' => $data['website'],
         ]);
 
         $trainer->save();

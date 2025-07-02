@@ -35,18 +35,18 @@ class updatePersonalInfo extends FormRequest
             'nationality' => 'required|array|min:1',
             'nationality.*' => 'exists:countries,id',
 
-            'hourly_wage' => 'nullable|numeric|min:0',
+            'hourly_wage' => 'sometimes|numeric|min:0',
 
             'name_en' => 'required|string|max:255',
             'name_ar' => 'required|string|max:255',
 
             'bio' => 'required|string',
 
-            'currency'     => 'nullable|string',
+            'currency'    => 'sometimes|string',
 
-            'linkedin_url'  =>'nullable|url',
+            'linkedin_url'  =>'sometimes|url',
 
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:5120',
+            'photo' => 'sometimes|image|mimes:jpg,jpeg,png|max:5120',
         ];
     }
 
@@ -83,12 +83,12 @@ class updatePersonalInfo extends FormRequest
             'name_ar.max' => 'يجب ألا يتجاوز الاسم باللغة العربية 255 حرفًا.',
 
             'bio.string' => 'يجب أن يكون الوصف نصًا.',
+            'bio.required' => 'الوصف مطلوب',
 
             'currency.string' => 'حقل العملة يجب أن يكون نصًا صحيحًا.',
 
             'linkedin_url.url' => 'رابط لينكدإن يجب أن يكون عنوان URL صالحًا (يبدأ بـ http أو https).',
 
-            'profile_image.required' => 'يرجى إرفاق صورة شخصية.',
             'profile_image.image' => 'الملف المرفق يجب أن يكون صورة.',
             'profile_image.mimes' => 'يجب أن تكون الصورة بصيغة JPG أو PNG.',
             'profile_image.max' => 'يجب ألا يتجاوز حجم الصورة 5 ميغابايت.',
